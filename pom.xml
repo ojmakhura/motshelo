@@ -598,7 +598,7 @@
         <hibernate.version>5.2.2.Final</hibernate.version>
         <myfaces.version>2.3.0</myfaces.version>
         <!-- v5 migration needed -->
-        <spring.version>5.0.5.RELEASE</spring.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
         <!-- Any of these configuration values can be overridden by the descendant, the default is JDK 1.6 >
@@ -627,7 +627,7 @@
                 For Hypersonic use: hsqldb.jar
                 -->
                 <jdbc.driver.jar>
-                    /path/to/postgres/lib/postgresql.jar
+                    /usr/local/m2repo/repository/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar
                 </jdbc.driver.jar>
                 <!--
                     Change driver for appropriate database
@@ -668,9 +668,9 @@
                 </jdbc.url>
                 <!-- Enter id/password for the database connection -->
                 <jdbc.username>
-                    sa
+                    jrsystems
                 </jdbc.username>
-                <jdbc.password>motshelo</jdbc.password>
+                <jdbc.password>jrsystems</jdbc.password>
                 <!--
                     Change exception sorter class name for appropriate database
                     For H2 use: org.jboss.resource.adapter.jdbc.vendor.DummyExceptionSorter
