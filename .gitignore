@@ -21,3 +21,21 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+#generated project files
+.project
+.classpath
+core/src/main/java/com/systemsjr/motshelo/member/service/MemberServiceImpl.java.ref
+core/src/main/java/com/systemsjr/motshelo/service/MotsheloServiceImpl.java.ref
+core/src/main/java/com/systemsjr/motshelo/transaction/service/TransactionServiceImpl.java.ref
+core/src/test/resources/applicationContext-testDataSource.xml
+target
+common/target
+core/target
+mda/target
+web/target
+andromda-hibernate.log
+andromda-java.log
+andromda-jsf2.log
+andromda-spring.log
+andromda.log
