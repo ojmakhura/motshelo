@@ -47,7 +47,6 @@ public class MotsheloDaoImpl
     private Motshelo loadMotsheloFromMotsheloVO(MotsheloVO motsheloVO)
     {
         // TODO implement loadMotsheloFromMotsheloVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loadMotsheloFromMotsheloVO(MotsheloVO) not yet implemented.");
 
         /* A typical implementation looks like this:
         if (motsheloVO.getId() == null)
@@ -59,6 +58,15 @@ public class MotsheloDaoImpl
             return this.load(motsheloVO.getId());
         }
         */
+        
+        Motshelo motshelo = Motshelo.Factory.newInstance();
+        
+        if(motsheloVO.getId() != null)
+        {
+        	motshelo.setId(motsheloVO.getId());
+        }
+        
+        return motshelo;
     }
 
     /**
