@@ -6,7 +6,18 @@
  */
 package com.systemsjr.motshelo.transaction;
 
+import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,6 +38,7 @@ public class TransactionDaoImpl
         // TODO verify behavior of toTransactionVO
         super.toTransactionVO(source, target);
         // WARNING! No conversion for target.member (can't convert source.getMember():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
+        target.setMember(getMemberDao().toMemberVO(source.getMember()));
     }
 
     /**
@@ -46,19 +58,14 @@ public class TransactionDaoImpl
      */
     private Transaction loadTransactionFromTransactionVO(TransactionVO transactionVO)
     {
-        // TODO implement loadTransactionFromTransactionVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.loadTransactionFromTransactionVO(TransactionVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (transactionVO.getId() == null)
+        Transaction transaction = Transaction.Factory.newInstance();
+        
+        if(transactionVO.getId() != null)
         {
-            return  Transaction.Factory.newInstance();
+        	transaction.setId(transactionVO.getId());
         }
-        else
-        {
-            return this.load(transactionVO.getId());
-        }
-        */
+        
+        return transaction;
     }
 
     /**
@@ -84,4 +91,24 @@ public class TransactionDaoImpl
         // TODO verify behavior of transactionVOToEntity
         super.transactionVOToEntity(source, target, copyIfNull);
     }
+
+	@Override
+	protected List<?> handleFindByCriteria(TransactionSearchCriteria searchCriteria) throws Exception 
+	{
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<Transaction> query = builder.createQuery(Transaction.class);
+    	Root<Transaction> root = query.from(Transaction.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("transactionDate")));
+		TypedQuery<Transaction> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
+	}
 }

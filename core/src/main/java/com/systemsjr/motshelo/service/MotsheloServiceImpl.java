@@ -8,6 +8,7 @@
  */
 package com.systemsjr.motshelo.service;
 
+import com.systemsjr.motshelo.Motshelo;
 import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 import java.util.Collection;
@@ -28,8 +29,13 @@ public class MotsheloServiceImpl
     protected  MotsheloVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  MotsheloVO handleFindById(Long id)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleFindById(Long id) Not implemented!");
+        if(id != null)
+        {
+        	return getMotsheloDao().toMotsheloVO(getMotsheloDao().load(id));
+        } else
+        {
+        	return null;
+        }
     }
 
     /**
@@ -39,8 +45,13 @@ public class MotsheloServiceImpl
     protected  MotsheloVO handleSaveMotshelo(MotsheloVO motsheloVO)
         throws Exception
     {
-        // TODO implement protected  MotsheloVO handleSaveMotshelo(MotsheloVO motsheloVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleSaveMotshelo(MotsheloVO motsheloVO) Not implemented!");
+    	Motshelo motshelo = getMotsheloDao().motsheloVOToEntity(motsheloVO);
+    	if(motsheloVO.getId() != null)
+    	{
+    		
+    	}
+    	
+    	return getMotsheloDao().toMotsheloVO(motshelo);
     }
 
     /**

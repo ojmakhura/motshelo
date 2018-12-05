@@ -6,7 +6,18 @@
  */
 package com.systemsjr.motshelo.member;
 
+import com.systemsjr.motshelo.member.vo.MemberSearchCriteria;
 import com.systemsjr.motshelo.member.vo.MemberVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,6 +38,8 @@ public class MemberDaoImpl
         // TODO verify behavior of toMemberVO
         super.toMemberVO(source, target);
         // WARNING! No conversion for target.transactions (can't convert source.getTransactions():com.systemsjr.motshelo.transaction.Transaction to java.util.Collection
+        target.setMotshelos(getMotsheloDao().toMotsheloVOCollection(source.getMotshelos()));
+        target.setTransactions(getTransactionDao().toTransactionVOCollection(source.getTransactions()));
     }
 
     /**
@@ -46,19 +59,14 @@ public class MemberDaoImpl
      */
     private Member loadMemberFromMemberVO(MemberVO memberVO)
     {
-        // TODO implement loadMemberFromMemberVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.loadMemberFromMemberVO(MemberVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (memberVO.getId() == null)
+        Member member = Member.Factory.newInstance();
+        
+        if(memberVO.getId() != null)
         {
-            return  Member.Factory.newInstance();
+        	member.setId(memberVO.getId());
         }
-        else
-        {
-            return this.load(memberVO.getId());
-        }
-        */
+        
+        return member;
     }
 
     /**
@@ -84,4 +92,43 @@ public class MemberDaoImpl
         // TODO verify behavior of memberVOToEntity
         super.memberVOToEntity(source, target, copyIfNull);
     }
+
+	@Override
+	protected List<?> handleFindByCriteria(MemberSearchCriteria searchCriteria) throws Exception {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<Member> query = builder.createQuery(Member.class);
+    	Root<Member> root = query.from(Member.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(searchCriteria.getName() != null)
+		{
+			predicates.add(builder.like(root.<String>get("name"), "%" + searchCriteria.getName() + "%"));
+		}
+		
+		if(searchCriteria.getStatus() != null)
+		{
+			predicates.add(builder.equal(root.<String>get("status"), searchCriteria.getStatus().getValue()));
+		}
+		
+		if(searchCriteria.getSurname() != null)
+		{
+			predicates.add(builder.like(root.<String>get("surname"), "%" + searchCriteria.getSurname() + "%"));
+		}
+		
+		if(searchCriteria.getUsername() != null)
+		{
+			predicates.add(builder.like(root.<String>get("username"), "%" + searchCriteria.getUsername() + "%"));
+		}
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.asc(root.get("username")));
+		TypedQuery<Member> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
+	}
 }

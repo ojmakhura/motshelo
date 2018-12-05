@@ -6,7 +6,18 @@
  */
 package com.systemsjr.motshelo;
 
+import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,6 +38,7 @@ public class MotsheloDaoImpl
         // TODO verify behavior of toMotsheloVO
         super.toMotsheloVO(source, target);
         // WARNING! No conversion for target.members (can't convert source.getMembers():com.systemsjr.motshelo.member.Member to java.util.Collection
+        target.setMembers(getMemberDao().toMemberVOCollection(source.getMembers()));
     }
 
     /**
@@ -92,4 +104,34 @@ public class MotsheloDaoImpl
         // TODO verify behavior of motsheloVOToEntity
         super.motsheloVOToEntity(source, target, copyIfNull);
     }
+
+	@Override
+	protected List<?> handleFindByCriteria(MotsheloSearchCriteria searchCriteria) throws Exception 
+	{
+    	CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<Motshelo> query = builder.createQuery(Motshelo.class);
+    	Root<Motshelo> root = query.from(Motshelo.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(searchCriteria.getName() != null)
+		{
+			predicates.add(builder.like(root.<String>get("name"), "%" + searchCriteria.getName() + "%"));
+		}
+		
+		if(searchCriteria.getYear() != null)
+		{
+			predicates.add(builder.equal(root.<Integer>get("year"), searchCriteria.getYear()));
+		}
+
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("year")));
+		TypedQuery<Motshelo> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
+	}
 }
