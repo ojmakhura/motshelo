@@ -3,9 +3,11 @@
 package com.systemsjr.motshelo.web.search;
 
 import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * @see com.systemsjr.motshelo.web.search.MotsheloSearchController
@@ -16,7 +18,7 @@ public class MotsheloSearchControllerImpl
     /**
      * The serial version UID of this class. Needed for serialization.
      */
-    private static final long serialVersionUID = 6787903515150980938L;
+    private static final long serialVersionUID = -1974807143693285405L;
 
     /**
      * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#initialiseSearchScreen(MotsheloSearchCriteria searchCriteria)
@@ -29,6 +31,156 @@ public class MotsheloSearchControllerImpl
         searchCriteria.setYear(new Integer((int)3704893));
         searchCriteria.setName(null);
         form.setSearchCriteria(searchCriteria);
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#enterMetsheloSearch()
+     */
+    @Override
+    public void enterMetsheloSearch()
+    {
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#doMetsheloSearch()
+     */
+    @Override
+    public void doMetsheloSearch()
+    {
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#exitMetsheloSearch()
+     */
+    @Override
+    public void exitMetsheloSearch()
+    {
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#enterEditMotshelo(java.lang.Long id, MotsheloVO motsheloVO)
+     */
+    @Override
+    public void enterEditMotshelo(EnterEditMotsheloForm form)
+    {
+        // populating value with dummy instance
+        MotsheloVO motsheloVO = new MotsheloVO();
+        motsheloVO.setId(new Long((long)3355));
+        motsheloVO.setYear(new Integer((int)3704893));
+        motsheloVO.setBalance(null);
+        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
+        motsheloVO.setName(null);
+        motsheloVO.setLastUpdate(new Date());
+        motsheloVO.setLoanDefaultInterest(new Float((float)0));
+        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
+        motsheloVO.setLoanInterest(new Float((float)0));
+        motsheloVO.setMonthlyContribution(null);
+        form.setMotsheloVO(motsheloVO);
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#doEditMotshelo(java.lang.Long id, MotsheloVO motsheloVO)
+     */
+    @Override
+    public void doEditMotshelo(DoEditMotsheloForm form)
+    {
+        // populating value with dummy instance
+        MotsheloVO motsheloVO = new MotsheloVO();
+        motsheloVO.setId(new Long((long)3355));
+        motsheloVO.setYear(new Integer((int)3704893));
+        motsheloVO.setBalance(null);
+        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
+        motsheloVO.setName(null);
+        motsheloVO.setLastUpdate(new Date());
+        motsheloVO.setLoanDefaultInterest(new Float((float)0));
+        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
+        motsheloVO.setLoanInterest(new Float((float)0));
+        motsheloVO.setMonthlyContribution(null);
+        form.setMotsheloVO(motsheloVO);
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#exitEditMotshelo(java.lang.Long id, MotsheloVO motsheloVO)
+     */
+    @Override
+    public void exitEditMotshelo(ExitEditMotsheloForm form)
+    {
+        // populating value with dummy instance
+        MotsheloVO motsheloVO = new MotsheloVO();
+        motsheloVO.setId(new Long((long)3355));
+        motsheloVO.setYear(new Integer((int)3704893));
+        motsheloVO.setBalance(null);
+        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
+        motsheloVO.setName(null);
+        motsheloVO.setLastUpdate(new Date());
+        motsheloVO.setLoanDefaultInterest(new Float((float)0));
+        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
+        motsheloVO.setLoanInterest(new Float((float)0));
+        motsheloVO.setMonthlyContribution(null);
+        form.setMotsheloVO(motsheloVO);
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#enterMotsheloDetails(java.lang.Long id, MotsheloVO motsheloVO)
+     */
+    @Override
+    public void enterMotsheloDetails(EnterMotsheloDetailsForm form)
+    {
+        // populating value with dummy instance
+        MotsheloVO motsheloVO = new MotsheloVO();
+        motsheloVO.setId(new Long((long)3355));
+        motsheloVO.setYear(new Integer((int)3704893));
+        motsheloVO.setBalance(null);
+        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
+        motsheloVO.setName(null);
+        motsheloVO.setLastUpdate(new Date());
+        motsheloVO.setLoanDefaultInterest(new Float((float)0));
+        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
+        motsheloVO.setLoanInterest(new Float((float)0));
+        motsheloVO.setMonthlyContribution(null);
+        form.setMotsheloVO(motsheloVO);
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#doMotsheloDetails(java.lang.Long id, MotsheloVO motsheloVO)
+     */
+    @Override
+    public void doMotsheloDetails(DoMotsheloDetailsForm form)
+    {
+        // populating value with dummy instance
+        MotsheloVO motsheloVO = new MotsheloVO();
+        motsheloVO.setId(new Long((long)3355));
+        motsheloVO.setYear(new Integer((int)3704893));
+        motsheloVO.setBalance(null);
+        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
+        motsheloVO.setName(null);
+        motsheloVO.setLastUpdate(new Date());
+        motsheloVO.setLoanDefaultInterest(new Float((float)0));
+        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
+        motsheloVO.setLoanInterest(new Float((float)0));
+        motsheloVO.setMonthlyContribution(null);
+        form.setMotsheloVO(motsheloVO);
+    }
+
+    /**
+     * @see com.systemsjr.motshelo.web.search.MotsheloSearchController#exitMotsheloDetails(java.lang.Long id, MotsheloVO motsheloVO)
+     */
+    @Override
+    public void exitMotsheloDetails(ExitMotsheloDetailsForm form)
+    {
+        // populating value with dummy instance
+        MotsheloVO motsheloVO = new MotsheloVO();
+        motsheloVO.setId(new Long((long)3355));
+        motsheloVO.setYear(new Integer((int)3704893));
+        motsheloVO.setBalance(null);
+        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
+        motsheloVO.setName(null);
+        motsheloVO.setLastUpdate(new Date());
+        motsheloVO.setLoanDefaultInterest(new Float((float)0));
+        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
+        motsheloVO.setLoanInterest(new Float((float)0));
+        motsheloVO.setMonthlyContribution(null);
+        form.setMotsheloVO(motsheloVO);
     }
 
     /**

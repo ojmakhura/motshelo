@@ -109,4 +109,10 @@ public class MotsheloServiceImpl
         throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleSearchMetsheloArray(MotsheloSearchCriteria searchCriteria) Not implemented!");
     }
 
+	@Override
+	protected MotsheloVO handleUpdateMotshelo(MotsheloVO motsheloVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

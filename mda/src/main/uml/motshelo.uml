@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:andromdacommon="http:///schemas/andromdacommon/_tczLUPhbEeiPW64b_RPt4A/0" xmlns:andromdapersistence="http:///schemas/andromdapersistence/_tdEREPhbEeiPW64b_RPt4A/0" xmlns:andromdapresentation="http:///schemas/andromdapresentation/_tdIigPhbEeiPW64b_RPt4A/0" xmlns:andromdaservice="http:///schemas/andromdaservice/_tdK-wPhbEeiPW64b_RPt4A/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_uPufqPhbEeiPW64b_RPt4A http:///schemas/andromdacommon/_tczLUPhbEeiPW64b_RPt4A/0 andromda-common.profile.uml#_uPwTYvhbEeiPW64b_RPt4A http:///schemas/andromdapersistence/_tdEREPhbEeiPW64b_RPt4A/0 andromda-persistence.profile.uml#_uPt2VvhbEeiPW64b_RPt4A http:///schemas/andromdapresentation/_tdIigPhbEeiPW64b_RPt4A/0 andromda-presentation.profile.uml#_uPsBIvhbEeiPW64b_RPt4A http:///schemas/andromdaservice/_tdK-wPhbEeiPW64b_RPt4A/0 andromda-service.profile.uml#_uPrZwvhbEeiPW64b_RPt4A">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MagicDrawProfile="http://www.omg.org/spec/UML/20131001/MagicDrawProfile" xmlns:andromdacommon="http:///schemas/andromdacommon/_XEbZUPiWEeiXVocCJp3OCg/0" xmlns:andromdapersistence="http:///schemas/andromdapersistence/_XEKTkPiWEeiXVocCJp3OCg/0" xmlns:andromdapresentation="http:///schemas/andromdapresentation/_XEUroPiWEeiXVocCJp3OCg/0" xmlns:andromdaservice="http:///schemas/andromdaservice/_XEnmkPiWEeiXVocCJp3OCg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/UML/20131001/MagicDrawProfile UML_Standard_Profile.MagicDraw_Profile.profile.uml#_XMsmcPiWEeiXVocCJp3OCg http:///schemas/andromdacommon/_XEbZUPiWEeiXVocCJp3OCg/0 andromda-common.profile.uml#_XMvoWviWEeiXVocCJp3OCg http:///schemas/andromdapersistence/_XEKTkPiWEeiXVocCJp3OCg/0 andromda-persistence.profile.uml#_XMudUfiWEeiXVocCJp3OCg http:///schemas/andromdapresentation/_XEUroPiWEeiXVocCJp3OCg/0 andromda-presentation.profile.uml#_XMskqviWEeiXVocCJp3OCg http:///schemas/andromdaservice/_XEnmkPiWEeiXVocCJp3OCg/0 andromda-service.profile.uml#_XMqwCPiWEeiXVocCJp3OCg">
   <uml:Model xmi:id="eee_1045467100313_135436_1" name="AndroMDAModel" visibility="public" URI="" viewpoint="">
     <ownedComment xmi:id="_11_5_e240333_1154450477439_510234_1" annotatedElement="eee_1045467100313_135436_1" body="Author:Saratoga.&#xA;Created:01.08.06 18:41.&#xA;Title:.&#xA;Comment:.&#xA;"/>
     <packageImport xmi:id="_0primitiveTypesAndroMDAModel">
@@ -250,6 +250,27 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543939963233_134014_6430" name="" visibility="public" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543939963232_320677_6429" name="" visibility="public" value="1"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_18_5_3_90e0298_1543993581106_739615_6554" name="lastUpdate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543993613609_17715_6556" name="" visibility="public" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543993613609_35123_6557" name="" visibility="public" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_18_5_3_90e0298_1543994489202_181175_6564" name="monthlyContribution" visibility="public" type="_9_0_1fe00f9_1119336925531_654186_46" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994529241_743156_6566" name="" visibility="public" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994529241_692767_6567" name="" visibility="public" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_18_5_3_90e0298_1543994536004_866021_6568" name="loanInterest" visibility="public" type="_9_0_1fe00f9_1119336925531_593311_21" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994592443_512071_6570" name="" visibility="public" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994592443_333466_6571" name="" visibility="public" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_18_5_3_90e0298_1543994599734_988826_6572" name="repaymentTerm" visibility="public" type="_9_0_1fe00f9_1119336925531_479934_4" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994678475_901339_6574" name="" visibility="public" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994678476_769151_6575" name="" visibility="public" value="1"/>
+            <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994688720_692200_6576" name="" visibility="public" value="3"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_18_5_3_90e0298_1543994702933_51848_6577" name="loanDefaultInterest" visibility="public" type="_9_0_1fe00f9_1119336925531_593311_21" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994723622_659007_6579" name="" visibility="public" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994723622_184645_6580" name="" visibility="public" value="1"/>
+          </ownedAttribute>
           <ownedOperation xmi:id="_18_5_3_90e0298_1543992892801_156160_6539" name="findByCriteria" visibility="public" isStatic="true">
             <ownedParameter xmi:id="_18_5_3_90e0298_1543992914518_703014_6541" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_809265_8" direction="return"/>
             <ownedParameter xmi:id="_18_5_3_90e0298_1543992919141_255338_6542" name="searchCriteria" visibility="public" type="_18_5_3_90e0298_1543939961409_210022_6216"/>
@@ -277,6 +298,27 @@
             <ownedAttribute xmi:id="_18_5_3_90e0298_1543939963234_849665_6437" name="name" visibility="public" type="_9_0_1fe00f9_1119336925531_364079_66">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543939963255_968574_6540" name="" visibility="public" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543939963255_461689_6539" name="" visibility="public" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_18_5_3_90e0298_1543993633666_581441_6558" name="lastUpdate" visibility="public" type="_9_0_1fe00f9_1119336925531_195604_13" isUnique="false">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543993633669_958718_6560" name="" visibility="public" value="1"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543993633668_35104_6559" name="" visibility="public" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_18_5_3_90e0298_1543994752736_126821_6618" name="loanDefaultInterest" visibility="public" type="_9_0_1fe00f9_1119336925531_593311_21" isUnique="false">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994752738_535134_6623" name="" visibility="public" value="1"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994752738_15784_6622" name="" visibility="public" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_18_5_3_90e0298_1543994752737_438056_6619" name="repaymentTerm" visibility="public" type="_9_0_1fe00f9_1119336925531_479934_4" isUnique="false">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994752739_90291_6625" name="" visibility="public" value="1"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994752738_81979_6624" name="" visibility="public" value="1"/>
+              <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994752739_452935_6626" name="" visibility="public" value="3"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_18_5_3_90e0298_1543994752737_164586_6620" name="loanInterest" visibility="public" type="_9_0_1fe00f9_1119336925531_593311_21" isUnique="false">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994752739_279076_6628" name="" visibility="public" value="1"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994752739_810995_6627" name="" visibility="public" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_18_5_3_90e0298_1543994752738_185515_6621" name="monthlyContribution" visibility="public" type="_9_0_1fe00f9_1119336925531_654186_46" isUnique="false">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_18_5_3_90e0298_1543994752739_603465_6630" name="" visibility="public" value="1"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_18_5_3_90e0298_1543994752739_690361_6629" name="" visibility="public" value="1"/>
             </ownedAttribute>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_18_5_3_90e0298_1543939961406_511143_6215" name="MotsheloVO[]" visibility="public"/>
@@ -320,12 +362,175 @@
               <ownedParameter xmi:id="_18_5_3_90e0298_1543939963257_793881_6559" name="" visibility="public" type="_18_5_3_90e0298_1543939961406_511143_6215" direction="return"/>
               <ownedParameter xmi:id="_18_5_3_90e0298_1543939963257_777998_6560" name="searchCriteria" visibility="public" type="_18_5_3_90e0298_1543939961409_210022_6216"/>
             </ownedOperation>
+            <ownedOperation xmi:id="_18_5_3_90e0298_1543994308258_109522_6561" name="updateMotshelo" visibility="public">
+              <ownedParameter xmi:id="_18_5_3_90e0298_1543994390239_764096_6562" name="" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" direction="return"/>
+              <ownedParameter xmi:id="_18_5_3_90e0298_1543994393038_476337_6563" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+            </ownedOperation>
           </packagedElement>
           <packagedElement xmi:type="uml:Dependency" xmi:id="_18_5_3_90e0298_1543939961657_156219_6239" name="" visibility="public" client="_18_5_3_90e0298_1543939961657_269126_6238" supplier="_18_5_3_90e0298_1543939960491_936608_6127"/>
           <packagedElement xmi:type="uml:Dependency" xmi:id="_18_5_3_90e0298_1543939961657_825051_6240" name="" visibility="public" client="_18_5_3_90e0298_1543939961657_269126_6238" supplier="_18_5_3_90e0298_1543939960840_513084_6155"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543939960494_298858_6132" name="web" visibility="public" URI="">
-          <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543939961911_392939_6262" name="edit" visibility="public" URI=""/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543939961911_392939_6262" name="edit" visibility="public" URI="">
+            <packagedElement xmi:type="uml:UseCase" xmi:id="_18_5_3_90e0298_1544015516325_306252_7158" name="Edit Motshelo" visibility="public" classifierBehavior="_18_5_3_90e0298_1544015586430_485910_7194">
+              <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_18_5_3_90e0298_1544015586430_485910_7194" name="Edit Motshelo State Machine" visibility="public" isReentrant="true">
+                <nestedClassifier xmi:type="uml:Class" xmi:id="_18_5_3_90e0298_1544015621244_291611_7247" name="MotsheloEditController" visibility="public">
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544015782783_411440_7248" name="enterInitialiseEditScreen" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015806121_359549_7249" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015812696_228957_7250" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544015837920_442227_7251" name="doInitialiseEditScreen" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015837921_779376_7252" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015837922_530453_7253" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544015850092_881814_7254" name="exitInitialiseEditScreen" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015850093_248577_7255" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015850093_168445_7256" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544016371100_686499_7559" name="enterNewMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544016387299_476712_7560" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544016392647_870664_7561" name="doNewMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544016392648_601871_7562" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544016403789_637302_7563" name="exitNewMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544016423684_453311_7564" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544016444391_879864_7565" name="enterSaveMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544016463529_557669_7566" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544016468673_248172_7567" name="doSaveMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544016468674_10864_7568" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544016491366_852671_7569" name="exitSaveMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544016491367_742451_7570" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544018083009_814969_8163" name="enterUpdateMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544018105400_730944_8164" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544018109954_639749_8165" name="doUpdateMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544018109955_630602_8166" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544018124256_41658_8167" name="exitUpdateMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544018124270_167393_8168" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                </nestedClassifier>
+                <region xmi:id="_18_5_3_90e0298_1544015586431_301951_7195" name="" visibility="public">
+                  <transition xmi:id="_18_5_3_90e0298_1544015586565_607375_7229" name="" visibility="public" source="_18_5_3_90e0298_1544015586564_286889_7227" target="_18_5_3_90e0298_1544015586564_514409_7228">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016068350_899854_7377" name="" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016072986_392699_7413">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544016072983_544558_7412" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544016072986_392699_7413" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" parameter="_18_5_3_90e0298_1544016072983_544558_7412"/>
+                    </effect>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544016117537_760499_7438" name="" visibility="public" source="_18_5_3_90e0298_1544015586564_514409_7228" target="_18_5_3_90e0298_1544016096370_14027_7420"/>
+                  <transition xmi:id="_18_5_3_90e0298_1544016197893_419494_7473" name="" visibility="public" source="_18_5_3_90e0298_1544016096370_14027_7420" target="_18_5_3_90e0298_1544016154923_223901_7456">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016288330_39830_7522" name="save" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016295974_19465_7558">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544016295970_381963_7557" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544016295974_19465_7558" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" parameter="_18_5_3_90e0298_1544016295970_381963_7557"/>
+                    </effect>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544016206993_296489_7476" name="" visibility="public" source="_18_5_3_90e0298_1544016096370_14027_7420" target="_18_5_3_90e0298_1544016152731_819031_7440">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016277496_360013_7487" name="new" visibility="public" isReentrant="true"/>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544016267941_203929_7483" name="" visibility="public" source="_18_5_3_90e0298_1544016152731_819031_7440" target="_18_5_3_90e0298_1544016256772_659863_7478"/>
+                  <transition xmi:id="_18_5_3_90e0298_1544016272674_271669_7486" name="" visibility="public" source="_18_5_3_90e0298_1544016154923_223901_7456" target="_18_5_3_90e0298_1544016256772_659863_7478"/>
+                  <transition xmi:id="_18_5_3_90e0298_1544018035789_780217_8124" name="" visibility="public" source="_18_5_3_90e0298_1544018007343_349765_8107" target="_18_5_3_90e0298_1544016256772_659863_7478"/>
+                  <transition xmi:id="_18_5_3_90e0298_1544018051145_300654_8127" name="" visibility="public" source="_18_5_3_90e0298_1544016096370_14027_7420" target="_18_5_3_90e0298_1544018007343_349765_8107">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544018059669_465072_8128" name="update" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544018162869_293711_8170">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544018162866_107546_8169" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544018162869_293711_8170" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" parameter="_18_5_3_90e0298_1544018162866_107546_8169"/>
+                    </effect>
+                  </transition>
+                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_18_5_3_90e0298_1544015586564_286889_7227" name="" visibility="public"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544015586564_514409_7228" name="Initialise Edit Screen" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015919856_868108_7297" name="Call doInitialiseEditScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015941643_106699_7333">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544015941643_106699_7333" name="" visibility="public" operation="_18_5_3_90e0298_1544015837920_442227_7251">
+                        <argument xmi:id="_18_5_3_90e0298_1544015958988_270117_7335" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544015958988_919036_7336" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544015941644_912211_7334" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015864689_331554_7257" name="Call enterInitialiseEditScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015887213_712669_7293">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544015887213_712669_7293" name="" visibility="public" operation="_18_5_3_90e0298_1544015782783_411440_7248">
+                        <argument xmi:id="_18_5_3_90e0298_1544015912418_193771_7295" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544015912419_971438_7296" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544015887214_197680_7294" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015967861_73792_7337" name="Call exitInitialiseEditScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016009348_438562_7373">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544016009348_438562_7373" name="" visibility="public" operation="_18_5_3_90e0298_1544015850092_881814_7254">
+                        <argument xmi:id="_18_5_3_90e0298_1544016027758_722604_7375" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544016027759_700081_7376" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544016009348_446911_7374" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544016096370_14027_7420" name="Edit Motshelo" visibility="public"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544016152731_819031_7440" name="New Motshelo" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016697772_240624_7612" name="Call doNewMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016723755_746605_7648">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544016723755_746605_7648" name="" visibility="public" operation="_18_5_3_90e0298_1544016392647_870664_7561">
+                        <result xmi:id="_18_5_3_90e0298_1544016747586_547530_7650" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544016723755_720367_7649" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016617119_588125_7573" name="Call enterNewMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016636275_775246_7609">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544016636275_775246_7609" name="" visibility="public" operation="_18_5_3_90e0298_1544016371100_686499_7559">
+                        <result xmi:id="_18_5_3_90e0298_1544016659026_434159_7611" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544016636275_615651_7610" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016802085_96619_7651" name="Call exitNewMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016875179_398597_7687">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544016875179_398597_7687" name="" visibility="public" operation="_18_5_3_90e0298_1544016403789_637302_7563">
+                        <result xmi:id="_18_5_3_90e0298_1544016938782_711597_7689" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544016875180_930239_7688" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544016154923_223901_7456" name="Save Motshelo" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017028619_730270_7734" name="Call doSaveMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544017064061_236481_7770">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544017064061_236481_7770" name="" visibility="public" operation="_18_5_3_90e0298_1544016468673_248172_7567">
+                        <result xmi:id="_18_5_3_90e0298_1544017112759_53138_7772" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544017064061_185547_7771" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544016978467_500823_7695" name="Call enterSaveMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544016996160_190066_7731">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544016996160_190066_7731" name="" visibility="public" operation="_18_5_3_90e0298_1544016444391_879864_7565">
+                        <result xmi:id="_18_5_3_90e0298_1544017012151_347206_7733" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544016996161_104649_7732" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017124773_654194_7773" name="Call exitSaveMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544017142030_313864_7809">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544017142030_313864_7809" name="" visibility="public" operation="_18_5_3_90e0298_1544016491366_852671_7569">
+                        <result xmi:id="_18_5_3_90e0298_1544017158973_63497_7811" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544017142031_273549_7810" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:FinalState" xmi:id="_18_5_3_90e0298_1544016256772_659863_7478" name="Edit Motshelo" visibility="public"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544018007343_349765_8107" name="Update Motshelo" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544018236232_326884_8210" name="Call doUpdateMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544018270460_248682_8246">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544018270460_248682_8246" name="" visibility="public" operation="_18_5_3_90e0298_1544018109954_639749_8165">
+                        <result xmi:id="_18_5_3_90e0298_1544018291578_489945_8248" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544018270460_141783_8247" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544018188687_528822_8171" name="Call enterUpdateMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544018201276_546284_8207">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544018201276_546284_8207" name="" visibility="public" operation="_18_5_3_90e0298_1544018083009_814969_8163">
+                        <result xmi:id="_18_5_3_90e0298_1544018226274_313154_8209" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544018201276_697520_8208" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544018299068_390380_8249" name="Call exitUpdateMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544018322265_47307_8285">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544018322265_47307_8285" name="" visibility="public" operation="_18_5_3_90e0298_1544018124256_41658_8167">
+                        <result xmi:id="_18_5_3_90e0298_1544018339539_134335_8287" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544018322265_594719_8286" name="target" visibility="public" type="_18_5_3_90e0298_1544015621244_291611_7247"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                </region>
+              </ownedBehavior>
+            </packagedElement>
+          </packagedElement>
           <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543939961911_584449_6263" name="search" visibility="public" URI="">
             <packagedElement xmi:type="uml:UseCase" xmi:id="_18_5_3_90e0298_1543939963239_376505_6452" name="Search Metshelo" visibility="public" classifierBehavior="_18_5_3_90e0298_1543939963258_318187_6565">
               <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_18_5_3_90e0298_1543939963258_318187_6565" name="Search Metshelo State Machine" visibility="public" isReentrant="true">
@@ -333,6 +538,45 @@
                   <ownedOperation xmi:id="_18_5_3_90e0298_1543939963281_60933_6724" name="initialiseSearchScreen" visibility="public">
                     <ownedParameter xmi:id="_18_5_3_90e0298_1543939963283_859439_6734" name="searchCriteria" visibility="public" type="_18_5_3_90e0298_1543939961409_210022_6216"/>
                     <ownedParameter xmi:id="_18_5_3_90e0298_1543939963283_766368_6735" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544013719214_215573_6501" name="enterMetsheloSearch" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544013737599_296794_6502" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544013787206_102338_6503" name="doMetsheloSearch" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544013799703_771665_6504" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544013807339_772175_6505" name="exitMetsheloSearch" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544013818974_587605_6506" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544014144846_525826_6650" name="enterEditMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014208847_125957_6651" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014216430_335525_6652" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014226434_487914_6653" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544014247595_351916_6654" name="doEditMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014247597_289033_6655" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014247598_980131_6656" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014247599_669705_6657" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544014247970_215881_6658" name="exitEditMotshelo" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014247971_60574_6659" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014247971_428253_6660" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014247971_239082_6661" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544014955607_22418_6895" name="enterMotsheloDetails" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014970378_477221_6896" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014974682_224746_6897" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544014989551_82131_6898" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544015035189_381860_6899" name="doMotsheloDetails" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015035190_488058_6900" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015035191_488693_6901" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015035191_929635_6902" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544015047038_455596_6903" name="exitMotsheloDetails" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015047039_487833_6904" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015047040_976202_6905" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544015047040_571003_6906" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
                   </ownedOperation>
                 </nestedClassifier>
                 <region xmi:id="_18_5_3_90e0298_1543939963268_311445_6667" name="" visibility="public">
@@ -350,9 +594,33 @@
                     </effect>
                   </transition>
                   <transition xmi:id="_18_5_3_90e0298_1543939963279_326963_6718" name="" visibility="public" source="_18_5_3_90e0298_1543939963280_16487_6722" target="_18_5_3_90e0298_1543939963280_877253_6720"/>
+                  <transition xmi:id="_18_5_3_90e0298_1544014117681_325292_6649" name="" visibility="public" source="_18_5_3_90e0298_1543939963280_297126_6721" target="_18_5_3_90e0298_1544014098350_878436_6632">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544014629710_176621_6797" name="edit" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544014667990_192491_6833">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544014667985_765900_6832" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544014667990_192491_6833" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59" parameter="_18_5_3_90e0298_1544014667985_765900_6832"/>
+                    </effect>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544014534358_854933_6794" name="" visibility="public" source="_18_5_3_90e0298_1544014098350_878436_6632" target="_18_5_3_90e0298_1544014530835_807252_6789">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544014830447_804004_6842" name="" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544014843611_599616_6878">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544014843607_523613_6877" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544014843611_599616_6878" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" parameter="_18_5_3_90e0298_1544014843607_523613_6877"/>
+                    </effect>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544015271303_690731_7034" name="" visibility="public" source="_18_5_3_90e0298_1543939963280_297126_6721" target="_18_5_3_90e0298_1544014903796_424626_6880">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015346173_775857_7035" name="details" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015369784_792328_7071">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544015369781_392315_7070" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544015369784_792328_7071" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59" parameter="_18_5_3_90e0298_1544015369781_392315_7070"/>
+                    </effect>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544015431237_983051_7086" name="" visibility="public" source="_18_5_3_90e0298_1544014903796_424626_6880" target="_18_5_3_90e0298_1544015423642_349453_7081">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015450269_550837_7087" name="" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015454725_879499_7123">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544015454721_998132_7122" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544015454725_879499_7123" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" parameter="_18_5_3_90e0298_1544015454721_998132_7122"/>
+                    </effect>
+                  </transition>
                   <subvertex xmi:type="uml:Pseudostate" xmi:id="_18_5_3_90e0298_1543939963279_382439_6719" name="" visibility="public"/>
                   <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1543939963280_877253_6720" name="Initialise Search Screen" visibility="public">
-                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1543939963282_997385_6728" name="Call initialiseSearchScreen" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1543939963821_743450_6803">
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1543939963282_997385_6728" name="Call initialiseSearchScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1543939963821_743450_6803">
                       <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1543939963821_743450_6803" name="" visibility="public" operation="_18_5_3_90e0298_1543939963281_60933_6724">
                         <argument xmi:id="_18_5_3_90e0298_1543939963823_773759_6814" name="searchCriteria" visibility="public" type="_18_5_3_90e0298_1543939961409_210022_6216"/>
                         <result xmi:id="_18_5_3_90e0298_1543939963823_616747_6813" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
@@ -361,17 +629,150 @@
                     </entry>
                   </subvertex>
                   <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1543939963280_297126_6721" name="Search Metshelo" visibility="public"/>
-                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1543939963280_16487_6722" name="Metshelo Search" visibility="public"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1543939963280_16487_6722" name="Metshelo Search" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544013937547_873956_6550" name="Call doMetsheloSearch()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544013956922_943160_6586">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544013956922_943160_6586" name="" visibility="public" operation="_18_5_3_90e0298_1544013787206_102338_6503">
+                        <result xmi:id="_18_5_3_90e0298_1544013988765_221236_6588" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544013956922_551903_6587" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544013849446_744069_6511" name="Call enterMetsheloSearch()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544013893922_234607_6547">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544013893922_234607_6547" name="" visibility="public" operation="_18_5_3_90e0298_1544013719214_215573_6501">
+                        <result xmi:id="_18_5_3_90e0298_1544013921678_173450_6549" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544013893924_874244_6548" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544013999424_353655_6589" name="Call exitMetsheloSearch()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544014020644_334181_6625">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544014020644_334181_6625" name="" visibility="public" operation="_18_5_3_90e0298_1544013807339_772175_6505">
+                        <result xmi:id="_18_5_3_90e0298_1544014048808_766914_6627" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544014020645_466988_6626" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544014098350_878436_6632" name="Edit Motshelo" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544014384023_595019_6703" name="Call doEditMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544014413444_365237_6739">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544014413444_365237_6739" name="" visibility="public" operation="_18_5_3_90e0298_1544014247595_351916_6654">
+                        <argument xmi:id="_18_5_3_90e0298_1544014431991_326062_6742" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                        <argument xmi:id="_18_5_3_90e0298_1544014431991_78713_6741" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544014431992_646660_6743" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544014413445_951055_6740" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544014292023_139542_6662" name="Call enterEditMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544014321479_495846_6698">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544014321479_495846_6698" name="" visibility="public" operation="_18_5_3_90e0298_1544014144846_525826_6650">
+                        <argument xmi:id="_18_5_3_90e0298_1544014371727_733673_6701" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                        <argument xmi:id="_18_5_3_90e0298_1544014371727_301438_6700" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544014371728_891638_6702" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544014321480_460610_6699" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544014439493_476746_6744" name="Call exitEditMotshelo()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544014468454_727622_6780">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544014468454_727622_6780" name="" visibility="public" operation="_18_5_3_90e0298_1544014247970_215881_6658">
+                        <argument xmi:id="_18_5_3_90e0298_1544014499837_490729_6783" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                        <argument xmi:id="_18_5_3_90e0298_1544014499837_160912_6782" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544014499838_675260_6784" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544014468455_299189_6781" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:FinalState" xmi:id="_18_5_3_90e0298_1544014530835_807252_6789" name="Edit Motshelo" visibility="public"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544014903796_424626_6880" name="Motshelo Details" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015134753_265977_6950" name="Call doMotsheloDetails()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015152570_846848_6986">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544015152570_846848_6986" name="" visibility="public" operation="_18_5_3_90e0298_1544015035189_381860_6899">
+                        <argument xmi:id="_18_5_3_90e0298_1544015184243_460755_6989" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                        <argument xmi:id="_18_5_3_90e0298_1544015184243_938533_6988" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544015184244_849833_6990" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544015152571_948413_6987" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015065063_767448_6909" name="Call enterMotsheloDetails()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015083625_850343_6945">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544015083625_850343_6945" name="" visibility="public" operation="_18_5_3_90e0298_1544014955607_22418_6895">
+                        <argument xmi:id="_18_5_3_90e0298_1544015123866_387919_6948" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                        <argument xmi:id="_18_5_3_90e0298_1544015123866_581549_6947" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544015123867_402578_6949" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544015083625_445773_6946" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544015202179_195697_6991" name="Call exitMotsheloDetails()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544015221173_877373_7027">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544015221173_877373_7027" name="" visibility="public" operation="_18_5_3_90e0298_1544015047038_455596_6903">
+                        <argument xmi:id="_18_5_3_90e0298_1544015259197_328220_7030" name="id" visibility="public" type="_9_0_1fe00f9_1119336925531_227130_59"/>
+                        <argument xmi:id="_18_5_3_90e0298_1544015259197_574707_7029" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544015259198_801287_7031" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544015221173_916819_7028" name="target" visibility="public" type="_18_5_3_90e0298_1543939963276_59249_6689"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:FinalState" xmi:id="_18_5_3_90e0298_1544015423642_349453_7081" name="" visibility="public"/>
                 </region>
               </ownedBehavior>
             </packagedElement>
           </packagedElement>
-          <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543939961911_436929_6264" name="details" visibility="public" URI=""/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543939961911_436929_6264" name="details" visibility="public" URI="">
+            <packagedElement xmi:type="uml:UseCase" xmi:id="_18_5_3_90e0298_1544015533272_749231_7173" name="Motshelo Details" visibility="public" classifierBehavior="_18_5_3_90e0298_1544017199805_228620_7816">
+              <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_18_5_3_90e0298_1544017199805_228620_7816" name="Motshelo Details State Machine" visibility="public" isReentrant="true">
+                <nestedClassifier xmi:type="uml:Class" xmi:id="_18_5_3_90e0298_1544017407082_433527_7969" name="MotsheloDetailsController" visibility="public">
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544017440175_502599_7970" name="enterInitialiseDetailsScreen" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544017460222_406169_7971" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544017463082_68949_7972" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544017481738_26638_7973" name="doInitialiseDetailsScreen" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544017481739_900691_7974" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544017481739_116894_7975" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                  <ownedOperation xmi:id="_18_5_3_90e0298_1544017496355_714030_7976" name="exitInitialiseDetailsScreen" visibility="public">
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544017496356_783326_7977" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52" direction="return"/>
+                    <ownedParameter xmi:id="_18_5_3_90e0298_1544017496356_79521_7978" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                  </ownedOperation>
+                </nestedClassifier>
+                <region xmi:id="_18_5_3_90e0298_1544017199805_146429_7817" name="" visibility="public">
+                  <transition xmi:id="_18_5_3_90e0298_1544017199921_661587_7851" name="" visibility="public" source="_18_5_3_90e0298_1544017199920_961552_7849" target="_18_5_3_90e0298_1544017199921_698894_7850"/>
+                  <transition xmi:id="_18_5_3_90e0298_1544017241171_455905_7891" name="" visibility="public" source="_18_5_3_90e0298_1544017199921_698894_7850" target="_18_5_3_90e0298_1544017229894_70790_7870">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017376195_24436_7932" name="" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544017380635_235580_7968">
+                      <ownedParameter xmi:id="_18_5_3_90e0298_1544017380632_263431_7967" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                      <node xmi:type="uml:ActivityParameterNode" xmi:id="_18_5_3_90e0298_1544017380635_235580_7968" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214" parameter="_18_5_3_90e0298_1544017380632_263431_7967"/>
+                    </effect>
+                  </transition>
+                  <transition xmi:id="_18_5_3_90e0298_1544017244069_884076_7894" name="" visibility="public" source="_18_5_3_90e0298_1544017229894_70790_7870" target="_18_5_3_90e0298_1544017234643_673725_7886">
+                    <effect xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017311873_918605_7897" name="edit" visibility="public" isReentrant="true"/>
+                  </transition>
+                  <subvertex xmi:type="uml:Pseudostate" xmi:id="_18_5_3_90e0298_1544017199920_961552_7849" name="" visibility="public"/>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544017199921_698894_7850" name="Initialise Details Screen" visibility="public">
+                    <doActivity xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017582331_253738_8020" name="Call doInitialiseDetailsScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544017654049_115193_8056">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544017654049_115193_8056" name="" visibility="public" operation="_18_5_3_90e0298_1544017481738_26638_7973">
+                        <argument xmi:id="_18_5_3_90e0298_1544017678229_953076_8058" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544017678229_407716_8059" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544017654049_595314_8057" name="target" visibility="public" type="_18_5_3_90e0298_1544017407082_433527_7969"/>
+                      </node>
+                    </doActivity>
+                    <entry xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017535496_625494_7980" name="Call enterInitialiseDetailsScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544017557507_861602_8016">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544017557507_861602_8016" name="" visibility="public" operation="_18_5_3_90e0298_1544017440175_502599_7970">
+                        <argument xmi:id="_18_5_3_90e0298_1544017575650_715762_8018" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544017575651_809791_8019" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544017557507_746864_8017" name="target" visibility="public" type="_18_5_3_90e0298_1544017407082_433527_7969"/>
+                      </node>
+                    </entry>
+                    <exit xmi:type="uml:Activity" xmi:id="_18_5_3_90e0298_1544017695589_127635_8060" name="Call exitInitialiseScreen()" visibility="public" isReentrant="true" node="_18_5_3_90e0298_1544017722876_759077_8096">
+                      <node xmi:type="uml:CallOperationAction" xmi:id="_18_5_3_90e0298_1544017722876_759077_8096" name="" visibility="public" operation="_18_5_3_90e0298_1544017496355_714030_7976">
+                        <argument xmi:id="_18_5_3_90e0298_1544017795166_580159_8098" name="motsheloVO" visibility="public" type="_18_5_3_90e0298_1543939961405_211841_6214"/>
+                        <result xmi:id="_18_5_3_90e0298_1544017795166_406621_8099" name="" visibility="public" type="_9_0_1fe00f9_1119336925531_324247_52"/>
+                        <target xmi:id="_18_5_3_90e0298_1544017722876_797426_8097" name="target" visibility="public" type="_18_5_3_90e0298_1544017407082_433527_7969"/>
+                      </node>
+                    </exit>
+                  </subvertex>
+                  <subvertex xmi:type="uml:State" xmi:id="_18_5_3_90e0298_1544017229894_70790_7870" name="Motshelo" visibility="public"/>
+                  <subvertex xmi:type="uml:FinalState" xmi:id="_18_5_3_90e0298_1544017234643_673725_7886" name="Edit Motshelo" visibility="public"/>
+                </region>
+              </ownedBehavior>
+            </packagedElement>
+          </packagedElement>
         </packagedElement>
         <packagedElement xmi:type="uml:Dependency" xmi:id="_18_5_3_90e0298_1543990341939_561726_6452" name="" visibility="public" client="_18_5_3_90e0298_1543939960491_936608_6127" supplier="_18_5_3_90e0298_1543939960840_513084_6155"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_18_5_3_90e0298_1543940023295_330085_6369" name="org.andromda.profile" visibility="public" URI=""/>
+    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
+      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
+    </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_9_0_1fe00f9_1119336925546_238419_77" name="datatype" visibility="public" URI="">
       <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_132353_2" name="String[]" visibility="public"/>
       <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_265965_3" name="double[]" visibility="public"/>
@@ -467,124 +868,127 @@
       <packagedElement xmi:type="uml:DataType" xmi:id="_9_0_2_8980277_1133493861932_36226_213" name="Guid" visibility="public"/>
       <packagedElement xmi:type="uml:DataType" xmi:id="_12_0_12ab03bf_1174071789843_754800_1" name="PaginationResult" visibility="public"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile" visibility="public" URI="">
-      <ownedComment xmi:id="_be00301_1078843546940_242228_131" annotatedElement="magicdraw_uml_standard_profile_v_0001" body="UML Standard Profile contains a UML metamodel (metaclasses without properties and associations), Standard UML stereotypes defined in the annex C of UML specification, validation suites for UML model correctness and completeness checking, and stereotypes used by MagicDraw internally."/>
-    </packagedElement>
-    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852471296_986007_0profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uPw5wfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-xml.profile.uml#_uPsC7vhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-xml.profile.uml#_9_0_2_12ab03bf_1120852471296_986007_0"/>
-    </profileApplication>
-    <profileApplication xmi:id="_12_0_12ab03bf_1166898799812_358986_99profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uPxgYfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-messaging.profile.uml#_uPsDkvhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-messaging.profile.uml#_12_0_12ab03bf_1166898799812_358986_99"/>
-    </profileApplication>
-    <profileApplication xmi:id="_8a70287_1078771814628_224704_589profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uPyugfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-common.profile.uml#_uPwTYvhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-common.profile.uml#_8a70287_1078771814628_224704_589"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_e240333_1154527578125_463523_83profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uPz8ofhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-process.profile.uml#_uPsrSPhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-process.profile.uml#_11_5_e240333_1154527578125_463523_83"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP1x0fhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_uPvs4PhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP2_8fhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_uPsD2PhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
-    </profileApplication>
-    <profileApplication xmi:id="_16_8beta_62a020a_1256807755193_508228_378profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP41IfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfileL3.profile.uml#_uPsC6PhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.StandardProfileL3.profile.uml#_16_8beta_62a020a_1256807755193_508228_378"/>
-    </profileApplication>
-    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852932765_76536_0profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP6DQfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-webservice.profile.uml#_uPtQnPhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-webservice.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0"/>
-    </profileApplication>
-    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP74cfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_uPufqPhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
-    </profileApplication>
-    <profileApplication xmi:id="_11_5_e240333_1154527540265_181005_899profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP9GkfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-persistence.profile.uml#_uPt2VvhbEeiPW64b_RPt4A"/>
-      </eAnnotations>
-      <appliedProfile href="andromda-persistence.profile.uml#_11_5_e240333_1154527540265_181005_899"/>
-    </profileApplication>
     <profileApplication xmi:id="_17_0_4beta_8ca0285_1361349406965_180847_3086profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP-UsfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_uPwVkPhbEeiPW64b_RPt4A"/>
+      <eAnnotations xmi:id="_XMvqh_iWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_XMt2oPiWEeiXVocCJp3OCg"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.Dependency_Matrix_Profile.profile.uml#_17_0_4beta_8ca0285_1361349406965_180847_3086"/>
     </profileApplication>
-    <profileApplication xmi:id="_11_5_e240333_1154527378140_885914_432profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uP-7wfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-presentation.profile.uml#_uPsBIvhbEeiPW64b_RPt4A"/>
+    <profileApplication xmi:id="_16_8beta_62a020a_1256807755193_508228_378profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XMxdAfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.StandardProfileL3.profile.uml#_XMuatviWEeiXVocCJp3OCg"/>
       </eAnnotations>
-      <appliedProfile href="andromda-presentation.profile.uml#_11_5_e240333_1154527378140_885914_432"/>
+      <appliedProfile href="UML_Standard_Profile.StandardProfileL3.profile.uml#_16_8beta_62a020a_1256807755193_508228_378"/>
     </profileApplication>
     <profileApplication xmi:id="_16_6_8f90291_1254846042821_86742_517profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uQAJ4fhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_uPvrivhbEeiPW64b_RPt4A"/>
+      <eAnnotations xmi:id="_XMzSMfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_XMvEi_iWEeiXVocCJp3OCg"/>
       </eAnnotations>
       <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.Traceability_customization.profile.uml#_16_6_8f90291_1254846042821_86742_517"/>
     </profileApplication>
+    <profileApplication xmi:id="_11_5_e240333_1154527540265_181005_899profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM1HYfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-persistence.profile.uml#_XMudUfiWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-persistence.profile.uml#_11_5_e240333_1154527540265_181005_899"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_f720368_1159529670215_231387_1profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM2VgfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.Validation_Profile.profile.uml#_XMtzI_iWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.Validation_Profile.profile.uml#_11_5_f720368_1159529670215_231387_1"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_be00301_1153310565718_226811_161profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM3jofiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_XMr97fiWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.DSL_Customization.profile.uml#_11_5_be00301_1153310565718_226811_161"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_e240333_1154527378140_885914_432profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM5Y0fiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-presentation.profile.uml#_XMskqviWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-presentation.profile.uml#_11_5_e240333_1154527378140_885914_432"/>
+    </profileApplication>
+    <profileApplication xmi:id="_11_5_e240333_1154527578125_463523_83profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM71EPiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-process.profile.uml#_XMqIQviWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-process.profile.uml#_11_5_e240333_1154527578125_463523_83"/>
+    </profileApplication>
+    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852932765_76536_0profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM9DMfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-webservice.profile.uml#_XMuavPiWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-webservice.profile.uml#_9_0_2_12ab03bf_1120852932765_76536_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_12_0_12ab03bf_1166898799812_358986_99profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XM-RUfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="org.andromda.profile.andromda-messaging.profile.uml#_XMqI6viWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="org.andromda.profile.andromda-messaging.profile.uml#_12_0_12ab03bf_1166898799812_358986_99"/>
+    </profileApplication>
+    <profileApplication xmi:id="_9_0_2_12ab03bf_1120852471296_986007_0profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XNAGgfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-xml.profile.uml#_XMqvZPiWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-xml.profile.uml#_9_0_2_12ab03bf_1120852471296_986007_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_8a70287_1078771814628_224704_589profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XNBUofiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-common.profile.uml#_XMvoWviWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="andromda-common.profile.uml#_8a70287_1078771814628_224704_589"/>
+    </profileApplication>
+    <profileApplication xmi:id="_be00301_1073394351331_445580_2profileApplicationAndroMDAModel">
+      <eAnnotations xmi:id="_XNCiwfiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_XMsmcPiWEeiXVocCJp3OCg"/>
+      </eAnnotations>
+      <appliedProfile href="UML_Standard_Profile.MagicDraw_Profile.profile.uml#_be00301_1073394351331_445580_2"/>
+    </profileApplication>
     <profileApplication xmi:id="_11_5_e240333_1154527425687_111873_349profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uQBYAfhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="andromda-service.profile.uml#_uPrZwvhbEeiPW64b_RPt4A"/>
+      <eAnnotations xmi:id="_XNEX8fiWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="andromda-service.profile.uml#_XMqwCPiWEeiXVocCJp3OCg"/>
       </eAnnotations>
       <appliedProfile href="andromda-service.profile.uml#_11_5_e240333_1154527425687_111873_349"/>
     </profileApplication>
     <profileApplication xmi:id="_0profileApplicationAndroMDAModel">
-      <eAnnotations xmi:id="_uQ3FgvhbEeiPW64b_RPt4A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <eAnnotations xmi:id="_XN0l4viWEeiXVocCJp3OCg" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
-  <andromdacommon:Enumeration xmi:id="_uQIswPhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939961153_649803_6183"/>
-  <andromdacommon:Enumeration xmi:id="_uQIswfhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939960841_750804_6160"/>
-  <andromdacommon:ValueObject xmi:id="_uQIswvhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939961409_210022_6216"/>
-  <andromdacommon:ValueObject xmi:id="_uQIsw_hbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939961405_211841_6214"/>
-  <andromdacommon:ValueObject xmi:id="_uQIsxPhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939962809_202349_6377"/>
-  <andromdacommon:ValueObject xmi:id="_uQIsxfhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939962809_275142_6375"/>
-  <andromdacommon:ValueObject xmi:id="_uQIsxvhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939962350_95812_6314"/>
-  <andromdacommon:ValueObject xmi:id="_uQIsx_hbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939962351_57037_6316"/>
-  <MagicDrawProfile:auxiliaryResource xmi:id="_uQn0-PhbEeiPW64b_RPt4A" base_Element="magicdraw_uml_standard_profile_v_0001" base_Package="magicdraw_uml_standard_profile_v_0001"/>
-  <andromdapersistence:Entity xmi:id="_uQ1QUPhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939961152_961714_6182"/>
-  <andromdapersistence:Entity xmi:id="_uQ1QUfhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939960491_936608_6127"/>
-  <andromdapersistence:Entity xmi:id="_uQ1QUvhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939960840_513084_6155"/>
-  <standard:ModelLibrary xmi:id="_uQ3skPhbEeiPW64b_RPt4A" base_Package="eee_1045467100313_135436_1"/>
-  <standard:ModelLibrary xmi:id="_uQ-aQPhbEeiPW64b_RPt4A" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
-  <andromdapresentation:FrontEndTable xmi:id="_uQ_BUPhbEeiPW64b_RPt4A" base_Parameter="_18_5_3_90e0298_1543939963283_849930_6736" andromda_presentation_view_table="true">
+  <andromdapersistence:Entity xmi:id="_XNMTwPiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939960491_936608_6127"/>
+  <andromdapersistence:Entity xmi:id="_XNM60PiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939961152_961714_6182"/>
+  <andromdapersistence:Entity xmi:id="_XNM60fiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939960840_513084_6155"/>
+  <andromdapresentation:FrontEndTable xmi:id="_XNnKg_iWEeiXVocCJp3OCg" base_Parameter="_18_5_3_90e0298_1543939963283_849930_6736" andromda_presentation_view_table="true">
     <andromda_presentation_view_table_columns>id,name,year,balance</andromda_presentation_view_table_columns>
     <andromda_presentation_view_table_export>pdf</andromda_presentation_view_table_export>
     <andromda_presentation_view_table_export>csv</andromda_presentation_view_table_export>
     <andromda_presentation_view_table_export>excel</andromda_presentation_view_table_export>
   </andromdapresentation:FrontEndTable>
-  <andromdapresentation:FrontEndApplication xmi:id="_uQ_BUfhbEeiPW64b_RPt4A" base_UseCase="_18_5_3_90e0298_1543939963239_376505_6452"/>
-  <andromdapresentation:FrontEndUseCase xmi:id="_uQ_BUvhbEeiPW64b_RPt4A" base_UseCase="_18_5_3_90e0298_1543939963239_376505_6452"/>
-  <andromdapresentation:FrontEndView xmi:id="_uQ_BU_hbEeiPW64b_RPt4A" base_State="_18_5_3_90e0298_1543939963280_297126_6721"/>
-  <andromdaservice:Service xmi:id="_uQ_BVPhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939961657_269126_6238"/>
-  <andromdaservice:Service xmi:id="_uQ_oYPhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939963024_271016_6399"/>
-  <andromdaservice:Service xmi:id="_uQ_oYfhbEeiPW64b_RPt4A" base_Class="_18_5_3_90e0298_1543939962582_953710_6338"/>
+  <andromdapresentation:FrontEndAction xmi:id="_XNnKhPiWEeiXVocCJp3OCg" base_Transition="_18_5_3_90e0298_1544015271303_690731_7034" andromda_presentation_web_action_tablelink="motsheloList"/>
+  <andromdapresentation:FrontEndAction xmi:id="_XNnKhfiWEeiXVocCJp3OCg" base_Transition="_18_5_3_90e0298_1544014117681_325292_6649" andromda_presentation_web_action_tablelink="motsheloList"/>
+  <andromdapresentation:FrontEndApplication xmi:id="_XNnKhviWEeiXVocCJp3OCg" base_UseCase="_18_5_3_90e0298_1543939963239_376505_6452"/>
+  <andromdapresentation:FrontEndUseCase xmi:id="_XNnKh_iWEeiXVocCJp3OCg" base_UseCase="_18_5_3_90e0298_1544015516325_306252_7158"/>
+  <andromdapresentation:FrontEndUseCase xmi:id="_XNnKiPiWEeiXVocCJp3OCg" base_UseCase="_18_5_3_90e0298_1544015533272_749231_7173"/>
+  <andromdapresentation:FrontEndUseCase xmi:id="_XNnKifiWEeiXVocCJp3OCg" base_UseCase="_18_5_3_90e0298_1543939963239_376505_6452"/>
+  <andromdapresentation:FrontEndView xmi:id="_XNnKiviWEeiXVocCJp3OCg" base_State="_18_5_3_90e0298_1544017229894_70790_7870"/>
+  <andromdapresentation:FrontEndView xmi:id="_XNnKi_iWEeiXVocCJp3OCg" base_State="_18_5_3_90e0298_1544016096370_14027_7420"/>
+  <andromdapresentation:FrontEndView xmi:id="_XNnxkPiWEeiXVocCJp3OCg" base_State="_18_5_3_90e0298_1543939963280_297126_6721"/>
+  <andromdacommon:Enumeration xmi:id="_XNnxkfiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939961153_649803_6183"/>
+  <andromdacommon:Enumeration xmi:id="_XNnxkviWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939960841_750804_6160"/>
+  <andromdacommon:ValueObject xmi:id="_XNnxk_iWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939961409_210022_6216"/>
+  <andromdacommon:ValueObject xmi:id="_XNnxlPiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939961405_211841_6214"/>
+  <andromdacommon:ValueObject xmi:id="_XNnxlfiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939962809_275142_6375"/>
+  <andromdacommon:ValueObject xmi:id="_XNnxlviWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939962809_202349_6377"/>
+  <andromdacommon:ValueObject xmi:id="_XNnxl_iWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939962351_57037_6316"/>
+  <andromdacommon:ValueObject xmi:id="_XNnxmPiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939962350_95812_6314"/>
+  <MagicDrawProfile:auxiliaryResource xmi:id="_XNoYoPiWEeiXVocCJp3OCg" base_Element="magicdraw_uml_standard_profile_v_0001" base_Package="magicdraw_uml_standard_profile_v_0001"/>
+  <andromdaservice:Service xmi:id="_XNywsPiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939961657_269126_6238"/>
+  <andromdaservice:Service xmi:id="_XNywsfiWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939963024_271016_6399"/>
+  <andromdaservice:Service xmi:id="_XNywsviWEeiXVocCJp3OCg" base_Class="_18_5_3_90e0298_1543939962582_953710_6338"/>
+  <standard:ModelLibrary xmi:id="_XN2bEPiWEeiXVocCJp3OCg" base_Package="eee_1045467100313_135436_1"/>
+  <standard:ModelLibrary xmi:id="_XN8hsPiWEeiXVocCJp3OCg" base_Package="_9_0_1fe00f9_1119336925546_238419_77"/>
 </xmi:XMI>
