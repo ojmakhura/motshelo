@@ -8,6 +8,7 @@
  */
 package com.systemsjr.motshelo.member.service;
 
+import com.systemsjr.motshelo.member.Member;
 import com.systemsjr.motshelo.member.vo.MemberSearchCriteria;
 import com.systemsjr.motshelo.member.vo.MemberVO;
 import java.util.Collection;
@@ -28,8 +29,12 @@ public class MemberServiceImpl
     protected  MemberVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  MemberVO handleFindById(Long id)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleFindById(Long id) Not implemented!");
+    	if(id != null)
+    	{
+    		return getMemberDao().toMemberVO(getMemberDao().load(id));
+    	}
+    	
+    	return null;
     }
 
     /**
@@ -39,8 +44,9 @@ public class MemberServiceImpl
     protected  MemberVO handleSaveMember(MemberVO memberVO)
         throws Exception
     {
-        // TODO implement protected  MemberVO handleSaveMember(MemberVO memberVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleSaveMember(MemberVO memberVO) Not implemented!");
+    	Member member = getMemberDao().memberVOToEntity(memberVO);
+    	member = getMemberDao().createOrUpdate(member);
+    	return getMemberDao().toMemberVO(member);
     }
 
     /**
@@ -50,8 +56,13 @@ public class MemberServiceImpl
     protected  boolean handleRemoveMember(MemberVO memberVO)
         throws Exception
     {
-        // TODO implement protected  boolean handleRemoveMember(MemberVO memberVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleRemoveMember(MemberVO memberVO) Not implemented!");
+    	if(memberVO.getId() != null)
+    	{
+    		getMemberDao().remove(memberVO.getId());
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     /**
@@ -61,8 +72,8 @@ public class MemberServiceImpl
     protected  Collection handleGetAllMembers()
         throws Exception
     {
-        // TODO implement protected  Collection handleGetAllMembers()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleGetAllMembers() Not implemented!");
+    	Collection members = getMemberDao().loadAll();
+    	return getMemberDao().toMemberVOCollection(members);
     }
 
     /**
@@ -72,8 +83,8 @@ public class MemberServiceImpl
     protected  MemberVO[] handleGetAllMembersArray()
         throws Exception
     {
-        // TODO implement protected  MemberVO[] handleGetAllMembersArray()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleGetAllMembersArray() Not implemented!");
+    	Collection members = getMemberDao().loadAll();
+    	return getMemberDao().toMemberVOArray(members);
     }
 
     /**
@@ -83,8 +94,8 @@ public class MemberServiceImpl
     protected  Collection handleSearchMembers(MemberSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  Collection handleSearchMembers(MemberSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleSearchMembers(MemberSearchCriteria searchCriteria) Not implemented!");
+    	Collection members = getMemberDao().findByCriteria(searchCriteria);
+    	return getMemberDao().toMemberVOCollection(members);
     }
 
     /**
@@ -94,8 +105,8 @@ public class MemberServiceImpl
     protected  MemberVO[] handleSearchMembersArray(MemberSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  MemberVO[] handleSearchMembersArray(MemberSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.member.service.MemberService.handleSearchMembersArray(MemberSearchCriteria searchCriteria) Not implemented!");
+    	Collection members = getMemberDao().findByCriteria(searchCriteria);
+    	return getMemberDao().toMemberVOArray(members);
     }
 
 }

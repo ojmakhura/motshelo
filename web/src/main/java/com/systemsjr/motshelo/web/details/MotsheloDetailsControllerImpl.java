@@ -6,6 +6,8 @@ import com.systemsjr.motshelo.vo.MotsheloVO;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.faces.context.FacesContext;
+
 /**
  * @see com.systemsjr.motshelo.web.details.MotsheloDetailsController
  */
@@ -23,19 +25,9 @@ public class MotsheloDetailsControllerImpl
     @Override
     public void enterInitialiseDetailsScreen(EnterInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+    	MotsheloVO motsheloVO = (MotsheloVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("motsheloVO");
+    	form.setMotsheloVO(motsheloVO);
+    	
     }
 
     /**
@@ -44,19 +36,7 @@ public class MotsheloDetailsControllerImpl
     @Override
     public void doInitialiseDetailsScreen(DoInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+        
     }
 
     /**
@@ -65,19 +45,7 @@ public class MotsheloDetailsControllerImpl
     @Override
     public void exitInitialiseDetailsScreen(ExitInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+        
     }
 
 }

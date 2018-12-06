@@ -46,11 +46,9 @@ public class MotsheloServiceImpl
         throws Exception
     {
     	Motshelo motshelo = getMotsheloDao().motsheloVOToEntity(motsheloVO);
-    	if(motsheloVO.getId() != null)
-    	{
-    		
-    	}
     	
+    	motshelo = getMotsheloDao().createOrUpdate(motshelo);
+    	    	
     	return getMotsheloDao().toMotsheloVO(motshelo);
     }
 
@@ -61,8 +59,13 @@ public class MotsheloServiceImpl
     protected  boolean handleRemoveMotshelo(MotsheloVO motsheloVO)
         throws Exception
     {
-        // TODO implement protected  boolean handleRemoveMotshelo(MotsheloVO motsheloVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleRemoveMotshelo(MotsheloVO motsheloVO) Not implemented!");
+        if(motsheloVO.getId() != null)
+        {
+        	getMotsheloDao().remove(motsheloVO.getId());
+        	return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -72,8 +75,7 @@ public class MotsheloServiceImpl
     protected  Collection handleGetAllMetshelo()
         throws Exception
     {
-        // TODO implement protected  Collection handleGetAllMetshelo()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleGetAllMetshelo() Not implemented!");
+    	return getMotsheloDao().toMotsheloVOCollection(getMotsheloDao().loadAll());
     }
 
     /**
@@ -83,19 +85,20 @@ public class MotsheloServiceImpl
     protected  MotsheloVO[] handleGetAllMetsheloArray()
         throws Exception
     {
-        // TODO implement protected  MotsheloVO[] handleGetAllMetsheloArray()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleGetAllMetsheloArray() Not implemented!");
+    	 
+    	return getMotsheloDao().toMotsheloVOArray(getMotsheloDao().loadAll());
     }
 
     /**
      * @see com.systemsjr.motshelo.service.MotsheloService#searchMetshelo(MotsheloSearchCriteria)
      */
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     protected  Collection handleSearchMetshelo(MotsheloSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  Collection handleSearchMetshelo(MotsheloSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleSearchMetshelo(MotsheloSearchCriteria searchCriteria) Not implemented!");
+    	Collection metshelo = getMotsheloDao().findByCriteria(searchCriteria);
+    	return getMotsheloDao().toMotsheloVOCollection(metshelo);
     }
 
     /**
@@ -105,8 +108,8 @@ public class MotsheloServiceImpl
     protected  MotsheloVO[] handleSearchMetsheloArray(MotsheloSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  MotsheloVO[] handleSearchMetsheloArray(MotsheloSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.service.MotsheloService.handleSearchMetsheloArray(MotsheloSearchCriteria searchCriteria) Not implemented!");
+    	Collection metshelo = getMotsheloDao().findByCriteria(searchCriteria);
+    	return getMotsheloDao().toMotsheloVOArray(metshelo);
     }
 
 	@Override
