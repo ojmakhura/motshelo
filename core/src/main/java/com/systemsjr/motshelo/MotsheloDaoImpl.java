@@ -6,6 +6,8 @@
  */
 package com.systemsjr.motshelo;
 
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
@@ -134,4 +136,17 @@ public class MotsheloDaoImpl
 		TypedQuery<Motshelo> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
 	}
+
+	@Override
+	public Motshelo memberVOToEntity(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Motshelo loanVOToEntity(LoanVO loanVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

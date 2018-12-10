@@ -6,8 +6,10 @@
  */
 package com.systemsjr.motshelo.member;
 
+import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.vo.MemberSearchCriteria;
 import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,5 +132,17 @@ public class MemberDaoImpl
 		query.orderBy(builder.asc(root.get("username")));
 		TypedQuery<Member> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	public Member loanVOToEntity(LoanVO loanVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Member motsheloVOToEntity(MotsheloVO motsheloVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

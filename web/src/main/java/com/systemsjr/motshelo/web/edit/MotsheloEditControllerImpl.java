@@ -96,6 +96,7 @@ public class MotsheloEditControllerImpl
     	MotsheloVO motsheloVO = getEditMotsheloSaveForm().getMotsheloVO();
     	
     	//TODO: do the actual saving
+    	getMotsheloService().saveMotshelo(motsheloVO);
     	getEditMotsheloSaveForm().setMotsheloVO(motsheloVO);
     }
 
