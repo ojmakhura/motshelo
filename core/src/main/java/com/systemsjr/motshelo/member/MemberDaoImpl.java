@@ -134,15 +134,4 @@ public class MemberDaoImpl
 		return typedQuery.getResultList();
 	}
 
-	@Override
-	public Member loanVOToEntity(LoanVO loanVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Member motsheloVOToEntity(MotsheloVO motsheloVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
