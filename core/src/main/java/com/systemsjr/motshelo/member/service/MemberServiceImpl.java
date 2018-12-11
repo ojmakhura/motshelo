@@ -109,4 +109,10 @@ public class MemberServiceImpl
     	return getMemberDao().toMemberVOArray(members);
     }
 
+	@Override
+	protected void handleUpdateMemberBalance(MemberVO memberVO) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

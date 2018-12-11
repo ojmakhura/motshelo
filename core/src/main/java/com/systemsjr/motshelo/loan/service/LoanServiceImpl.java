@@ -26,7 +26,7 @@ public class LoanServiceImpl
      * @see com.systemsjr.motshelo.loan.service.LoanService#findById(Long)
      */
     @Override
-    protected  MemberVO handleFindById(Long id)
+    protected  LoanVO handleFindById(Long id)
         throws Exception
     {
         // TODO implement protected  MemberVO handleFindById(Long id)
