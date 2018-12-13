@@ -62,7 +62,7 @@ public class TransactionDaoImpl
         
         if(transactionVO.getId() != null)
         {
-        	transaction.setId(transactionVO.getId());
+        	transaction = this.load(transactionVO.getId());
         }
         
         return transaction;
@@ -76,6 +76,12 @@ public class TransactionDaoImpl
         // TODO verify behavior of transactionVOToEntity
         Transaction entity = this.loadTransactionFromTransactionVO(transactionVO);
         this.transactionVOToEntity(transactionVO, entity, true);
+
+        if(transactionVO.getMember() != null)
+        {
+        	entity.setMember(getMemberDao().memberVOToEntity(transactionVO.getMember()));
+        }
+        
         return entity;
     }
 

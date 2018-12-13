@@ -8,10 +8,15 @@
  */
 package com.systemsjr.motshelo.member.service;
 
+import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.Member;
 import com.systemsjr.motshelo.member.vo.MemberSearchCriteria;
 import com.systemsjr.motshelo.member.vo.MemberVO;
+
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -111,7 +116,8 @@ public class MemberServiceImpl
 
 	@Override
 	protected void handleUpdateMemberBalance(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
+		
+		Collection<LoanVO> loanVOs = memberVO.getLoans();
 		
 	}
 

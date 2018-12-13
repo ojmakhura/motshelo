@@ -9,9 +9,11 @@ package com.systemsjr.motshelo.member;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.vo.MemberSearchCriteria;
 import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -21,6 +23,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @see Member
@@ -42,6 +45,7 @@ public class MemberDaoImpl
         // WARNING! No conversion for target.transactions (can't convert source.getTransactions():com.systemsjr.motshelo.transaction.Transaction to java.util.Collection
         target.setMotshelos(getMotsheloDao().toMotsheloVOCollection(source.getMotshelos()));
         target.setTransactions(getTransactionDao().toTransactionVOCollection(source.getTransactions()));
+        target.setLoans(getLoanDao().toLoanVOCollection(source.getLoans()));
     }
 
     /**
@@ -65,7 +69,7 @@ public class MemberDaoImpl
         
         if(memberVO.getId() != null)
         {
-        	member.setId(memberVO.getId());
+        	member = this.load(memberVO.getId());
         }
         
         return member;
@@ -79,6 +83,25 @@ public class MemberDaoImpl
         // TODO verify behavior of memberVOToEntity
         Member entity = this.loadMemberFromMemberVO(memberVO);
         this.memberVOToEntity(memberVO, entity, true);
+        
+        //Add loans
+        for(LoanVO loanVO : memberVO.getLoans())
+        {
+        	entity.addLoans(getLoanDao().loanVOToEntity(loanVO));
+        }
+        
+        Collection<TransactionVO> collectionVOs = memberVO.getTransactions();
+        for(TransactionVO transactionVO : collectionVOs)
+        {
+        	entity.addTransactions(getTransactionDao().transactionVOToEntity(transactionVO));
+        }
+        
+        Collection<MotsheloVO> motsheloVOs = memberVO.getMotshelos();
+        for(MotsheloVO motsheloVO : motsheloVOs)
+        {
+        	entity.addMotshelos(getMotsheloDao().motsheloVOToEntity(motsheloVO));
+        }
+        
         return entity;
     }
 

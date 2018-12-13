@@ -8,6 +8,7 @@
  */
 package com.systemsjr.motshelo.interest.service;
 
+import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestSearchCritirea;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
@@ -29,8 +30,12 @@ public class InterestServiceImpl
     protected  InterestVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  InterestVO handleFindById(Long id)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleFindById(Long id) Not implemented!");
+        if(id != null)
+        {
+        	return getInterestDao().toInterestVO(getInterestDao().load(id));
+        }
+        
+        return null;
     }
 
     /**
@@ -40,8 +45,10 @@ public class InterestServiceImpl
     protected  LoanVO handleSaveInterest(InterestVO interestVO)
         throws Exception
     {
-        // TODO implement protected  LoanVO handleSaveInterest(InterestVO interestVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleSaveInterest(InterestVO interestVO) Not implemented!");
+        
+    	Interest interest = getInterestDao().createOrUpdate(getInterestDao().interestVOToEntity(interestVO));
+    	
+    	return null;
     }
 
     /**
@@ -51,8 +58,13 @@ public class InterestServiceImpl
     protected  boolean handleRemoveInterest(InterestVO interestVO)
         throws Exception
     {
-        // TODO implement protected  boolean handleRemoveInterest(InterestVO interestVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleRemoveInterest(InterestVO interestVO) Not implemented!");
+    	if(interestVO.getId() != null)
+    	{
+    		getInterestDao().remove(interestVO.getId());
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     /**
@@ -62,8 +74,7 @@ public class InterestServiceImpl
     protected  Collection handleGetAllInterests()
         throws Exception
     {
-        // TODO implement protected  Collection handleGetAllInterests()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleGetAllInterests() Not implemented!");
+        return getInterestDao().toInterestVOCollection(getInterestDao().loadAll());
     }
 
     /**
@@ -73,8 +84,8 @@ public class InterestServiceImpl
     protected  LoanVO[] handleGetAllInterestsArray()
         throws Exception
     {
-        // TODO implement protected  LoanVO[] handleGetAllInterestsArray()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleGetAllInterestsArray() Not implemented!");
+        //return getInterestDao().toInterestVOArray(getInterestDao().loadAll());
+    	return null;
     }
 
     /**
@@ -84,6 +95,7 @@ public class InterestServiceImpl
     protected  Collection handleSearchInterests(InterestSearchCritirea searchCriteria)
         throws Exception
     {
+    	//return getInterestDao().toInterestVOCollection(getInterestDao().)
         // TODO implement protected  Collection handleSearchInterests(InterestSearchCritirea searchCriteria)
         throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleSearchInterests(InterestSearchCritirea searchCriteria) Not implemented!");
     }

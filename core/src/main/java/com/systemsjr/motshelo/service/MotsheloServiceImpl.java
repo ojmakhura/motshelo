@@ -9,6 +9,7 @@
 package com.systemsjr.motshelo.service;
 
 import com.systemsjr.motshelo.Motshelo;
+import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 import java.util.Collection;
@@ -114,7 +115,13 @@ public class MotsheloServiceImpl
 
 	@Override
 	protected MotsheloVO handleUpdateMotshelo(MotsheloVO motsheloVO) throws Exception {
-		// TODO Auto-generated method stub
+		
+		Collection<MemberVO> memberVOs = motsheloVO.getMembers();
+		for(MemberVO memberVO : memberVOs)
+		{
+			//getMemberDao().up
+		}
+		
 		return null;
 	}
 

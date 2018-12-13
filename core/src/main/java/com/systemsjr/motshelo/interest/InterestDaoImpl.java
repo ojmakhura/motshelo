@@ -27,6 +27,10 @@ public class InterestDaoImpl
         // TODO verify behavior of toInterestVO
         super.toInterestVO(source, target);
         // WARNING! No conversion for target.loan (can't convert source.getLoan():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO
+        if(source.getLoan() != null)
+        {
+        	target.setLoan(getLoanDao().toLoanVO(source.getLoan()));
+        }
     }
 
     /**
@@ -46,19 +50,15 @@ public class InterestDaoImpl
      */
     private Interest loadInterestFromInterestVO(InterestVO interestVO)
     {
-        // TODO implement loadInterestFromInterestVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.loadInterestFromInterestVO(InterestVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (interestVO.getId() == null)
-        {
-            return  Interest.Factory.newInstance();
-        }
-        else
-        {
-            return this.load(interestVO.getId());
-        }
-        */
+    	
+    	Interest interest = Interest.Factory.newInstance();
+    	
+    	if(interestVO.getId() != null)
+    	{
+    		interest = this.load(interestVO.getId());
+    	}
+    	
+    	return interest;
     }
 
     /**
@@ -69,6 +69,12 @@ public class InterestDaoImpl
         // TODO verify behavior of interestVOToEntity
         Interest entity = this.loadInterestFromInterestVO(interestVO);
         this.interestVOToEntity(interestVO, entity, true);
+        
+        if(interestVO.getLoan() != null)
+        {
+        	entity.setLoan(getLoanDao().loanVOToEntity(interestVO.getLoan()));
+        }
+        
         return entity;
     }
 

@@ -6,12 +6,24 @@
  */
 package com.systemsjr.motshelo.loan;
 
+import com.systemsjr.motshelo.interest.Interest;
+import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.transaction.Transaction;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @see Loan
@@ -31,7 +43,21 @@ public class LoanDaoImpl
         // TODO verify behavior of toLoanVO
         super.toLoanVO(source, target);
         // WARNING! No conversion for target.member (can't convert source.getMember():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
+        if(source.getMember() != null)
+        {
+        	target.setMember(getMemberDao().toMemberVO(source.getMember()));
+        }
+        
         // WARNING! No conversion for target.motshelo (can't convert source.getMotshelo():com.systemsjr.motshelo.Motshelo to com.systemsjr.motshelo.vo.MotsheloVO
+        if(source.getMotshelo() != null)
+        {
+        	target.setMotshelo(getMotsheloDao().toMotsheloVO(source.getMotshelo()));
+        }
+        
+        if(!CollectionUtils.isEmpty(source.getInterests()))
+        {
+        	target.setInterests(getInterestDao().toInterestVOCollection(source.getInterests()));
+        }
     }
 
     /**
@@ -51,19 +77,14 @@ public class LoanDaoImpl
      */
     private Loan loadLoanFromLoanVO(LoanVO loanVO)
     {
-        // TODO implement loadLoanFromLoanVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.loadLoanFromLoanVO(LoanVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (loanVO.getId() == null)
-        {
-            return  Loan.Factory.newInstance();
-        }
-        else
-        {
-            return this.load(loanVO.getId());
-        }
-        */
+    	Loan loan = Loan.Factory.newInstance();
+    	
+    	if(loanVO.getId() != null)
+    	{
+    		loan = this.load(loanVO.getId());
+    	}
+    	
+    	return loan;
     }
 
     /**
@@ -74,6 +95,24 @@ public class LoanDaoImpl
         // TODO verify behavior of loanVOToEntity
         Loan entity = this.loadLoanFromLoanVO(loanVO);
         this.loanVOToEntity(loanVO, entity, true);
+        
+        if(loanVO.getMember() != null)
+        {
+        	entity.setMember(getMemberDao().memberVOToEntity(loanVO.getMember()));
+        }
+        
+        if(loanVO.getMotshelo() != null)
+        {
+        	entity.setMotshelo(getMotsheloDao().motsheloVOToEntity(loanVO.getMotshelo()));
+        }
+        
+        Collection<InterestVO> interests = loanVO.getInterests();               
+        
+        for(InterestVO interest : interests)
+        {
+        	entity.addInterests(getInterestDao().interestVOToEntity(interest));
+        }
+        
         return entity;
     }
 
@@ -92,7 +131,21 @@ public class LoanDaoImpl
 
 	@Override
 	protected List<?> handleFindByCriteria(LoanSearchCriteria searchCriteria) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<Loan> query = builder.createQuery(Loan.class);
+    	Root<Loan> root = query.from(Loan.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("startDate")));
+		TypedQuery<Loan> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
 	}
 }

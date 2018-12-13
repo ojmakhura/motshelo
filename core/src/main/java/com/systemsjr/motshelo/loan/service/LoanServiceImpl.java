@@ -8,10 +8,19 @@
  */
 package com.systemsjr.motshelo.loan.service;
 
+import com.systemsjr.motshelo.interest.vo.InterestVO;
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,8 +38,7 @@ public class LoanServiceImpl
     protected  LoanVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  MemberVO handleFindById(Long id)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleFindById(Long id) Not implemented!");
+    	return id == null ? null : getLoanDao().toLoanVO(getLoanDao().load(id));
     }
 
     /**
@@ -40,8 +48,38 @@ public class LoanServiceImpl
     protected  LoanVO handleSaveLoan(LoanVO loanVO)
         throws Exception
     {
-        // TODO implement protected  LoanVO handleSaveLoan(LoanVO loanVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleSaveLoan(LoanVO loanVO) Not implemented!");
+    	
+    	if(loanVO != null && loanVO.getId() != null)
+    	{
+    		MotsheloVO motsheloVO = loanVO.getMotshelo();
+    		loanVO.setStartDate(new Date());
+    		loanVO.setStatus(LoanStatus.ACTIVE);
+    		
+    		InterestVO interestVO = new InterestVO();
+    		interestVO.setType("STANDARD");    		
+    		double amount = loanVO.getAmount().floatValue();
+    		double interestAmount = motsheloVO.getLoanInterest()/100 * amount;
+    		interestVO.setAmount(new BigDecimal(interestAmount));
+    		
+    		double loanBalance = amount + interestAmount;
+    		loanVO.setBalance(new BigDecimal(loanBalance));
+    		
+    		Calendar cal = Calendar.getInstance();
+    		cal.add(Calendar.MONTH, motsheloVO.getRepaymentTerm());
+    		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
+    		cal.set(Calendar.HOUR_OF_DAY, 23);
+    		cal.set(Calendar.MINUTE, 59);
+    		cal.set(Calendar.SECOND, 59);
+    		cal.set(Calendar.MILLISECOND, 999);
+    		loanVO.setExpectedEndDate(cal.getTime());
+    	} else
+    	{
+    		
+    	}
+    	
+    	Loan loan = getLoanDao().loanVOToEntity(loanVO);
+    	
+    	return getLoanDao().toLoanVO(loan);
     }
 
     /**
@@ -51,8 +89,12 @@ public class LoanServiceImpl
     protected  boolean handleRemoveLoan(LoanVO loanVO)
         throws Exception
     {
-        // TODO implement protected  boolean handleRemoveLoan(LoanVO loanVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleRemoveLoan(LoanVO loanVO) Not implemented!");
+    	if(loanVO.getId() != null)
+    	{
+    		getLoanDao().remove(loanVO.getId());
+    	}
+    	
+    	return false;
     }
 
     /**
@@ -62,8 +104,7 @@ public class LoanServiceImpl
     protected  Collection handleGetAllLoans()
         throws Exception
     {
-        // TODO implement protected  Collection handleGetAllLoans()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleGetAllLoans() Not implemented!");
+        return getLoanDao().toLoanVOCollection(getLoanDao().loadAll());
     }
 
     /**
@@ -73,8 +114,7 @@ public class LoanServiceImpl
     protected  LoanVO[] handleGetAllLoansArray()
         throws Exception
     {
-        // TODO implement protected  LoanVO[] handleGetAllLoansArray()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleGetAllLoansArray() Not implemented!");
+    	return getLoanDao().toLoanVOArray(getLoanDao().loadAll());
     }
 
     /**
@@ -84,8 +124,8 @@ public class LoanServiceImpl
     protected  Collection handleSearchLoans(LoanSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  Collection handleSearchLoans(LoanSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleSearchLoans(LoanSearchCriteria searchCriteria) Not implemented!");
+    	Collection loans = getLoanDao().findByCriteria(searchCriteria);
+        return getLoanDao().toLoanVOCollection(loans);
     }
 
     /**
@@ -95,8 +135,8 @@ public class LoanServiceImpl
     protected  LoanVO[] handleSearchLoansArray(LoanSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  LoanVO[] handleSearchLoansArray(LoanSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.service.LoanService.handleSearchLoansArray(LoanSearchCriteria searchCriteria) Not implemented!");
+    	Collection loans = getLoanDao().findByCriteria(searchCriteria);
+        return getLoanDao().toLoanVOArray(loans);
     }
 
 }

@@ -6,10 +6,17 @@
  */
 package com.systemsjr.motshelo;
 
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @see Motshelo
@@ -39,7 +46,17 @@ public class MotsheloDaoImpl
         // TODO verify behavior of toMotsheloVO
         super.toMotsheloVO(source, target);
         // WARNING! No conversion for target.members (can't convert source.getMembers():com.systemsjr.motshelo.member.Member to java.util.Collection
+        if(!CollectionUtils.isEmpty(source.getMembers()))
+        {
+        	
+        	target.setMembers(getMemberDao().toMemberVOCollection(source.getMembers()));
+        }
+        
         // WARNING! No conversion for target.loans (can't convert source.getLoans():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO
+        if(!CollectionUtils.isEmpty(source.getLoans()))
+        {
+        	target.setLoans(getLoanDao().toLoanVOCollection(source.getLoans()));
+        }
     }
 
     /**
@@ -59,19 +76,14 @@ public class MotsheloDaoImpl
      */
     private Motshelo loadMotsheloFromMotsheloVO(MotsheloVO motsheloVO)
     {
-        // TODO implement loadMotsheloFromMotsheloVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loadMotsheloFromMotsheloVO(MotsheloVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (motsheloVO.getId() == null)
+        Motshelo motshelo = Motshelo.Factory.newInstance();
+        
+        if(motsheloVO.getId() != null)
         {
-            return  Motshelo.Factory.newInstance();
+        	motshelo = this.load(motsheloVO.getId());
         }
-        else
-        {
-            return this.load(motsheloVO.getId());
-        }
-        */
+                
+        return motshelo;
     }
 
     /**
@@ -82,6 +94,20 @@ public class MotsheloDaoImpl
         // TODO verify behavior of motsheloVOToEntity
         Motshelo entity = this.loadMotsheloFromMotsheloVO(motsheloVO);
         this.motsheloVOToEntity(motsheloVO, entity, true);
+        
+        Collection<LoanVO> loanVOs = motsheloVO.getLoans();
+        
+        for(LoanVO loanVO : loanVOs)
+        {
+        	entity.addLoans(getLoanDao().loanVOToEntity(loanVO));
+        }
+        
+        Collection<MemberVO> memberVOs = motsheloVO.getMembers();
+        for(MemberVO memberVO : memberVOs)
+        {
+        	entity.addMembers(getMemberDao().memberVOToEntity(memberVO));
+        }
+        
         return entity;
     }
 

@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.faces.context.FacesContext;
+
 /**
  * @see com.systemsjr.motshelo.web.search.MotsheloSearchController
  */
@@ -47,6 +49,8 @@ public class MotsheloSearchControllerImpl
     @Override
     public void doMetsheloSearch()
     {
+    	Collection<MotsheloVO> metshelo = getMotsheloService().searchMetshelo(getSearchMetsheloSearchForm().getSearchCriteria());
+    	getSearchMetsheloSearchForm().setMotsheloLists(metshelo);
     }
 
     /**
@@ -63,19 +67,7 @@ public class MotsheloSearchControllerImpl
     @Override
     public void enterEditMotshelo(EnterEditMotsheloForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+        
     }
 
     /**
@@ -84,19 +76,15 @@ public class MotsheloSearchControllerImpl
     @Override
     public void doEditMotshelo(DoEditMotsheloForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+    	MotsheloVO motsheloVO = (MotsheloVO) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("row");
+    	
+    	if(motsheloVO != null && motsheloVO.getId() != null)
+    	{
+    		motsheloVO = getMotsheloService().findById(motsheloVO.getId());
+    		form.setMotsheloVO(motsheloVO);
+    		this.getSearchMetsheloEditForm().setMotsheloVO(motsheloVO);
+    		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloVO", motsheloVO);
+    	}
     }
 
     /**
@@ -105,19 +93,7 @@ public class MotsheloSearchControllerImpl
     @Override
     public void exitEditMotshelo(ExitEditMotsheloForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+        
     }
 
     /**
@@ -126,19 +102,7 @@ public class MotsheloSearchControllerImpl
     @Override
     public void enterMotsheloDetails(EnterMotsheloDetailsForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+        
     }
 
     /**
@@ -147,19 +111,14 @@ public class MotsheloSearchControllerImpl
     @Override
     public void doMotsheloDetails(DoMotsheloDetailsForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
+    	MotsheloVO motsheloVO = (MotsheloVO) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("row");
+    	
+    	if(motsheloVO != null && motsheloVO.getId() != null)
+    	{
+    		motsheloVO = getMotsheloService().findById(motsheloVO.getId());
+    		form.setMotsheloVO(motsheloVO);
+    		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloVO", motsheloVO);
+    	}
     }
 
     /**
@@ -168,108 +127,6 @@ public class MotsheloSearchControllerImpl
     @Override
     public void exitMotsheloDetails(ExitMotsheloDetailsForm form)
     {
-        // populating value with dummy instance
-        MotsheloVO motsheloVO = new MotsheloVO();
-        motsheloVO.setId(new Long((long)3355));
-        motsheloVO.setYear(new Integer((int)3704893));
-        motsheloVO.setBalance(null);
-        motsheloVO.setMembers(Arrays.asList(new Object[] {"members-1", "members-2", "members-3", "members-4", "members-5"}));
-        motsheloVO.setName(null);
-        motsheloVO.setLastUpdate(new Date());
-        motsheloVO.setLoanDefaultInterest(new Float((float)0));
-        motsheloVO.setRepaymentTerm(new Integer((int)-476144769));
-        motsheloVO.setLoanInterest(new Float((float)0));
-        motsheloVO.setMonthlyContribution(null);
-        form.setMotsheloVO(motsheloVO);
-    }
-
-    /**
-     * This dummy variable is used to populate the "motsheloLists" table.
-     * You may delete it when you add you own code in this controller.
-     */
-    private static final Collection motsheloLists =
-        Arrays.asList(new Object[] {
-            new MotsheloLists("id-1", "name-1", "year-1", "balance-1"),
-            new MotsheloLists("id-2", "name-2", "year-2", "balance-2"),
-            new MotsheloLists("id-3", "name-3", "year-3", "balance-3"),
-            new MotsheloLists("id-4", "name-4", "year-4", "balance-4"),
-            new MotsheloLists("id-5", "name-5", "year-5", "balance-5"),
-            new MotsheloLists("id-6", "name-6", "year-6", "balance-6"),
-            new MotsheloLists("id-7", "name-7", "year-7", "balance-7"),
-            new MotsheloLists("id-8", "name-8", "year-8", "balance-8"),
-            new MotsheloLists("id-9", "name-9", "year-9", "balance-9"),
-            new MotsheloLists("id-10", "name-10", "year-10", "balance-10"),
-            new MotsheloLists("id-11", "name-11", "year-11", "balance-11"),
-            new MotsheloLists("id-12", "name-12", "year-12", "balance-12"),
-            new MotsheloLists("id-13", "name-13", "year-13", "balance-13"),
-            new MotsheloLists("id-14", "name-14", "year-14", "balance-14"),
-            new MotsheloLists("id-15", "name-15", "year-15", "balance-15"),
-            new MotsheloLists("id-16", "name-16", "year-16", "balance-16"),
-            new MotsheloLists("id-17", "name-17", "year-17", "balance-17"),
-            new MotsheloLists("id-18", "name-18", "year-18", "balance-18"),
-            new MotsheloLists("id-19", "name-19", "year-19", "balance-19"),
-            new MotsheloLists("id-20", "name-20", "year-20", "balance-20")
-        });
-
-    /**
-     * This inner class is used in the dummy implementation in order to get the web application
-     * running without any manual programming.
-     * You may delete this class when you add you own code in this controller.
-     */
-    public static final class MotsheloLists implements Serializable
-    {
-        private String id = null;
-        private String name = null;
-        private String year = null;
-        private String balance = null;
-
-        public MotsheloLists(String id, String name, String year, String balance)
-        {
-            this.id = id;
-            this.name = name;
-            this.year = year;
-            this.balance = balance;
-        }
-
-        public void setId(String id)
-        {
-            this.id = id;
-        }
-
-        public String getId()
-        {
-            return this.id;
-        }
-
-        public void setName(String name)
-        {
-            this.name = name;
-        }
-
-        public String getName()
-        {
-            return this.name;
-        }
-
-        public void setYear(String year)
-        {
-            this.year = year;
-        }
-
-        public String getYear()
-        {
-            return this.year;
-        }
-
-        public void setBalance(String balance)
-        {
-            this.balance = balance;
-        }
-
-        public String getBalance()
-        {
-            return this.balance;
-        }
-
+        
     }
 }
