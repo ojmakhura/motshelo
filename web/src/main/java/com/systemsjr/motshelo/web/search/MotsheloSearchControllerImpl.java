@@ -30,7 +30,7 @@ public class MotsheloSearchControllerImpl
     {
         // populating value with dummy instance
         MotsheloSearchCriteria searchCriteria = new MotsheloSearchCriteria();
-        searchCriteria.setYear(new Integer((int)3704893));
+        //searchCriteria.setYear(new Integer((int)3704893));
         searchCriteria.setName(null);
         form.setSearchCriteria(searchCriteria);
     }
@@ -51,6 +51,7 @@ public class MotsheloSearchControllerImpl
     {
     	Collection<MotsheloVO> metshelo = getMotsheloService().searchMetshelo(getSearchMetsheloSearchForm().getSearchCriteria());
     	getSearchMetsheloSearchForm().setMotsheloLists(metshelo);
+    	getSearchMetsheloForm().setMotsheloLists(metshelo);
     }
 
     /**

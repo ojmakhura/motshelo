@@ -8,6 +8,7 @@
  */
 package com.systemsjr.motshelo.transaction.service;
 
+import com.systemsjr.motshelo.transaction.Transaction;
 import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 import java.util.Collection;
@@ -28,8 +29,7 @@ public class TransactionServiceImpl
     protected  TransactionVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  TransactionVO handleFindById(Long id)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleFindById(Long id) Not implemented!");
+    	return id == null ? null : getTransactionDao().toTransactionVO(getTransactionDao().load(id));
     }
 
     /**
@@ -39,8 +39,9 @@ public class TransactionServiceImpl
     protected  TransactionVO handleSaveTransaction(TransactionVO transactionVO)
         throws Exception
     {
-        // TODO implement protected  TransactionVO handleSaveTransaction(TransactionVO transactionVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleSaveTransaction(TransactionVO transactionVO) Not implemented!");
+    	Transaction transaction = getTransactionDao().transactionVOToEntity(transactionVO);
+    	transaction = getTransactionDao().createOrUpdate(transaction);
+    	return getTransactionDao().toTransactionVO(transaction);
     }
 
     /**
@@ -50,19 +51,24 @@ public class TransactionServiceImpl
     protected  boolean handleRemoveTransaction(TransactionVO transactionVO)
         throws Exception
     {
-        // TODO implement protected  boolean handleRemoveTransaction(TransactionVO transactionVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleRemoveTransaction(TransactionVO transactionVO) Not implemented!");
+    	if(transactionVO.getId() != null)
+    	{
+    		getTransactionDao().remove(transactionVO.getId());
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     /**
      * @see com.systemsjr.motshelo.transaction.service.TransactionService#getAllTransactions()
      */
     @Override
-    protected  Collection handleGetAllTransactions()
+    protected  Collection<TransactionVO> handleGetAllTransactions()
         throws Exception
     {
-        // TODO implement protected  Collection handleGetAllTransactions()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleGetAllTransactions() Not implemented!");
+    	Collection<Transaction> transactions = getTransactionDao().loadAll();
+    	return getTransactionDao().toTransactionVOCollection(transactions);
     }
 
     /**
@@ -72,19 +78,19 @@ public class TransactionServiceImpl
     protected  TransactionVO[] handleGetAllTransactionsArray()
         throws Exception
     {
-        // TODO implement protected  TransactionVO[] handleGetAllTransactionsArray()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleGetAllTransactionsArray() Not implemented!");
+    	Collection<Transaction> transactions = getTransactionDao().loadAll();
+    	return getTransactionDao().toTransactionVOArray(transactions);
     }
 
     /**
      * @see com.systemsjr.motshelo.transaction.service.TransactionService#searchTransactions(TransactionSearchCriteria)
      */
     @Override
-    protected  Collection handleSearchTransactions(TransactionSearchCriteria searchCriteria)
+    protected  Collection<TransactionVO> handleSearchTransactions(TransactionSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  Collection handleSearchTransactions(TransactionSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleSearchTransactions(TransactionSearchCriteria searchCriteria) Not implemented!");
+    	Collection<Transaction> transactions = getTransactionDao().findByCriteria(searchCriteria);
+    	return getTransactionDao().toTransactionVOCollection(transactions);
     }
 
     /**
@@ -94,8 +100,8 @@ public class TransactionServiceImpl
     protected  TransactionVO[] handleSearchTransactionsArray(TransactionSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  TransactionVO[] handleSearchTransactionsArray(TransactionSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.transaction.service.TransactionService.handleSearchTransactionsArray(TransactionSearchCriteria searchCriteria) Not implemented!");
+    	Collection<Transaction> transactions = getTransactionDao().findByCriteria(searchCriteria);
+    	return getTransactionDao().toTransactionVOArray(transactions);
     }
 
 }

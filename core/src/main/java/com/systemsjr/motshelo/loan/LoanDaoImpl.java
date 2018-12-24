@@ -42,16 +42,17 @@ public class LoanDaoImpl
     {
         // TODO verify behavior of toLoanVO
         super.toLoanVO(source, target);
-        // WARNING! No conversion for target.member (can't convert source.getMember():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
-        if(source.getMember() != null)
+        
+        
+        if(source.getInstanceMember() != null)
         {
-        	target.setMember(getMemberDao().toMemberVO(source.getMember()));
+        	target.setInstanceMember(getInstanceMemberDao().toInstanceMemberVO(source.getInstanceMember()));
         }
         
         // WARNING! No conversion for target.motshelo (can't convert source.getMotshelo():com.systemsjr.motshelo.Motshelo to com.systemsjr.motshelo.vo.MotsheloVO
-        if(source.getMotshelo() != null)
+        if(source.getMotsheloInstance() != null)
         {
-        	target.setMotshelo(getMotsheloDao().toMotsheloVO(source.getMotshelo()));
+        	target.setMotsheloInstance(getMotsheloInstanceDao().toMotsheloInstanceVO(source.getMotsheloInstance()));
         }
         
         if(!CollectionUtils.isEmpty(source.getInterests()))
@@ -96,21 +97,20 @@ public class LoanDaoImpl
         Loan entity = this.loadLoanFromLoanVO(loanVO);
         this.loanVOToEntity(loanVO, entity, true);
         
-        if(loanVO.getMember() != null)
+        if(loanVO.getInstanceMember() != null)
         {
-        	entity.setMember(getMemberDao().memberVOToEntity(loanVO.getMember()));
+        	entity.setInstanceMember(getInstanceMemberDao().load(loanVO.getInstanceMember().getId()));
         }
         
-        if(loanVO.getMotshelo() != null)
+        if(loanVO.getMotsheloInstance() != null)
         {
-        	entity.setMotshelo(getMotsheloDao().motsheloVOToEntity(loanVO.getMotshelo()));
+        	entity.setMotsheloInstance(getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId()));
         }
         
-        Collection<InterestVO> interests = loanVO.getInterests();               
-        
+        Collection<InterestVO> interests = loanVO.getInterests();        
         for(InterestVO interest : interests)
         {
-        	entity.addInterests(getInterestDao().interestVOToEntity(interest));
+        	entity.addInterests(getInterestDao().load(interest.getId()));
         }
         
         return entity;
@@ -130,7 +130,7 @@ public class LoanDaoImpl
     }
 
 	@Override
-	protected List<?> handleFindByCriteria(LoanSearchCriteria searchCriteria) throws Exception {
+	protected Collection<Loan> handleFindByCriteria(LoanSearchCriteria searchCriteria) throws Exception {
 
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
     	CriteriaQuery<Loan> query = builder.createQuery(Loan.class);

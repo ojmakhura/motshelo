@@ -6,6 +6,8 @@
  */
 package com.systemsjr.motshelo;
 
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.vo.MemberVO;
@@ -15,6 +17,13 @@ import com.systemsjr.motshelo.vo.MotsheloVO;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
@@ -29,10 +38,28 @@ public class MotsheloDaoImpl
      * {@inheritDoc}
      */
     @Override
-    protected List handleFindByCriteria(MotsheloSearchCriteria searchCriteria)
+    protected Collection<Motshelo> handleFindByCriteria(MotsheloSearchCriteria searchCriteria)
     {
-        // TODO implement public List handleFindByCriteria(MotsheloSearchCriteria searchCriteria)
-        return null;
+    	CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<Motshelo> query = builder.createQuery(Motshelo.class);
+    	Root<Motshelo> root = query.from(Motshelo.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(searchCriteria.getName() != null)
+		{
+			predicates.add(builder.like(root.<String>get("name"), "%" + searchCriteria.getName() + "%"));
+		}	
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.asc(root.get("name")));
+		TypedQuery<Motshelo> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
     }
 
     /**
@@ -47,15 +74,13 @@ public class MotsheloDaoImpl
         super.toMotsheloVO(source, target);
         // WARNING! No conversion for target.members (can't convert source.getMembers():com.systemsjr.motshelo.member.Member to java.util.Collection
         if(!CollectionUtils.isEmpty(source.getMembers()))
-        {
-        	
+        {        	
         	target.setMembers(getMemberDao().toMemberVOCollection(source.getMembers()));
-        }
+        }        
         
-        // WARNING! No conversion for target.loans (can't convert source.getLoans():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO
-        if(!CollectionUtils.isEmpty(source.getLoans()))
-        {
-        	target.setLoans(getLoanDao().toLoanVOCollection(source.getLoans()));
+        if(!CollectionUtils.isEmpty(source.getMotsheloInstances()))
+        {        	
+        	target.setMotsheloInstances(getMotsheloInstanceDao().toMotsheloInstanceVOCollection(source.getMotsheloInstances()));
         }
     }
 
@@ -94,18 +119,17 @@ public class MotsheloDaoImpl
         // TODO verify behavior of motsheloVOToEntity
         Motshelo entity = this.loadMotsheloFromMotsheloVO(motsheloVO);
         this.motsheloVOToEntity(motsheloVO, entity, true);
-        
-        Collection<LoanVO> loanVOs = motsheloVO.getLoans();
-        
-        for(LoanVO loanVO : loanVOs)
-        {
-        	entity.addLoans(getLoanDao().loanVOToEntity(loanVO));
-        }
-        
+                
         Collection<MemberVO> memberVOs = motsheloVO.getMembers();
         for(MemberVO memberVO : memberVOs)
         {
-        	entity.addMembers(getMemberDao().memberVOToEntity(memberVO));
+        	entity.addMembers(getMemberDao().load(memberVO.getId()));
+        }
+        
+        Collection<MotsheloInstanceVO> instances = motsheloVO.getMotsheloInstances();
+        for(MotsheloInstanceVO instance : instances)
+        {
+        	entity.addMotsheloInstances(getMotsheloInstanceDao().load(instance.getId()));
         }
         
         return entity;

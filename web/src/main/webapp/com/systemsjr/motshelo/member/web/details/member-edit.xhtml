@@ -9,15 +9,10 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:ajsf="http://www.andromda.org/cartridges/jsf/facelets"
     xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
-<h:form id="searchMetsheloSearchMetsheloEditForm">
+<h:form id="memberDetailsMemberEditForm">
     <p:panelGrid columns="3">
-        <!-- id -->
-        <p:outputLabel id="id_label" for="id" value="#{messages['id']}:"/>
-        <p:inputText id="id" value="#{searchMetsheloSearchMetsheloEditForm.id}" required="false" readonly="false">
-        </p:inputText>
-        <p:message id="id_message" for="id"/>
         <f:facet name="footer">
-            <p:commandButton id="searchMetsheloEditAction" value="#{messages['edit']}" action="#{motsheloSearchController.searchMetsheloEdit}" ajax="false"/>
+            <p:commandButton id="memberEditAction" value="#{messages['edit']}" action="#{memberDetailsController.memberEdit}" immediate="true" ajax="false"/>
         </f:facet>
     </p:panelGrid>
 </h:form>

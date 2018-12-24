@@ -10,6 +10,7 @@ import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -38,7 +39,15 @@ public class TransactionDaoImpl
         // TODO verify behavior of toTransactionVO
         super.toTransactionVO(source, target);
         // WARNING! No conversion for target.member (can't convert source.getMember():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
-        target.setMember(getMemberDao().toMemberVO(source.getMember()));
+        if(source.getInstanceMember() != null)
+        {
+        	target.setInstanceMember(getInstanceMemberDao().toInstanceMemberVO(source.getInstanceMember()));
+        }
+        
+        if(source.getMotsheloInstance() != null)
+        {
+        	target.setMotsheloInstance(getMotsheloInstanceDao().toMotsheloInstanceVO(source.getMotsheloInstance()));
+        }
     }
 
     /**
@@ -76,12 +85,17 @@ public class TransactionDaoImpl
         // TODO verify behavior of transactionVOToEntity
         Transaction entity = this.loadTransactionFromTransactionVO(transactionVO);
         this.transactionVOToEntity(transactionVO, entity, true);
-
-        if(transactionVO.getMember() != null)
+        
+        if(transactionVO.getInstanceMember() != null)
         {
-        	entity.setMember(getMemberDao().memberVOToEntity(transactionVO.getMember()));
+        	entity.setInstanceMember(getInstanceMemberDao().instanceMemberVOToEntity(transactionVO.getInstanceMember()));
         }
         
+        if(transactionVO.getMotsheloInstance() != null)
+        {
+        	entity.setMotsheloInstance(getMotsheloInstanceDao().motsheloInstanceVOToEntity(transactionVO.getMotsheloInstance()));
+        }
+
         return entity;
     }
 
@@ -99,7 +113,7 @@ public class TransactionDaoImpl
     }
 
 	@Override
-	protected List<?> handleFindByCriteria(TransactionSearchCriteria searchCriteria) throws Exception 
+	protected Collection<Transaction> handleFindByCriteria(TransactionSearchCriteria searchCriteria) throws Exception 
 	{
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
     	CriteriaQuery<Transaction> query = builder.createQuery(Transaction.class);

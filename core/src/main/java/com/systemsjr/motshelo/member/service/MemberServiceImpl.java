@@ -8,16 +8,13 @@
  */
 package com.systemsjr.motshelo.member.service;
 
-import com.systemsjr.motshelo.loan.vo.LoanVO;
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.member.Member;
 import com.systemsjr.motshelo.member.vo.MemberSearchCriteria;
 import com.systemsjr.motshelo.member.vo.MemberVO;
-
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.member.service.MemberService
@@ -74,10 +71,10 @@ public class MemberServiceImpl
      * @see com.systemsjr.motshelo.member.service.MemberService#getAllMembers()
      */
     @Override
-    protected  Collection handleGetAllMembers()
+    protected  Collection<MemberVO> handleGetAllMembers()
         throws Exception
     {
-    	Collection members = getMemberDao().loadAll();
+    	Collection<Member> members = getMemberDao().loadAll();
     	return getMemberDao().toMemberVOCollection(members);
     }
 
@@ -88,7 +85,7 @@ public class MemberServiceImpl
     protected  MemberVO[] handleGetAllMembersArray()
         throws Exception
     {
-    	Collection members = getMemberDao().loadAll();
+    	Collection<Member> members = getMemberDao().loadAll();
     	return getMemberDao().toMemberVOArray(members);
     }
 
@@ -96,10 +93,10 @@ public class MemberServiceImpl
      * @see com.systemsjr.motshelo.member.service.MemberService#searchMembers(MemberSearchCriteria)
      */
     @Override
-    protected  Collection handleSearchMembers(MemberSearchCriteria searchCriteria)
+    protected  Collection<MemberVO> handleSearchMembers(MemberSearchCriteria searchCriteria)
         throws Exception
     {
-    	Collection members = getMemberDao().findByCriteria(searchCriteria);
+    	Collection<Member> members = getMemberDao().findByCriteria(searchCriteria);
     	return getMemberDao().toMemberVOCollection(members);
     }
 
@@ -110,14 +107,13 @@ public class MemberServiceImpl
     protected  MemberVO[] handleSearchMembersArray(MemberSearchCriteria searchCriteria)
         throws Exception
     {
-    	Collection members = getMemberDao().findByCriteria(searchCriteria);
+    	Collection<Member> members = getMemberDao().findByCriteria(searchCriteria);
     	return getMemberDao().toMemberVOArray(members);
     }
 
 	@Override
 	protected void handleUpdateMemberBalance(MemberVO memberVO) throws Exception {
 		
-		Collection<LoanVO> loanVOs = memberVO.getLoans();
 		
 	}
 

@@ -6,7 +6,20 @@
  */
 package com.systemsjr.motshelo.interest;
 
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.interest.vo.InterestSearchCritirea;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -72,7 +85,7 @@ public class InterestDaoImpl
         
         if(interestVO.getLoan() != null)
         {
-        	entity.setLoan(getLoanDao().loanVOToEntity(interestVO.getLoan()));
+        	entity.setLoan(getLoanDao().load(interestVO.getLoan().getId()));
         }
         
         return entity;
@@ -90,4 +103,28 @@ public class InterestDaoImpl
         // TODO verify behavior of interestVOToEntity
         super.interestVOToEntity(source, target, copyIfNull);
     }
+
+	@Override
+	protected Collection<Interest> handleFindByCriteria(InterestSearchCritirea searchCriteria) throws Exception {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<Interest> query = builder.createQuery(Interest.class);
+    	Root<Interest> root = query.from(Interest.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		/*if(searchCriteria.getName() != null)
+		{
+			predicates.add(builder.like(root.<String>get("name"), "%" + searchCriteria.getName() + "%"));
+		}*/		
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		//query.orderBy(builder.asc(root.get("username")));
+		TypedQuery<Interest> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
+	}
 }

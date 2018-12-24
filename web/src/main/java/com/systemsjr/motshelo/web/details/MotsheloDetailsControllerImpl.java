@@ -27,7 +27,7 @@ public class MotsheloDetailsControllerImpl
     {
     	MotsheloVO motsheloVO = (MotsheloVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("motsheloVO");
     	form.setMotsheloVO(motsheloVO);
-    	
+    	getMotsheloDetailsForm().setMotsheloVO(motsheloVO);
     }
 
     /**
@@ -47,5 +47,22 @@ public class MotsheloDetailsControllerImpl
     {
         
     }
+
+	@Override
+	public void enterMotsheloEdit(EnterMotsheloEditForm form) throws Throwable {
+		// TODO Auto-generated method stub
+		getMotsheloEditForm().setMotsheloVO(getMotsheloDetailsForm().getMotsheloVO());
+	}
+
+	@Override
+	public void doMotsheloEdit(DoMotsheloEditForm form) throws Throwable {
+				
+	}
+
+	@Override
+	public void exitMotsheloEdit(ExitMotsheloEditForm form) throws Throwable {
+		// TODO Auto-generated method stub
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloVO", getMotsheloEditForm().getMotsheloVO());
+	}
 
 }

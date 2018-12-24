@@ -42,13 +42,13 @@ public class InterestServiceImpl
      * @see com.systemsjr.motshelo.interest.service.InterestService#saveInterest(InterestVO)
      */
     @Override
-    protected  LoanVO handleSaveInterest(InterestVO interestVO)
+    protected  InterestVO handleSaveInterest(InterestVO interestVO)
         throws Exception
     {
         
     	Interest interest = getInterestDao().createOrUpdate(getInterestDao().interestVOToEntity(interestVO));
     	
-    	return null;
+    	return getInterestDao().toInterestVO(interest);
     }
 
     /**
@@ -68,10 +68,11 @@ public class InterestServiceImpl
     }
 
     /**
+     * @return 
      * @see com.systemsjr.motshelo.interest.service.InterestService#getAllInterests()
      */
     @Override
-    protected  Collection handleGetAllInterests()
+    protected  Collection<InterestVO> handleGetAllInterests()
         throws Exception
     {
         return getInterestDao().toInterestVOCollection(getInterestDao().loadAll());
@@ -89,26 +90,24 @@ public class InterestServiceImpl
     }
 
     /**
+     * @return 
      * @see com.systemsjr.motshelo.interest.service.InterestService#searchInterests(InterestSearchCritirea)
      */
     @Override
-    protected  Collection handleSearchInterests(InterestSearchCritirea searchCriteria)
+    protected  Collection<InterestVO> handleSearchInterests(InterestSearchCritirea searchCriteria)
         throws Exception
     {
-    	//return getInterestDao().toInterestVOCollection(getInterestDao().)
-        // TODO implement protected  Collection handleSearchInterests(InterestSearchCritirea searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleSearchInterests(InterestSearchCritirea searchCriteria) Not implemented!");
+    	return getInterestDao().toInterestVOCollection(getInterestDao().findByCriteria(searchCriteria));
     }
 
     /**
      * @see com.systemsjr.motshelo.interest.service.InterestService#searchInterestsArray(InterestSearchCritirea)
      */
     @Override
-    protected  LoanVO[] handleSearchInterestsArray(InterestSearchCritirea searchCriteria)
+    protected  InterestVO[] handleSearchInterestsArray(InterestSearchCritirea searchCriteria)
         throws Exception
     {
-        // TODO implement protected  LoanVO[] handleSearchInterestsArray(InterestSearchCritirea searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.interest.service.InterestService.handleSearchInterestsArray(InterestSearchCritirea searchCriteria) Not implemented!");
+    	return getInterestDao().toInterestVOArray(getInterestDao().findByCriteria(searchCriteria));
     }
 
 }

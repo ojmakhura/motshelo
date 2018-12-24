@@ -8,20 +8,19 @@
  */
 package com.systemsjr.motshelo.loan.service;
 
-import com.systemsjr.motshelo.interest.vo.InterestVO;
-import com.systemsjr.motshelo.loan.Loan;
-import com.systemsjr.motshelo.loan.LoanStatus;
-import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
-import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.member.vo.MemberVO;
-import com.systemsjr.motshelo.vo.MotsheloVO;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
+
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.interest.vo.InterestVO;
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.LoanStatus;
+import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
 
 /**
  * @see com.systemsjr.motshelo.loan.service.LoanService
@@ -51,21 +50,21 @@ public class LoanServiceImpl
     	
     	if(loanVO != null && loanVO.getId() != null)
     	{
-    		MotsheloVO motsheloVO = loanVO.getMotshelo();
+    		MotsheloInstanceVO motsheloInstanceVO = loanVO.getMotsheloInstance();
     		loanVO.setStartDate(new Date());
     		loanVO.setStatus(LoanStatus.ACTIVE);
     		
     		InterestVO interestVO = new InterestVO();
     		interestVO.setType("STANDARD");    		
     		double amount = loanVO.getAmount().floatValue();
-    		double interestAmount = motsheloVO.getLoanInterest()/100 * amount;
+    		double interestAmount = motsheloInstanceVO.getMotshelo().getLoanInterest()/100 * amount;
     		interestVO.setAmount(new BigDecimal(interestAmount));
     		
     		double loanBalance = amount + interestAmount;
     		loanVO.setBalance(new BigDecimal(loanBalance));
     		
     		Calendar cal = Calendar.getInstance();
-    		cal.add(Calendar.MONTH, motsheloVO.getRepaymentTerm());
+    		cal.add(Calendar.MONTH, motsheloInstanceVO.getMotshelo().getRepaymentTerm());
     		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
     		cal.set(Calendar.HOUR_OF_DAY, 23);
     		cal.set(Calendar.MINUTE, 59);
@@ -101,7 +100,7 @@ public class LoanServiceImpl
      * @see com.systemsjr.motshelo.loan.service.LoanService#getAllLoans()
      */
     @Override
-    protected  Collection handleGetAllLoans()
+    protected  Collection<LoanVO> handleGetAllLoans()
         throws Exception
     {
         return getLoanDao().toLoanVOCollection(getLoanDao().loadAll());
@@ -118,13 +117,14 @@ public class LoanServiceImpl
     }
 
     /**
+     * @return 
      * @see com.systemsjr.motshelo.loan.service.LoanService#searchLoans(LoanSearchCriteria)
      */
     @Override
-    protected  Collection handleSearchLoans(LoanSearchCriteria searchCriteria)
+    protected  Collection<LoanVO> handleSearchLoans(LoanSearchCriteria searchCriteria)
         throws Exception
     {
-    	Collection loans = getLoanDao().findByCriteria(searchCriteria);
+    	Collection<Loan> loans = getLoanDao().findByCriteria(searchCriteria);
         return getLoanDao().toLoanVOCollection(loans);
     }
 
@@ -135,7 +135,7 @@ public class LoanServiceImpl
     protected  LoanVO[] handleSearchLoansArray(LoanSearchCriteria searchCriteria)
         throws Exception
     {
-    	Collection loans = getLoanDao().findByCriteria(searchCriteria);
+    	Collection<Loan> loans = getLoanDao().findByCriteria(searchCriteria);
         return getLoanDao().toLoanVOArray(loans);
     }
 

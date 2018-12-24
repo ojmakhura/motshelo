@@ -91,14 +91,14 @@ public class MotsheloServiceImpl
     }
 
     /**
+     * @return 
      * @see com.systemsjr.motshelo.service.MotsheloService#searchMetshelo(MotsheloSearchCriteria)
      */
-    @SuppressWarnings("rawtypes")
 	@Override
-    protected  Collection handleSearchMetshelo(MotsheloSearchCriteria searchCriteria)
+    protected  Collection<MotsheloVO> handleSearchMetshelo(MotsheloSearchCriteria searchCriteria)
         throws Exception
     {
-    	Collection metshelo = getMotsheloDao().findByCriteria(searchCriteria);
+    	Collection<Motshelo> metshelo = getMotsheloDao().findByCriteria(searchCriteria);
     	return getMotsheloDao().toMotsheloVOCollection(metshelo);
     }
 
@@ -109,7 +109,7 @@ public class MotsheloServiceImpl
     protected  MotsheloVO[] handleSearchMetsheloArray(MotsheloSearchCriteria searchCriteria)
         throws Exception
     {
-    	Collection metshelo = getMotsheloDao().findByCriteria(searchCriteria);
+    	Collection<Motshelo> metshelo = getMotsheloDao().findByCriteria(searchCriteria);
     	return getMotsheloDao().toMotsheloVOArray(metshelo);
     }
 
@@ -120,6 +120,7 @@ public class MotsheloServiceImpl
 		for(MemberVO memberVO : memberVOs)
 		{
 			//getMemberDao().up
+			getMemberService().updateMemberBalance(memberVO);
 		}
 		
 		return null;
