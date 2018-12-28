@@ -21,14 +21,7 @@ public class MemberDetailsControllerImpl
     @Override
     public void exitInitialiseDetailsScreen(ExitInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        MemberVO memberVO = new MemberVO();
-        memberVO.setId(new Long((long)3355));
-        memberVO.setStatus(null);
-        memberVO.setUsername(null);
-        memberVO.setName(null);
-        memberVO.setSurname(null);
-        form.setMemberVO(memberVO);
+        
     }
 
     /**
@@ -37,14 +30,7 @@ public class MemberDetailsControllerImpl
     @Override
     public void doInitialiseDetailsScreen(DoInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        MemberVO memberVO = new MemberVO();
-        memberVO.setId(new Long((long)3355));
-        memberVO.setStatus(null);
-        memberVO.setUsername(null);
-        memberVO.setName(null);
-        memberVO.setSurname(null);
-        form.setMemberVO(memberVO);
+        
     }
 
     /**
@@ -53,14 +39,7 @@ public class MemberDetailsControllerImpl
     @Override
     public void enterInitialiseDetailsScreen(EnterInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        MemberVO memberVO = new MemberVO();
-        memberVO.setId(new Long((long)3355));
-        memberVO.setStatus(null);
-        memberVO.setUsername(null);
-        memberVO.setName(null);
-        memberVO.setSurname(null);
-        form.setMemberVO(memberVO);
+        
     }
 
 	@Override
