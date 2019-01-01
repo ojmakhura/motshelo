@@ -18,14 +18,6 @@ public class MemberEditControllerImpl
     private static final long serialVersionUID = 6784385525062415648L;
 
     /**
-     * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#enterSaveMember()
-     */
-    @Override
-    public void enterSaveMember()
-    {
-    }
-
-    /**
      * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#doSaveMember()
      */
     @Override
@@ -34,23 +26,7 @@ public class MemberEditControllerImpl
     	MemberVO memberVO = getEditMemberSaveForm().getMemberVO();
     	memberVO = getMemberService().saveMember(memberVO);
     	getEditMemberSaveForm().setMemberVO(memberVO);
-    }
-
-    /**
-     * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#exitSaveMember()
-     */
-    @Override
-    public void exitSaveMember()
-    {
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", getEditMemberSaveForm().getMemberVO());
-    }
-
-    /**
-     * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#exitNewMember()
-     */
-    @Override
-    public void exitNewMember()
-    {
     }
 
     /**
@@ -65,40 +41,14 @@ public class MemberEditControllerImpl
     }
 
     /**
-     * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#enterNewMember()
-     */
-    @Override
-    public void enterNewMember()
-    {
-    }
-
-    /**
-     * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#exitInitialiseEditScreen(MemberVO memberVO)
-     */
-    @Override
-    public void exitInitialiseEditScreen(ExitInitialiseEditScreenForm form)
-    {
-    	
-    }
-
-    /**
      * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#doInitialiseEditScreen(MemberVO memberVO)
      */
     @Override
     public void doInitialiseEditScreen(DoInitialiseEditScreenForm form)
     {
-        form.setMemberVO(getEditMemberForm().getMemberVO());
-        getEditMemberSaveForm().setMemberVO(getEditMemberForm().getMemberVO());
-    }
-
-    /**
-     * @see com.systemsjr.motshelo.member.web.edit.MemberEditController#enterInitialiseEditScreen(MemberVO memberVO)
-     */
-    @Override
-    public void enterInitialiseEditScreen(EnterInitialiseEditScreenForm form)
-    {
-        MemberVO memberVO = (MemberVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("memberVO");
-        getEditMemberForm().setMemberVO(memberVO);
+    	MemberVO memberVO = (MemberVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("memberVO");
+        form.setMemberVO(memberVO);
+        getEditMemberSaveForm().setMemberVO(memberVO);
     }
 
 }

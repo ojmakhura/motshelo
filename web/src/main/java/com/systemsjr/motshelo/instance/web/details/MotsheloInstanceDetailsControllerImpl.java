@@ -3,7 +3,6 @@
 package com.systemsjr.motshelo.instance.web.details;
 
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
-import java.util.Date;
 
 /**
  * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController
@@ -17,15 +16,6 @@ public class MotsheloInstanceDetailsControllerImpl
     private static final long serialVersionUID = -6586441078799553517L;
 
     /**
-     * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController#exitInitialiseDetailsScreen(MotsheloInstanceVO motsheloInstanceVO)
-     */
-    @Override
-    public void exitInitialiseDetailsScreen(ExitInitialiseDetailsScreenForm form)
-    {
-        
-    }
-
-    /**
      * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController#doInitialiseDetailsScreen(MotsheloInstanceVO motsheloInstanceVO)
      */
     @Override
@@ -34,22 +24,6 @@ public class MotsheloInstanceDetailsControllerImpl
         
     }
 
-    /**
-     * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController#enterInitialiseDetailsScreen(MotsheloInstanceVO motsheloInstanceVO)
-     */
-    @Override
-    public void enterInitialiseDetailsScreen(EnterInitialiseDetailsScreenForm form)
-    {
-        
-    }
-
-    /**
-     * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController#enterNextMotsheloInstance()
-     */
-    @Override
-    public void enterNextMotsheloInstance()
-    {
-    }
 
     /**
      * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController#doNextMotsheloInstance()
@@ -59,28 +33,9 @@ public class MotsheloInstanceDetailsControllerImpl
     {
     }
 
-    /**
-     * @see com.systemsjr.motshelo.instance.web.details.MotsheloInstanceDetailsController#exitNextMotsheloInstance()
-     */
-    @Override
-    public void exitNextMotsheloInstance()
-    {
-    }
-
-	@Override
-	public void exitMotsheloInstanceEdit(ExitMotsheloInstanceEditForm form) throws Throwable {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void doMotsheloInstanceEdit(DoMotsheloInstanceEditForm form) throws Throwable {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void enterMotsheloInstanceEdit(EnterMotsheloInstanceEditForm form) throws Throwable {
 		// TODO Auto-generated method stub
 		
 	}

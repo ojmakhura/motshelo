@@ -6,14 +6,6 @@
  */
 package com.systemsjr.motshelo;
 
-import com.systemsjr.motshelo.instance.member.InstanceMember;
-import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
-import com.systemsjr.motshelo.loan.Loan;
-import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.member.vo.MemberVO;
-import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
-import com.systemsjr.motshelo.vo.MotsheloVO;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +18,13 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
+
+import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.member.Member;
+import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see Motshelo
@@ -73,14 +72,18 @@ public class MotsheloDaoImpl
         // TODO verify behavior of toMotsheloVO
         super.toMotsheloVO(source, target);
         // WARNING! No conversion for target.members (can't convert source.getMembers():com.systemsjr.motshelo.member.Member to java.util.Collection
-        if(!CollectionUtils.isEmpty(source.getMembers()))
-        {        	
-        	target.setMembers(getMemberDao().toMemberVOCollection(source.getMembers()));
-        }        
         
-        if(!CollectionUtils.isEmpty(source.getMotsheloInstances()))
-        {        	
-        	target.setMotsheloInstances(getMotsheloInstanceDao().toMotsheloInstanceVOCollection(source.getMotsheloInstances()));
+        Collection<Member> members = source.getMembers();
+        target.setMembers(new ArrayList<MemberVO>());
+        for(Member member : members)
+        {
+        	target.getMembers().add(getMemberDao().getBasicMemberVO(member));
+        }
+        
+        target.setMotsheloInstances(new ArrayList<MotsheloInstanceVO>());
+        for(MotsheloInstance ins : source.getMotsheloInstances())
+        {
+        	target.getMotsheloInstances().add(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(ins));
         }
     }
 
@@ -121,15 +124,17 @@ public class MotsheloDaoImpl
         this.motsheloVOToEntity(motsheloVO, entity, true);
                 
         Collection<MemberVO> memberVOs = motsheloVO.getMembers();
+        entity.setMembers(new ArrayList<Member>());
         for(MemberVO memberVO : memberVOs)
         {
-        	entity.addMembers(getMemberDao().load(memberVO.getId()));
+        	entity.addMembers(getMemberDao().getBasicMemberEntity(memberVO));
         }
         
         Collection<MotsheloInstanceVO> instances = motsheloVO.getMotsheloInstances();
+        entity.setMotsheloInstances(new ArrayList<MotsheloInstance>());
         for(MotsheloInstanceVO instance : instances)
         {
-        	entity.addMotsheloInstances(getMotsheloInstanceDao().load(instance.getId()));
+        	entity.addMotsheloInstances(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instance));
         }
         
         return entity;
@@ -147,4 +152,19 @@ public class MotsheloDaoImpl
         // TODO verify behavior of motsheloVOToEntity
         super.motsheloVOToEntity(source, target, copyIfNull);
     }
+
+	@Override
+	protected MotsheloVO handleGetBasicMotsheloVO(Motshelo motshelo) throws Exception {
+		MotsheloVO vo = new MotsheloVO();
+		super.toMotsheloVO(motshelo, vo);
+		return vo;
+	}
+
+	@Override
+	protected Motshelo handleGetBasicMotsheloEntity(MotsheloVO motsheloVO) throws Exception {
+		Motshelo entity = Motshelo.Factory.newInstance();
+		entity.setId(motsheloVO.getId());
+		super.motsheloVOToEntity(motsheloVO, entity, true);
+		return entity;
+	}
 }

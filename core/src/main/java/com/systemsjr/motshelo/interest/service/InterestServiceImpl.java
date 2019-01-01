@@ -8,12 +8,14 @@
  */
 package com.systemsjr.motshelo.interest.service;
 
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestSearchCritirea;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
-import java.util.Collection;
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.interest.service.InterestService

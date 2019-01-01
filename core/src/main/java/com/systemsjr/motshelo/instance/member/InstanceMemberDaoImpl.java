@@ -6,12 +6,6 @@
  */
 package com.systemsjr.motshelo.instance.member;
 
-import com.systemsjr.motshelo.instance.member.vo.InstanceMemberSearchCriteria;
-import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
-import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.member.Member;
-import com.systemsjr.motshelo.transaction.vo.TransactionVO;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +18,15 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
+
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberSearchCriteria;
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.transaction.Transaction;
+import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
 /**
  * @see InstanceMember
@@ -45,24 +48,28 @@ public class InstanceMemberDaoImpl
         // WARNING! No conversion for target.member (can't convert source.getMember():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
         if(source.getMember() != null)
         {
-        	target.setMember(getMemberDao().toMemberVO(source.getMember()));
+        	target.setMember(getMemberDao().getBasicMemberVO(source.getMember()));
         }
         
         // WARNING! No conversion for target.loans (can't convert source.getLoans():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO
-        if(!CollectionUtils.isEmpty(source.getLoans()))
+        target.setLoans(new ArrayList<LoanVO>());
+        for(Loan loan : source.getLoans())
         {
-        	target.setLoans(getLoanDao().toLoanVOCollection(source.getLoans()));
+        	target.getLoans().add(getLoanDao().getBasicLoanVO(loan));
         }
-        
+                
         // WARNING! No conversion for target.motsheloInstance (can't convert source.getMotsheloInstance():com.systemsjr.motshelo.instance.MotsheloInstance to com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO
+       
+        
         if(source.getMotsheloInstance() != null)
         {
-        	target.setMotsheloInstance(getMotsheloInstanceDao().toMotsheloInstanceVO(source.getMotsheloInstance()));
+        	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
         }
         
-        if(!CollectionUtils.isEmpty(source.getTransactions()))
+        target.setTransactions(new ArrayList<TransactionVO>());
+        for(Transaction trans : source.getTransactions())
         {
-        	target.setTransactions(getTransactionDao().toTransactionVOCollection(source.getTransactions()));
+        	target.getTransactions().add(getTransactionDao().getBasicTransactionVO(trans));
         }
     }
 
@@ -104,7 +111,7 @@ public class InstanceMemberDaoImpl
         
         if(instanceMemberVO.getMember() != null)
         {
-        	entity.setMember(getMemberDao().load( instanceMemberVO.getMember().getId()));
+        	entity.setMember(getMemberDao().getBasicMemberEntity(instanceMemberVO.getMember()));
         }
         
         if(instanceMemberVO.getMotsheloInstance() != null)
@@ -115,13 +122,13 @@ public class InstanceMemberDaoImpl
         Collection<LoanVO> loanVOs = instanceMemberVO.getLoans();
         for(LoanVO loanVO : loanVOs)
         {
-        	entity.addLoans(getLoanDao().load(loanVO.getId()));
+        	entity.addLoans(getLoanDao().getBasicLoanEntity(loanVO));
         }
         
         Collection<TransactionVO> transactionVOs = instanceMemberVO.getTransactions();
         for(TransactionVO transactionVO : transactionVOs)
         {
-        	entity.addTransactions(getTransactionDao().load(transactionVO.getId()));
+        	entity.addTransactions(getTransactionDao().getBasicTransactionEntity(transactionVO));
         }
         
         return entity;
@@ -163,5 +170,25 @@ public class InstanceMemberDaoImpl
 		//query.orderBy(builder.asc(root.get("username")));
 		TypedQuery<InstanceMember> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected InstanceMember handleGetBasicInstanceMemberEntity(InstanceMemberVO instanceMemberVO) throws Exception {
+		InstanceMember instance = new InstanceMember();
+		super.instanceMemberVOToEntity(instanceMemberVO, instance, true);
+		instance.setMember(getMemberDao().getBasicMemberEntity(instanceMemberVO.getMember()));
+		instance.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instanceMemberVO.getMotsheloInstance()));
+		
+		return instance;
+	}
+
+	@Override
+	protected InstanceMemberVO handleGetBasicInstanceMemberVO(InstanceMember instanceMember) throws Exception {
+		InstanceMemberVO vo = new  InstanceMemberVO();
+		super.toInstanceMemberVO(instanceMember, vo);
+		vo.setMember(getMemberDao().getBasicMemberVO(instanceMember.getMember()));
+		vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(instanceMember.getMotsheloInstance()));
+		
+		return vo;
 	}
 }

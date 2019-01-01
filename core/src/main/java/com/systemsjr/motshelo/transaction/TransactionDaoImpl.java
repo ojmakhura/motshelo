@@ -6,9 +6,6 @@
  */
 package com.systemsjr.motshelo.transaction;
 
-import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
-import com.systemsjr.motshelo.transaction.vo.TransactionVO;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +17,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
+
+import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
+import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
 /**
  * @see Transaction
@@ -41,12 +41,12 @@ public class TransactionDaoImpl
         // WARNING! No conversion for target.member (can't convert source.getMember():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
         if(source.getInstanceMember() != null)
         {
-        	target.setInstanceMember(getInstanceMemberDao().toInstanceMemberVO(source.getInstanceMember()));
+        	target.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(source.getInstanceMember()));
         }
         
         if(source.getMotsheloInstance() != null)
         {
-        	target.setMotsheloInstance(getMotsheloInstanceDao().toMotsheloInstanceVO(source.getMotsheloInstance()));
+        	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
         }
     }
 
@@ -88,12 +88,12 @@ public class TransactionDaoImpl
         
         if(transactionVO.getInstanceMember() != null)
         {
-        	entity.setInstanceMember(getInstanceMemberDao().instanceMemberVOToEntity(transactionVO.getInstanceMember()));
+        	entity.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberEntity(transactionVO.getInstanceMember()));
         }
         
         if(transactionVO.getMotsheloInstance() != null)
         {
-        	entity.setMotsheloInstance(getMotsheloInstanceDao().motsheloInstanceVOToEntity(transactionVO.getMotsheloInstance()));
+        	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(transactionVO.getMotsheloInstance()));
         }
 
         return entity;
@@ -130,5 +130,28 @@ public class TransactionDaoImpl
 		query.orderBy(builder.desc(root.get("transactionDate")));
 		TypedQuery<Transaction> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected Transaction handleGetBasicTransactionEntity(TransactionVO transactionVO) throws Exception {
+		
+		Transaction transaction = Transaction.Factory.newInstance();
+		transaction.setId(transactionVO.getId());
+		super.transactionVOToEntity(transactionVO, transaction, true);
+		transaction.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberEntity(transactionVO.getInstanceMember()));
+		transaction.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(transactionVO.getMotsheloInstance()));
+		
+		return transaction;
+	}
+
+	@Override
+	protected TransactionVO handleGetBasicTransactionVO(Transaction transaction) throws Exception {
+		
+		TransactionVO vo = new TransactionVO();
+		super.toTransactionVO(transaction, vo);
+		vo.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(transaction.getInstanceMember()));
+		vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(transaction.getMotsheloInstance()));
+		
+		return vo;
 	}
 }

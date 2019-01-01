@@ -8,12 +8,15 @@
  */
 package com.systemsjr.motshelo.instance.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceSearchCriteria;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
-import com.systemsjr.motshelo.vo.MotsheloVO;
-import java.util.Collection;
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.instance.service.MotsheloInstanceService
@@ -47,6 +50,12 @@ public class MotsheloInstanceServiceImpl
         throws Exception
     {
     	MotsheloInstance instance = getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO);
+    	instance.setMotshelo(getMotsheloDao().load(motsheloInstanceVO.getMotshelo().getId()));
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(motsheloInstanceVO.getCloseDate());
+    	motsheloInstanceVO.setInstanceName(motsheloInstanceVO.getMotshelo().getName() + " " + cal.get(Calendar.YEAR));  
+    	
     	instance = getMotsheloInstanceDao().createOrUpdate(instance);
     	return getMotsheloInstanceDao().toMotsheloInstanceVO(instance);
     }
@@ -76,7 +85,14 @@ public class MotsheloInstanceServiceImpl
         throws Exception
     {
     	Collection<MotsheloInstance> instances = getMotsheloInstanceDao().loadAll();
-    	return getMotsheloInstanceDao().toMotsheloInstanceVOCollection(instances);
+    	Collection<MotsheloInstanceVO> vos = new ArrayList<MotsheloInstanceVO>();
+    	
+    	for(MotsheloInstance instance : instances)
+    	{
+    		vos.add(getMotsheloInstanceDao().toMotsheloInstanceVO(instance));
+    	}
+    	
+    	return vos;
     }
 
     /**
@@ -87,18 +103,34 @@ public class MotsheloInstanceServiceImpl
         throws Exception
     {
     	Collection<MotsheloInstance> instances = getMotsheloInstanceDao().loadAll();
-    	return getMotsheloInstanceDao().toMotsheloInstanceVOArray(instances);
+		MotsheloInstanceVO[] vos = new MotsheloInstanceVO[instances.size()];
+    	
+    	int i = 0;    	
+    	for(MotsheloInstance instance : instances)
+    	{
+    		vos[i] = getMotsheloInstanceDao().toMotsheloInstanceVO(instance);
+    		i++;
+    	}
+    	
+    	return vos;
     }
 
     /**
      * @see com.systemsjr.motshelo.instance.service.MotsheloInstanceService#searchMetshelo(MotsheloInstanceSearchCriteria)
      */
     @Override
-    protected  Collection<MotsheloInstanceVO> handleSearchMetshelo(MotsheloInstanceSearchCriteria searchCriteria)
+    protected  Collection<MotsheloInstanceVO> handleSearchMetsheloInstances(MotsheloInstanceSearchCriteria searchCriteria)
         throws Exception
     {
     	Collection<MotsheloInstance> instances = getMotsheloInstanceDao().findByCriteria(searchCriteria);
-    	return getMotsheloInstanceDao().toMotsheloInstanceVOCollection(instances);
+    	Collection<MotsheloInstanceVO> vos = new ArrayList<MotsheloInstanceVO>();
+    	
+    	for(MotsheloInstance instance : instances)
+    	{
+    		vos.add(getMotsheloInstanceDao().toMotsheloInstanceVO(instance));
+    	}
+    	
+    	return vos;
     }
 
     /**
@@ -109,7 +141,16 @@ public class MotsheloInstanceServiceImpl
         throws Exception
     {
     	Collection<MotsheloInstance> instances = getMotsheloInstanceDao().findByCriteria(searchCriteria);
-    	return getMotsheloInstanceDao().toMotsheloInstanceVOArray(instances);
+    	MotsheloInstanceVO[] vos = new MotsheloInstanceVO[instances.size()];
+    	
+    	int i = 0;    	
+    	for(MotsheloInstance instance : instances)
+    	{
+    		vos[i] = getMotsheloInstanceDao().toMotsheloInstanceVO(instance);
+    		i++;
+    	}
+    	
+    	return vos;
     }
 
 	@Override

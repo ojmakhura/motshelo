@@ -51,8 +51,6 @@ public class LoanServiceImpl
     	if(loanVO != null && loanVO.getId() != null)
     	{
     		MotsheloInstanceVO motsheloInstanceVO = loanVO.getMotsheloInstance();
-    		loanVO.setStartDate(new Date());
-    		loanVO.setStatus(LoanStatus.ACTIVE);
     		
     		InterestVO interestVO = new InterestVO();
     		interestVO.setType("STANDARD");    		
@@ -63,18 +61,8 @@ public class LoanServiceImpl
     		double loanBalance = amount + interestAmount;
     		loanVO.setBalance(new BigDecimal(loanBalance));
     		
-    		Calendar cal = Calendar.getInstance();
-    		cal.add(Calendar.MONTH, motsheloInstanceVO.getMotshelo().getRepaymentTerm());
-    		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
-    		cal.set(Calendar.HOUR_OF_DAY, 23);
-    		cal.set(Calendar.MINUTE, 59);
-    		cal.set(Calendar.SECOND, 59);
-    		cal.set(Calendar.MILLISECOND, 999);
-    		loanVO.setExpectedEndDate(cal.getTime());
-    	} else
-    	{
     		
-    	}
+    	} 
     	
     	Loan loan = getLoanDao().loanVOToEntity(loanVO);
     	
@@ -138,5 +126,34 @@ public class LoanServiceImpl
     	Collection<Loan> loans = getLoanDao().findByCriteria(searchCriteria);
         return getLoanDao().toLoanVOArray(loans);
     }
+
+	@Override
+	protected LoanVO handleAddInterest(LoanVO loanVO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected LoanVO handleCalculateLoanEndDate(LoanVO loanVO) throws Exception {
+		MotsheloInstanceVO motsheloInstanceVO = loanVO.getMotsheloInstance();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(loanVO.getStartDate());		
+		cal.add(Calendar.MONTH, motsheloInstanceVO.getMotshelo().getRepaymentTerm());
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		cal.set(Calendar.MILLISECOND, 999);
+		loanVO.setExpectedEndDate(cal.getTime());
+		
+		return loanVO;
+	}
+
+	@Override
+	protected Collection<LoanVO> handleGenerateContributionLoans(MotsheloInstanceVO motsheloInstanceVO)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

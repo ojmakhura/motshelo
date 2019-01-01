@@ -8,11 +8,15 @@
  */
 package com.systemsjr.motshelo.instance.period.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
-import java.util.Collection;
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.instance.period.service.InstancePeriodService
@@ -45,6 +49,13 @@ public class InstancePeriodServiceImpl
         throws Exception
     {
     	InstancePeriod instancePeriod = getInstancePeriodDao().instancePeriodVOToEntity(instancePeriodVO);
+    	instancePeriod.setMotsheloInstance(getMotsheloInstanceDao().load(instancePeriod.getMotsheloInstance().getId()));
+    	
+    	SimpleDateFormat f1 = new SimpleDateFormat("MMM");
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(instancePeriodVO.getLoanByDate());
+    	instancePeriod.setPeriodName(f1.format(instancePeriodVO.getLoanByDate()) + " " + cal.get(Calendar.YEAR));
+    	
     	instancePeriod = getInstancePeriodDao().createOrUpdate(instancePeriod);
     	return getInstancePeriodDao().toInstancePeriodVO(instancePeriod);
     }

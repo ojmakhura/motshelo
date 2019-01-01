@@ -6,12 +6,6 @@
  */
 package com.systemsjr.motshelo.loan;
 
-import com.systemsjr.motshelo.interest.Interest;
-import com.systemsjr.motshelo.interest.vo.InterestVO;
-import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
-import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.transaction.Transaction;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +18,13 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
+
+import com.systemsjr.motshelo.interest.Interest;
+import com.systemsjr.motshelo.interest.vo.InterestVO;
+import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+
+import sun.security.action.GetLongAction;
 
 /**
  * @see Loan
@@ -52,12 +53,13 @@ public class LoanDaoImpl
         // WARNING! No conversion for target.motshelo (can't convert source.getMotshelo():com.systemsjr.motshelo.Motshelo to com.systemsjr.motshelo.vo.MotsheloVO
         if(source.getMotsheloInstance() != null)
         {
-        	target.setMotsheloInstance(getMotsheloInstanceDao().toMotsheloInstanceVO(source.getMotsheloInstance()));
+        	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
         }
         
-        if(!CollectionUtils.isEmpty(source.getInterests()))
+        target.setInterests(new ArrayList<InterestVO>());
+        for(Interest insterest : source.getInterests())
         {
-        	target.setInterests(getInterestDao().toInterestVOCollection(source.getInterests()));
+        	target.getInterests().add(getInterestDao().getBasicInterestVO(insterest));
         }
     }
 
@@ -99,18 +101,19 @@ public class LoanDaoImpl
         
         if(loanVO.getInstanceMember() != null)
         {
-        	entity.setInstanceMember(getInstanceMemberDao().load(loanVO.getInstanceMember().getId()));
+        	entity.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberEntity(loanVO.getInstanceMember()));
         }
         
         if(loanVO.getMotsheloInstance() != null)
         {
-        	entity.setMotsheloInstance(getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId()));
+        	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(loanVO.getMotsheloInstance()));
         }
         
-        Collection<InterestVO> interests = loanVO.getInterests();        
+        Collection<InterestVO> interests = loanVO.getInterests();
+        entity.setInterests(new ArrayList<Interest>());
         for(InterestVO interest : interests)
         {
-        	entity.addInterests(getInterestDao().load(interest.getId()));
+        	entity.addInterests(getInterestDao().getBasicInterestEntity(interest));
         }
         
         return entity;
@@ -147,5 +150,28 @@ public class LoanDaoImpl
 		query.orderBy(builder.desc(root.get("startDate")));
 		TypedQuery<Loan> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected Loan handleGetBasicLoanEntity(LoanVO loanVO) throws Exception {
+		
+		Loan loan = Loan.Factory.newInstance();
+		loan.setId(loanVO.getId());
+		super.loanVOToEntity(loanVO, loan, true);
+		loan.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberEntity(loanVO.getInstanceMember()));
+		loan.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(loanVO.getMotsheloInstance()));
+		
+		return loan;
+	}
+
+	@Override
+	protected LoanVO handleGetBasicLoanVO(Loan loan) throws Exception {
+		
+		LoanVO loanVO = new LoanVO();
+		super.toLoanVO(loan, loanVO);
+		loanVO.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(loan.getInstanceMember()));
+		loanVO.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(loan.getMotsheloInstance()));
+		
+		return loanVO;
 	}
 }

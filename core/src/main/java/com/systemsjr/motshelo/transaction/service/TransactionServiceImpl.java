@@ -8,11 +8,13 @@
  */
 package com.systemsjr.motshelo.transaction.service;
 
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.transaction.Transaction;
 import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
-import java.util.Collection;
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.transaction.service.TransactionService

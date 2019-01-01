@@ -6,10 +6,28 @@
  */
 package com.systemsjr.motshelo.instance;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
+
+import com.systemsjr.motshelo.Motshelo;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceSearchCriteria;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
-import java.util.Collection;
-import org.springframework.stereotype.Repository;
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.transaction.Transaction;
+import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
 /**
  * @see MotsheloInstance
@@ -24,8 +42,36 @@ public class MotsheloInstanceDaoImpl
     @Override
     protected Collection<MotsheloInstance> handleFindByCriteria(MotsheloInstanceSearchCriteria searchCriteria)
     {
-        // TODO implement public Collection<MotsheloInstance> handleFindByCriteria(MotsheloInstanceSearchCriteria searchCriteria)
-        return null;
+    	CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<MotsheloInstance> query = builder.createQuery(MotsheloInstance.class);
+    	Root<MotsheloInstance> root = query.from(MotsheloInstance.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(searchCriteria.getInstanceName() != null)
+		{
+			predicates.add(builder.like(root.<String>get("instanceName"), "%" + searchCriteria.getInstanceName() + "%"));
+		}
+		
+		if(searchCriteria.getMaxYear() != null)
+		{
+			predicates.add(builder.le(root.<Integer>get("maxYear"), searchCriteria.getMaxYear() ));
+		}
+		
+		if(searchCriteria.getMinYear() != null)
+		{
+			predicates.add(builder.ge(root.<Integer>get("minYear"), searchCriteria.getMinYear() ));
+		}
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.asc(root.get("instanceName")));
+		TypedQuery<MotsheloInstance> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
     }
 
     /**
@@ -39,9 +85,31 @@ public class MotsheloInstanceDaoImpl
         // TODO verify behavior of toMotsheloInstanceVO
         super.toMotsheloInstanceVO(source, target);
         // WARNING! No conversion for target.motshelo (can't convert source.getMotshelo():com.systemsjr.motshelo.Motshelo to com.systemsjr.motshelo.vo.MotsheloVO
-        // WARNING! No conversion for target.members (can't convert source.getMembers():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
+        if(source.getMotshelo() != null)
+        {
+        	target.setMotshelo(getMotsheloDao().getBasicMotsheloVO(source.getMotshelo()));
+        }
+        
+        // WARNING! No conversion for target.members (can't convert source.getInstanceMembers():com.systemsjr.motshelo.member.Member to com.systemsjr.motshelo.member.vo.MemberVO
+        target.setInstanceMembers(new ArrayList<InstanceMemberVO>());
+        for(InstanceMember member : source.getInstanceMembers())
+        {
+        	target.getInstanceMembers().add(getInstanceMemberDao().getBasicInstanceMemberVO(member));
+        }
+        
         // WARNING! No conversion for target.transactions (can't convert source.getTransactions():com.systemsjr.motshelo.transaction.Transaction to com.systemsjr.motshelo.transaction.vo.TransactionVO
+        target.setLoans(new ArrayList<LoanVO>());
+        for(Loan loan : source.getLoans())
+        {
+        	target.getLoans().add(getLoanDao().getBasicLoanVO(loan));
+        }
+        
         // WARNING! No conversion for target.loans (can't convert source.getLoans():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO
+        target.setTransactions(new ArrayList<TransactionVO>());
+        for(Transaction trans : source.getTransactions())
+        {
+        	target.getTransactions().add(getTransactionDao().getBasicTransactionVO(trans));
+        }
     }
 
     /**
@@ -61,19 +129,14 @@ public class MotsheloInstanceDaoImpl
      */
     private MotsheloInstance loadMotsheloInstanceFromMotsheloInstanceVO(MotsheloInstanceVO motsheloInstanceVO)
     {
-        // TODO implement loadMotsheloInstanceFromMotsheloInstanceVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.instance.loadMotsheloInstanceFromMotsheloInstanceVO(MotsheloInstanceVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (motsheloInstanceVO.getId() == null)
-        {
-            return  MotsheloInstance.Factory.newInstance();
-        }
-        else
-        {
-            return this.load(motsheloInstanceVO.getId());
-        }
-        */
+    	MotsheloInstance instance = MotsheloInstance.Factory.newInstance();
+    	
+    	if(motsheloInstanceVO != null && motsheloInstanceVO.getId() != null)
+    	{
+    		instance = this.load(motsheloInstanceVO.getId());
+    	}
+    	
+    	return instance;
     }
 
     /**
@@ -84,6 +147,33 @@ public class MotsheloInstanceDaoImpl
         // TODO verify behavior of motsheloInstanceVOToEntity
         MotsheloInstance entity = this.loadMotsheloInstanceFromMotsheloInstanceVO(motsheloInstanceVO);
         this.motsheloInstanceVOToEntity(motsheloInstanceVO, entity, true);
+        
+        if(motsheloInstanceVO.getMotshelo() != null)
+        {
+        	entity.setMotshelo(getMotsheloDao().getBasicMotsheloEntity(motsheloInstanceVO.getMotshelo()));
+        }
+        
+        Collection<InstanceMemberVO> instanceMembers = motsheloInstanceVO.getInstanceMembers();
+        entity.setInstanceMembers(new ArrayList<InstanceMember>());
+        for(InstanceMemberVO instanceMember : instanceMembers)
+        {
+        	entity.addInstanceMembers(getInstanceMemberDao().getBasicInstanceMemberEntity(instanceMember));
+        }
+        
+        Collection<LoanVO> loans = motsheloInstanceVO.getLoans();
+        entity.setLoans(new ArrayList<Loan>());
+        for(LoanVO loan : loans)
+        {
+        	entity.addLoans(getLoanDao().getBasicLoanEntity(loan));
+        }
+        
+        Collection<TransactionVO> transactions = motsheloInstanceVO.getTransactions();
+        entity.setTransactions(new ArrayList<Transaction>());
+        for(TransactionVO transaction : transactions)
+        {
+        	entity.addTransactions(getTransactionDao().getBasicTransactionEntity(transaction));
+        }
+        
         return entity;
     }
 
@@ -102,7 +192,51 @@ public class MotsheloInstanceDaoImpl
 
 	@Override
 	protected Collection<MotsheloInstance> handleFindByInstanceName(String instanceName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<MotsheloInstance> query = builder.createQuery(MotsheloInstance.class);
+    	Root<MotsheloInstance> root = query.from(MotsheloInstance.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(instanceName != null)
+		{
+			predicates.add(builder.equal(root.<String>get("instanceName"), instanceName));
+		}	
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		TypedQuery<MotsheloInstance> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected MotsheloInstanceVO handleGetBasicMotsheloInstanceVO(MotsheloInstance motsheloInstance) throws Exception {
+
+		MotsheloInstanceVO vo = new MotsheloInstanceVO();
+		super.toMotsheloInstanceVO(motsheloInstance, vo);
+		if(motsheloInstance.getMotshelo() != null)
+		{
+			vo.setMotshelo(getMotsheloDao().getBasicMotsheloVO(motsheloInstance.getMotshelo()));
+		}
+		
+		return vo;
+	}
+
+	@Override
+	protected MotsheloInstance handleGetBasicMotsheloInstanceEntity(MotsheloInstanceVO motsheloInstanceVO)
+			throws Exception {
+		MotsheloInstance entity = MotsheloInstance.Factory.newInstance();
+		entity.setId(motsheloInstanceVO.getId());
+		super.motsheloInstanceVOToEntity(motsheloInstanceVO, entity, true);
+		if(motsheloInstanceVO.getMotshelo() != null)
+		{
+			entity.setMotshelo(getMotsheloDao().getBasicMotsheloEntity(motsheloInstanceVO.getMotshelo()));
+		}
+		
+		return entity;
 	}
 }

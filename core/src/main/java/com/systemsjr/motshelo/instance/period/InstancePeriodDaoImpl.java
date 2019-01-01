@@ -6,10 +6,21 @@
  */
 package com.systemsjr.motshelo.instance.period;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Repository;
+
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
-import java.util.Collection;
-import org.springframework.stereotype.Repository;
 
 /**
  * @see InstancePeriod
@@ -24,8 +35,38 @@ public class InstancePeriodDaoImpl
     @Override
     protected Collection<InstancePeriod> handleFindByCriteria(InstancePeriodSearchCriteria searchCriteria)
     {
-        // TODO implement public Collection<InstancePeriod> handleFindByCriteria(InstancePeriodSearchCriteria searchCriteria)
-        return null;
+    	CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
+    	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		Join join = root.join("motsheloInstance");
+		
+		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
+		{
+			predicates.add(builder.equal(join.get("id"), searchCriteria.getMotsheloInstance().getId() ));
+		}
+    	
+		if(searchCriteria.getDate() != null)
+		{
+			//predicates.add(builder.le(root.<Date>get("startDate"), searchCriteria.getDate()));
+			//predicates.add(builder.ge(root.<Date>get("endDate"), searchCriteria.getDate()));
+		}
+		
+		if(searchCriteria.getPeriodName() != null)
+		{
+			predicates.add(builder.like(root.<String>get("periodName"), "%" + searchCriteria.getPeriodName() + "%"));
+		}
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.asc(root.get("loanByDate")));
+		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
     }
 
     /**
@@ -41,7 +82,7 @@ public class InstancePeriodDaoImpl
         // WARNING! No conversion for target.motsheloInstance (can't convert source.getMotsheloInstance():com.systemsjr.motshelo.instance.MotsheloInstance to com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO
         if(source.getMotsheloInstance() != null)
         {
-        	target.setMotsheloInstance(getMotsheloInstanceDao().toMotsheloInstanceVO(source.getMotsheloInstance()));
+        	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
         }
     }
 
@@ -78,12 +119,13 @@ public class InstancePeriodDaoImpl
     public InstancePeriod instancePeriodVOToEntity(InstancePeriodVO instancePeriodVO)
     {
         // TODO verify behavior of instancePeriodVOToEntity
-        InstancePeriod entity = this.loadInstancePeriodFromInstancePeriodVO(instancePeriodVO);
+        InstancePeriod entity = InstancePeriod.Factory.newInstance();
+        entity.setId(instancePeriodVO.getId());
         this.instancePeriodVOToEntity(instancePeriodVO, entity, true);
         
         if(instancePeriodVO.getMotsheloInstance() != null)
         {
-        	entity.setMotsheloInstance(getMotsheloInstanceDao().load(instancePeriodVO.getMotsheloInstance().getId()));
+        	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instancePeriodVO.getMotsheloInstance()));
         }
         
         return entity;
@@ -101,4 +143,30 @@ public class InstancePeriodDaoImpl
         // TODO verify behavior of instancePeriodVOToEntity
         super.instancePeriodVOToEntity(source, target, copyIfNull);
     }
+
+	@Override
+	protected InstancePeriodVO handleGetBasicInstancePeriodVO(InstancePeriod instancePeriod) throws Exception {
+		
+		InstancePeriodVO vo = new InstancePeriodVO();
+		super.toInstancePeriodVO(instancePeriod, vo);
+		if(instancePeriod.getMotsheloInstance() != null)
+		{
+			vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(instancePeriod.getMotsheloInstance()));
+		}
+		
+		return vo;
+	}
+
+	@Override
+	protected InstancePeriod handleGetBasicInstancePeriodEntity(InstancePeriodVO instancePeriodVO) throws Exception {
+		
+		InstancePeriod entity = this.loadInstancePeriodFromInstancePeriodVO(instancePeriodVO);
+		super.instancePeriodVOToEntity(instancePeriodVO, entity, true);
+		if(instancePeriodVO.getMotsheloInstance() != null)
+		{
+			entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instancePeriodVO.getMotsheloInstance()));
+		}
+		
+		return entity;
+	}
 }

@@ -8,12 +8,14 @@
  */
 package com.systemsjr.motshelo.service;
 
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.Motshelo;
 import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
-import java.util.Collection;
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.service.MotsheloService

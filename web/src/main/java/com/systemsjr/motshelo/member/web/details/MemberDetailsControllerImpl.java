@@ -16,15 +16,6 @@ public class MemberDetailsControllerImpl
     private static final long serialVersionUID = 4920445328801033330L;
 
     /**
-     * @see com.systemsjr.motshelo.member.web.details.MemberDetailsController#exitInitialiseDetailsScreen(MemberVO memberVO)
-     */
-    @Override
-    public void exitInitialiseDetailsScreen(ExitInitialiseDetailsScreenForm form)
-    {
-        
-    }
-
-    /**
      * @see com.systemsjr.motshelo.member.web.details.MemberDetailsController#doInitialiseDetailsScreen(MemberVO memberVO)
      */
     @Override
@@ -33,31 +24,9 @@ public class MemberDetailsControllerImpl
         
     }
 
-    /**
-     * @see com.systemsjr.motshelo.member.web.details.MemberDetailsController#enterInitialiseDetailsScreen(MemberVO memberVO)
-     */
-    @Override
-    public void enterInitialiseDetailsScreen(EnterInitialiseDetailsScreenForm form)
-    {
-        
-    }
-
-	@Override
-	public void enterMemberEdit(EnterMemberEditForm form) throws Throwable {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void doMemberEdit(DoMemberEditForm form) throws Throwable {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void exitMemberEdit(ExitMemberEditForm form) throws Throwable {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
