@@ -8,17 +8,20 @@ package com.systemsjr.motshelo.instance.period;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 
@@ -39,17 +42,17 @@ public class InstancePeriodDaoImpl
     	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
     	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
-		Join join = root.join("motsheloInstance");
+		Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
 		
 		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
 		{
-			predicates.add(builder.equal(join.get("id"), searchCriteria.getMotsheloInstance().getId() ));
+			predicates.add(builder.equal(join.<Long>get("id"), searchCriteria.getMotsheloInstance().getId() ));
 		}
     	
 		if(searchCriteria.getDate() != null)
 		{
-			//predicates.add(builder.le(root.<Date>get("startDate"), searchCriteria.getDate()));
-			//predicates.add(builder.ge(root.<Date>get("endDate"), searchCriteria.getDate()));
+			predicates.add(builder.lessThanOrEqualTo(root.<Date>get("startDate"), searchCriteria.getDate()));
+			predicates.add(builder.greaterThanOrEqualTo(root.<Date>get("endDate"), searchCriteria.getDate()));
 		}
 		
 		if(searchCriteria.getPeriodName() != null)
@@ -64,7 +67,7 @@ public class InstancePeriodDaoImpl
 	        query.where(pr); 
 		}
 		
-		query.orderBy(builder.asc(root.get("loanByDate")));
+		query.orderBy(builder.desc(root.get("loanByDate")));
 		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
     }
