@@ -11,12 +11,15 @@ package com.systemsjr.motshelo.instance.period.service;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 
 /**
  * @see com.systemsjr.motshelo.instance.period.service.InstancePeriodService
@@ -157,5 +160,29 @@ public class InstancePeriodServiceImpl
     	Collection<InstancePeriod> instancePeriods = getInstancePeriodDao().findByCriteria(searchCriteria);
     	return getInstancePeriodDao().toInstancePeriodVOArray(instancePeriods);
     }
+
+	@Override
+	protected Collection<InstancePeriodVO> handleSearchPreviousActivePeriods(Date currentDate, MotsheloInstanceVO motsheloInstanceVO) throws Exception {
+		Collection<InstancePeriod> instancePeriods = getInstancePeriodDao().getPreviousActivePeriods(currentDate, getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO));
+    	return getInstancePeriodDao().toInstancePeriodVOCollection(instancePeriods);
+	}
+
+	@Override
+	protected Collection<InstancePeriodVO> handleSearchPreviousPeriods(Date currentDate, MotsheloInstanceVO motsheloInstanceVO) throws Exception {
+		Collection<InstancePeriod> instancePeriods = getInstancePeriodDao().getPreviousPeriods(currentDate, getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO));
+    	return getInstancePeriodDao().toInstancePeriodVOCollection(instancePeriods);
+	}
+
+	@Override
+	protected Collection<InstancePeriodVO> handleSearchUpcomingPeriods(Date currentDate, MotsheloInstanceVO motsheloInstanceVO) throws Exception {
+		Collection<InstancePeriod> instancePeriods = getInstancePeriodDao().getUpcomingPeriods(currentDate, getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO));
+    	return getInstancePeriodDao().toInstancePeriodVOCollection(instancePeriods);
+	}
+
+	@Override
+	protected InstancePeriodVO handleGetCurrentPeriod(MotsheloInstanceVO motsheloInstanceVO) throws Exception {
+		InstancePeriod instancePeriod = getInstancePeriodDao().getCurrentPeriod(getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO));
+    	return instancePeriod != null ? getInstancePeriodDao().toInstancePeriodVO(instancePeriod) : null;
+	}
 
 }

@@ -12,6 +12,11 @@ import java.util.Collection;
 
 import org.springframework.stereotype.Service;
 
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.LoanStatus;
+import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.transaction.Transaction;
 import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
@@ -43,6 +48,17 @@ public class TransactionServiceImpl
     {
     	Transaction transaction = getTransactionDao().transactionVOToEntity(transactionVO);
     	transaction = getTransactionDao().createOrUpdate(transaction);
+    	
+    	// Split the transaction into different loans
+    	MotsheloInstanceVO motsheloInstance = getMotsheloInstanceDao().toMotsheloInstanceVO(getMotsheloInstanceDao().load(transactionVO.getMotsheloInstance().getId()));
+    	
+    	Collection<InstanceMemberVO> members = motsheloInstance.getInstanceMembers();    	
+    	LoanSearchCriteria loanCriteria = new LoanSearchCriteria();
+    	loanCriteria.setMotsheloInstance(motsheloInstance);
+    	loanCriteria.setStatus(LoanStatus.ACTIVE);
+    	
+    	Collection<LoanVO> loans = getLoanService().searchLoans(loanCriteria);
+    	
     	return getTransactionDao().toTransactionVO(transaction);
     }
 

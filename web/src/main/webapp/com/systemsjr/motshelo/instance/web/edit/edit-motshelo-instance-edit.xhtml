@@ -66,14 +66,9 @@
 			<p:message id="motsheloInstanceVOBalance_message"
 				for="motsheloInstanceVOBalance" />
 			<f:facet name="footer">
-				<p:commandButton id="editMotsheloInstanceSaveAction"
-					value="#{messages['save']}"
-					action="#{motsheloInstanceEditController.editMotsheloInstanceSave}"
-					ajax="false" />
-				<p:commandButton id="editMotsheloInstanceNewAction"
-					value="#{messages['new']}"
-					action="#{motsheloInstanceEditController.editMotsheloInstanceNew}"
-					immediate="true" ajax="false" />
+				<p:commandButton id="editMotsheloInstanceSaveAction" value="#{messages['save']}" action="#{motsheloInstanceEditController.editMotsheloInstanceSave}" ajax="false" />
+				<p:commandButton id="editMotsheloInstanceNewAction" value="#{messages['new']}" action="#{motsheloInstanceEditController.editMotsheloInstanceNew}" immediate="true" ajax="false" />
+				<p:commandButton id="editMotsheloInstanceUpdateAction" value="#{messages['update']}" action="#{motsheloInstanceEditController.updateMotsheloInstance}" immediate="true" ajax="false" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>

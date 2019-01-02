@@ -8,17 +8,23 @@ package com.systemsjr.motshelo.loan;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.payment.LoanPayment;
@@ -153,6 +159,28 @@ public class LoanDaoImpl
     	CriteriaQuery<Loan> query = builder.createQuery(Loan.class);
     	Root<Loan> root = query.from(Loan.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(searchCriteria.getInstanceMember() != null && searchCriteria.getInstanceMember().getId() != null)
+		{
+			Join<Loan, InstanceMember> joinMember = root.join("instanceMember", JoinType.INNER);
+			predicates.add(builder.equal(joinMember.<Long>get("id"), searchCriteria.getInstanceMember().getId() ));
+		}
+		
+		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
+		{
+			Join<Loan, MotsheloInstance> joinMotsheloInstance = root.join("instanceMember", JoinType.INNER);
+			predicates.add(builder.equal(joinMotsheloInstance.<Long>get("id"), searchCriteria.getMotsheloInstance().getId() ));
+		}
+		
+		if(searchCriteria.getStatus() != null)
+		{
+			predicates.add(builder.equal(root.<String>get("status"), searchCriteria.getStatus().getValue()));
+		}
+		
+		if(searchCriteria.getType() != null)
+		{
+			predicates.add(builder.equal(root.<String>get("type"), searchCriteria.getType().getValue()));
+		}
 
 		if(!predicates.isEmpty()) {
 			query.where();

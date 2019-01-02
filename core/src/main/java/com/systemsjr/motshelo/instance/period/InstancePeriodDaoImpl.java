@@ -67,7 +67,7 @@ public class InstancePeriodDaoImpl
 	        query.where(pr); 
 		}
 		
-		query.orderBy(builder.desc(root.get("loanByDate")));
+		query.orderBy(builder.desc(root.get("endDate")));
 		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
     }
@@ -191,5 +191,116 @@ public class InstancePeriodDaoImpl
 		}
 		
 		return entity;
+	}
+
+	@Override
+	protected Collection<InstancePeriod> handleGetPreviousActivePeriods(Date currentDate, MotsheloInstance motsheloInstance) throws Exception {
+		
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
+    	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
+		
+		if(motsheloInstance != null && motsheloInstance.getId() != null)
+		{
+			predicates.add(builder.equal(join.<Long>get("id"), motsheloInstance.getId() ));
+		}
+		
+		predicates.add(builder.lessThanOrEqualTo(root.<Date>get("endDate"), currentDate));
+		predicates.add(builder.equal(root.<String>get("status"), InstancePeriodStatus.ACTIVE.getValue()));
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("endDate")));
+		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected Collection<InstancePeriod> handleGetPreviousPeriods(Date currentDate, MotsheloInstance motsheloInstance) throws Exception {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
+    	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
+		if(motsheloInstance != null && motsheloInstance.getId() != null)
+		{
+			predicates.add(builder.equal(join.<Long>get("id"), motsheloInstance.getId() ));
+		}
+		
+		predicates.add(builder.lessThanOrEqualTo(root.<Date>get("endDate"), currentDate));
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("endDate")));
+		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
+		
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected Collection<InstancePeriod> handleGetUpcomingPeriods(Date currentDate, MotsheloInstance motsheloInstance) throws Exception {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
+    	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
+		if(motsheloInstance != null && motsheloInstance.getId() != null)
+		{
+			predicates.add(builder.equal(join.<Long>get("id"), motsheloInstance.getId() ));
+		}
+		predicates.add(builder.greaterThanOrEqualTo(root.<Date>get("startDate"), currentDate));
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("endDate")));
+		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
+		
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	protected InstancePeriod handleGetCurrentPeriod(MotsheloInstance motsheloInstance) throws Exception {
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
+    	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
+		if(motsheloInstance != null && motsheloInstance.getId() != null)
+		{
+			predicates.add(builder.equal(join.<Long>get("id"), motsheloInstance.getId() ));
+		}
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+		
+		query.orderBy(builder.desc(root.get("endDate")));
+		TypedQuery<InstancePeriod> typedQuery = getSession().createQuery(query);
+		
+		List<InstancePeriod> ps = typedQuery.getResultList();
+		return ps.size() > 0 ? ps.get(0) : null;
 	}
 }

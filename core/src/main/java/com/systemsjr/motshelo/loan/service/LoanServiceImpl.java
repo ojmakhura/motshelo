@@ -49,6 +49,11 @@ public class LoanServiceImpl
     
     private Interest getLoanInterest(LoanVO loanVO)
     {
+    	if(loanVO.getStatus() == LoanStatus.ACTIVE && loanVO.getType() == LoanType.INTERESTFREE)
+    	{
+    		return null;
+    	}
+    		
     	Interest interest = Interest.Factory.newInstance();
     	Motshelo motshelo = getMotsheloDao().load(loanVO.getMotsheloInstance().getMotshelo().getId());
     	

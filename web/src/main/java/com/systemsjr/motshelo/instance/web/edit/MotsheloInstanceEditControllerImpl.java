@@ -13,6 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
+import com.systemsjr.motshelo.instance.period.InstancePeriod;
+import com.systemsjr.motshelo.instance.period.InstancePeriodStatus;
+import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.LoanType;
@@ -169,6 +172,7 @@ public class MotsheloInstanceEditControllerImpl
 	@Override
 	public void updateMotsheloInstance() throws Throwable {
 		// TODO Auto-generated method stub
-		
+		MotsheloInstanceVO motsheloInstanceVO = getMotsheloInstanceService().updateMotsheloInstance(getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO());
+		getEditMotsheloInstanceSaveForm().setMotsheloInstanceVO(motsheloInstanceVO);
 	}
 }
