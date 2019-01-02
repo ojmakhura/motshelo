@@ -133,7 +133,9 @@ public class InterestDaoImpl
 		Interest entity = Interest.Factory.newInstance();
 		entity.setId(interestVO.getId());
 		super.interestVOToEntity(interestVO, entity, true);
-		entity.setLoan(getLoanDao().getBasicLoanEntity(interestVO.getLoan()));
+		if(interestVO.getLoan() != null) {
+			entity.setLoan(getLoanDao().getBasicLoanEntity(interestVO.getLoan()));
+		}
 		return entity;
 	}
 
@@ -142,7 +144,10 @@ public class InterestDaoImpl
 		
 		InterestVO vo = new InterestVO();
 		super.interestVOToEntity(vo, interest, true);
-		vo.setLoan(getLoanDao().getBasicLoanVO(interest.getLoan()));
+		
+		if(interest.getLoan() != null) {
+			vo.setLoan(getLoanDao().getBasicLoanVO(interest.getLoan()));
+		}
 		return vo;
 	}
 }

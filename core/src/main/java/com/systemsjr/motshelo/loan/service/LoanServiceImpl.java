@@ -9,18 +9,25 @@
 package com.systemsjr.motshelo.loan.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.systemsjr.motshelo.Motshelo;
+import com.systemsjr.motshelo.instance.period.InstancePeriod;
+import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.LoanStatus;
+import com.systemsjr.motshelo.loan.LoanType;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see com.systemsjr.motshelo.loan.service.LoanService
@@ -39,6 +46,69 @@ public class LoanServiceImpl
     {
     	return id == null ? null : getLoanDao().toLoanVO(getLoanDao().load(id));
     }
+    
+    private Interest getLoanInterest(LoanVO loanVO)
+    {
+    	Interest interest = Interest.Factory.newInstance();
+    	Motshelo motshelo = getMotsheloDao().load(loanVO.getMotsheloInstance().getMotshelo().getId());
+    	
+    	// This is a new loan so create the necessary interest
+    	if(loanVO.getId() == null && loanVO.getType() == LoanType.STANDARD)
+    	{
+    		double interestAmount = motshelo.getLoanInterest() * loanVO.getAmount().doubleValue() / 100;
+    		interest.setAmount(new BigDecimal(interestAmount));
+    		interest.setType("STANDARD INTEREST");
+    		double loanBalance = interestAmount + interest.getAmount().doubleValue();
+    		loanVO.setBalance(new BigDecimal(loanBalance));
+    		loanVO = getLoanExpectedEndDate(loanVO, motshelo.getRepaymentTerm());
+    	} else {
+    		Calendar cal = Calendar.getInstance();
+    		Date today = cal.getTime();
+    		
+    		/// Check if the loan is overdue and add interest on the balance
+    		if(today.compareTo(loanVO.getExpectedEndDate()) > 0)
+    		{
+    			interest.setType("DEFAULTING INTEREST");
+    			double interestAmount = motshelo.getLoanDefaultInterest() * loanVO.getBalance().doubleValue() / 100;
+    			interest.setAmount(new BigDecimal(interestAmount));
+    			double loanBalance = interestAmount + interest.getAmount().doubleValue();
+    			loanVO.setBalance(new BigDecimal(loanBalance));
+    			loanVO.setStatus(LoanStatus.DAFAULTED);
+    			loanVO = getLoanExpectedEndDate(loanVO, motshelo.getRepaymentTerm());
+    		}
+    	}
+    	
+    	return interest;
+    }
+    
+    private LoanVO getLoanExpectedEndDate(LoanVO loanVO, Integer repaymentTerm) {
+    	
+    	Date start = loanVO.getStartDate();
+    	    	
+    	if(loanVO.getStatus() == LoanStatus.DAFAULTED)
+    	{
+    		start = loanVO.getExpectedEndDate();
+    	}
+    	
+    	InstancePeriodSearchCriteria searchCriteria = new InstancePeriodSearchCriteria();
+    	searchCriteria.setDate(start);
+    	ArrayList<InstancePeriod> periods = (ArrayList<InstancePeriod>) getInstancePeriodDao().findByCriteria(searchCriteria);
+    	InstancePeriod last = periods.get(0);
+    	
+    	if(loanVO.getStatus() != LoanStatus.DAFAULTED && start.compareTo(last.getLoanByDate()) > 0)
+    	{
+    		last = last.getNextPeriod();
+    	}
+    	
+    	for(int i = 1; i < repaymentTerm; i++)
+    	{
+    		last = last.getNextPeriod();
+    	}
+    	
+    	loanVO.setExpectedEndDate(last.getEndDate());
+    	
+    	return loanVO;
+    }
 
     /**
      * @see com.systemsjr.motshelo.loan.service.LoanService#saveLoan(LoanVO)
@@ -48,23 +118,25 @@ public class LoanServiceImpl
         throws Exception
     {
     	
-    	if(loanVO != null && loanVO.getId() != null)
+    	if(loanVO == null)
     	{
-    		MotsheloInstanceVO motsheloInstanceVO = loanVO.getMotsheloInstance();
-    		
-    		InterestVO interestVO = new InterestVO();
-    		interestVO.setType("STANDARD");    		
-    		double amount = loanVO.getAmount().floatValue();
-    		double interestAmount = motsheloInstanceVO.getMotshelo().getLoanInterest()/100 * amount;
-    		interestVO.setAmount(new BigDecimal(interestAmount));
-    		
-    		double loanBalance = amount + interestAmount;
-    		loanVO.setBalance(new BigDecimal(loanBalance));
-    		
-    		
-    	} 
+    		return null;
+    	}
     	
-    	Loan loan = getLoanDao().loanVOToEntity(loanVO);
+    	//loanVO = getLoanExpectedEndDate(loanVO, motshelo.getRepaymentTerm());
+    	Interest interest = getLoanInterest(loanVO);     	
+    	
+    	//loanVO.setInstanceMember(getInstanceMemberDao().load(id));
+    	Loan loan = getLoanDao().loanVOToEntity(loanVO);   
+    	loan.setInstanceMember(getInstanceMemberDao().load(loan.getInstanceMember().getId()));
+    	loan = getLoanDao().createOrUpdate(loan);
+    	
+    	// we have created a new interest on the load so we need to save it
+    	if(interest.getAmount() != null)
+    	{
+    		interest.setLoan(loan);
+    		interest = getInterestDao().createOrUpdate(interest);
+    	}
     	
     	return getLoanDao().toLoanVO(loan);
     }

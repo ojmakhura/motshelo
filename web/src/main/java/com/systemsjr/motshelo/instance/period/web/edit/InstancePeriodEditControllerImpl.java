@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 
@@ -89,7 +90,38 @@ public class InstancePeriodEditControllerImpl
         {
         	instancePeriodVO.setMotsheloInstance(new MotsheloInstanceVO());
         }
+        
+        if(instancePeriodVO.getPreviousPeriod() == null)
+        {
+        	instancePeriodVO.setPreviousPeriod(new InstancePeriodVO());
+        }
+        
+        if(instancePeriodVO.getNextPeriod() == null)
+        {
+        	instancePeriodVO.setNextPeriod(new InstancePeriodVO());
+        }
+        
         form.setInstancePeriodVO(instancePeriodVO);
+        
+        MotsheloInstanceVO instanceVO = instancePeriodVO.getMotsheloInstance();
+        InstancePeriodSearchCriteria criteria = new InstancePeriodSearchCriteria();
+        
+        if(instanceVO != null && instanceVO.getId() != null) {
+        	criteria.setMotsheloInstance(instanceVO);
+        }
+        
+        Collection<InstancePeriodVO> periods = getInstancePeriodService().searchInstancePeriods(criteria);
+        Collection<SelectItem> nextBackingList = new ArrayList<SelectItem>();
+        Collection<SelectItem> previousBackingList = new ArrayList<SelectItem>();
+        for(InstancePeriodVO period : periods)
+        {
+        	nextBackingList.add(new SelectItem(period.getId(), period.getPeriodName()));
+        	previousBackingList.add(new SelectItem(period.getId(), period.getPeriodName()));
+        }
+        form.setInstancePeriodVONextPeriodBackingList(nextBackingList);
+        getEditInstancePeriodSaveForm().setInstancePeriodVONextPeriodBackingList(nextBackingList);
+        form.setInstancePeriodVOPreviousPeriodBackingList(previousBackingList);
+        getEditInstancePeriodSaveForm().setInstancePeriodVOPreviousPeriodBackingList(previousBackingList);
     }
 
 }

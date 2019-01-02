@@ -87,6 +87,16 @@ public class InstancePeriodDaoImpl
         {
         	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
         }
+        
+        if(source.getPreviousPeriod() != null)
+        {
+        	target.setPreviousPeriod(getBasicInstancePeriodVO(source.getPreviousPeriod()));
+        }
+
+        if(source.getNextPeriod() != null)
+        {
+        	target.setNextPeriod(getBasicInstancePeriodVO(source.getNextPeriod()));
+        }
     }
 
     /**
@@ -122,13 +132,22 @@ public class InstancePeriodDaoImpl
     public InstancePeriod instancePeriodVOToEntity(InstancePeriodVO instancePeriodVO)
     {
         // TODO verify behavior of instancePeriodVOToEntity
-        InstancePeriod entity = InstancePeriod.Factory.newInstance();
-        entity.setId(instancePeriodVO.getId());
+        InstancePeriod entity = loadInstancePeriodFromInstancePeriodVO(instancePeriodVO);
         this.instancePeriodVOToEntity(instancePeriodVO, entity, true);
         
         if(instancePeriodVO.getMotsheloInstance() != null)
         {
         	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instancePeriodVO.getMotsheloInstance()));
+        }
+        
+        if(instancePeriodVO.getPreviousPeriod() != null)
+        {
+        	entity.setPreviousPeriod(getBasicInstancePeriodEntity(instancePeriodVO.getPreviousPeriod()));
+        }
+
+        if(instancePeriodVO.getNextPeriod() != null)
+        {
+        	entity.setNextPeriod(getBasicInstancePeriodEntity(instancePeriodVO.getNextPeriod()));
         }
         
         return entity;
@@ -163,7 +182,8 @@ public class InstancePeriodDaoImpl
 	@Override
 	protected InstancePeriod handleGetBasicInstancePeriodEntity(InstancePeriodVO instancePeriodVO) throws Exception {
 		
-		InstancePeriod entity = this.loadInstancePeriodFromInstancePeriodVO(instancePeriodVO);
+		InstancePeriod entity = InstancePeriod.Factory.newInstance();//this.loadInstancePeriodFromInstancePeriodVO(instancePeriodVO);
+		entity.setId(instancePeriodVO.getId());
 		super.instancePeriodVOToEntity(instancePeriodVO, entity, true);
 		if(instancePeriodVO.getMotsheloInstance() != null)
 		{

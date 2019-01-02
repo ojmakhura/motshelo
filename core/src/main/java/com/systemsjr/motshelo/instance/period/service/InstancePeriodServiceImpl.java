@@ -51,12 +51,51 @@ public class InstancePeriodServiceImpl
     	InstancePeriod instancePeriod = getInstancePeriodDao().instancePeriodVOToEntity(instancePeriodVO);
     	instancePeriod.setMotsheloInstance(getMotsheloInstanceDao().load(instancePeriod.getMotsheloInstance().getId()));
     	
+    	InstancePeriod next = instancePeriod.getNextPeriod();
+    	if(next == null || next.getId() == null)
+    	{
+    		instancePeriod.setNextPeriod(null);
+    	} else {
+    		instancePeriod.setNextPeriod(getInstancePeriodDao().load(next.getId()));
+    	}
+    	
+    	InstancePeriod prev = instancePeriod.getPreviousPeriod();
+    	if(prev == null || prev.getId() == null)
+    	{
+    		instancePeriod.setPreviousPeriod(null);
+    	} else {
+    		instancePeriod.setPreviousPeriod(getInstancePeriodDao().load(prev.getId()));
+    	}
+    	
     	SimpleDateFormat f1 = new SimpleDateFormat("MMM");
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(instancePeriodVO.getLoanByDate());
     	instancePeriod.setPeriodName(f1.format(instancePeriodVO.getLoanByDate()) + " " + cal.get(Calendar.YEAR));
     	
-    	instancePeriod = getInstancePeriodDao().createOrUpdate(instancePeriod);
+    	instancePeriod = getInstancePeriodDao().createOrUpdate(instancePeriod);/*
+    	
+    	InstancePeriod period = InstancePeriod.Factory.newInstance();
+    	period.setId(instancePeriod.getId());
+    	period.setEndDate(instancePeriod.getEndDate());
+    	period.setLoanByDate(instancePeriod.getLoanByDate());
+    	period.setMotsheloInstance(instancePeriod.getMotsheloInstance());
+    	period.setPeriodName(instancePeriod.getPeriodName());
+    	period.setStartDate(instancePeriod.getStartDate());
+    	period.setStatus(instancePeriod.getStatus());
+    	
+    	if(next != null && (next.getPreviousPeriod() == null || next.getPreviousPeriod().getId() != instancePeriod.getId()))
+    	{
+    		next.setPreviousPeriod(period);
+    		getInstancePeriodDao().update(next);
+    	}
+    	
+    	if(prev != null && (prev.getNextPeriod() == null || prev.getNextPeriod().getId() != instancePeriod.getId()))
+    	{
+    		//InstancePeriod period = getInstancePeriodDao().load(instancePeriod.getId());
+    		prev.setNextPeriod(period);
+    		getInstancePeriodDao().update(prev);
+    	}*/
+    	
     	return getInstancePeriodDao().toInstancePeriodVO(instancePeriod);
     }
 

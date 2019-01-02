@@ -75,7 +75,7 @@ public class MotsheloServiceImpl
      * @see com.systemsjr.motshelo.service.MotsheloService#getAllMetshelo()
      */
     @Override
-    protected  Collection handleGetAllMetshelo()
+    protected  Collection<MotsheloVO> handleGetAllMetshelo()
         throws Exception
     {
     	return getMotsheloDao().toMotsheloVOCollection(getMotsheloDao().loadAll());

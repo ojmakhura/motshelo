@@ -8,6 +8,7 @@
  */
 package com.systemsjr.motshelo.loan.payment.service;
 
+import com.systemsjr.motshelo.loan.payment.LoanPayment;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentSearchCriteria;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
@@ -26,11 +27,10 @@ public class LoanPaymentServiceImpl
      * @see com.systemsjr.motshelo.loan.payment.service.LoanPaymentService#findById(Long)
      */
     @Override
-    protected  LoanVO handleFindById(Long id)
+    protected  LoanPaymentVO handleFindById(Long id)
         throws Exception
     {
-        // TODO implement protected  LoanVO handleFindById(Long id)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleFindById(Long id) Not implemented!");
+    	return id == null ? null : getLoanPaymentDao().toLoanPaymentVO(getLoanPaymentDao().load(id));
     }
 
     /**
@@ -40,8 +40,10 @@ public class LoanPaymentServiceImpl
     protected  LoanPaymentVO handleSaveLoanPayment(LoanPaymentVO loanPaymentVO)
         throws Exception
     {
-        // TODO implement protected  LoanPaymentVO handleSaveLoanPayment(LoanPaymentVO loanPaymentVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleSaveLoanPayment(LoanPaymentVO loanPaymentVO) Not implemented!");
+    	LoanPayment payment = getLoanPaymentDao().loanPaymentVOToEntity(loanPaymentVO);
+    	payment = getLoanPaymentDao().createOrUpdate(payment);
+    	
+    	return getLoanPaymentDao().toLoanPaymentVO(payment);
     }
 
     /**
@@ -51,8 +53,13 @@ public class LoanPaymentServiceImpl
     protected  boolean handleRemoveLoanPayment(LoanPaymentVO loanPaymentVO)
         throws Exception
     {
-        // TODO implement protected  boolean handleRemoveLoanPayment(LoanPaymentVO loanPaymentVO)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleRemoveLoanPayment(LoanPaymentVO loanPaymentVO) Not implemented!");
+    	if(loanPaymentVO != null && loanPaymentVO.getId() != null)
+    	{
+    		getLoanPaymentDao().remove(loanPaymentVO.getId());
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     /**
@@ -62,8 +69,7 @@ public class LoanPaymentServiceImpl
     protected  Collection<LoanPaymentVO> handleGetAllLoanPayments()
         throws Exception
     {
-        // TODO implement protected  Collection<LoanPaymentVO> handleGetAllLoanPayments()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleGetAllLoanPayments() Not implemented!");
+    	return getLoanPaymentDao().toLoanPaymentVOCollection(getLoanPaymentDao().loadAll());
     }
 
     /**
@@ -73,8 +79,7 @@ public class LoanPaymentServiceImpl
     protected  LoanPaymentVO[] handleGetAllLoanPaymentsArray()
         throws Exception
     {
-        // TODO implement protected  LoanPaymentVO[] handleGetAllLoanPaymentsArray()
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleGetAllLoanPaymentsArray() Not implemented!");
+    	return getLoanPaymentDao().toLoanPaymentVOArray(getLoanPaymentDao().loadAll());
     }
 
     /**
@@ -84,9 +89,9 @@ public class LoanPaymentServiceImpl
     protected  Collection<LoanPaymentVO> handleSearchLoanPayments(LoanPaymentSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  Collection<LoanPaymentVO> handleSearchLoanPayments(LoanPaymentSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleSearchLoanPayments(LoanPaymentSearchCriteria searchCriteria) Not implemented!");
+    	return getLoanPaymentDao().toLoanPaymentVOCollection(getLoanPaymentDao().findByCriteria(searchCriteria));
     }
+       
 
     /**
      * @see com.systemsjr.motshelo.loan.payment.service.LoanPaymentService#searchLoanPaymentsArray(LoanPaymentSearchCriteria)
@@ -95,8 +100,7 @@ public class LoanPaymentServiceImpl
     protected  LoanPaymentVO[] handleSearchLoanPaymentsArray(LoanPaymentSearchCriteria searchCriteria)
         throws Exception
     {
-        // TODO implement protected  LoanPaymentVO[] handleSearchLoanPaymentsArray(LoanPaymentSearchCriteria searchCriteria)
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.service.LoanPaymentService.handleSearchLoanPaymentsArray(LoanPaymentSearchCriteria searchCriteria) Not implemented!");
+    	return getLoanPaymentDao().toLoanPaymentVOArray(getLoanPaymentDao().findByCriteria(searchCriteria));
     }
 
 }

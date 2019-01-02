@@ -174,10 +174,17 @@ public class InstanceMemberDaoImpl
 
 	@Override
 	protected InstanceMember handleGetBasicInstanceMemberEntity(InstanceMemberVO instanceMemberVO) throws Exception {
-		InstanceMember instance = new InstanceMember();
+		InstanceMember instance = InstanceMember.Factory.newInstance();
+		instance.setId(instanceMemberVO.getId());
 		super.instanceMemberVOToEntity(instanceMemberVO, instance, true);
-		instance.setMember(getMemberDao().getBasicMemberEntity(instanceMemberVO.getMember()));
-		instance.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instanceMemberVO.getMotsheloInstance()));
+		
+		if(instanceMemberVO.getMember() != null) {
+			instance.setMember(getMemberDao().getBasicMemberEntity(instanceMemberVO.getMember()));
+		}
+		
+		if(instanceMemberVO.getMotsheloInstance() != null) {
+			instance.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instanceMemberVO.getMotsheloInstance()));
+		}
 		
 		return instance;
 	}
@@ -186,8 +193,14 @@ public class InstanceMemberDaoImpl
 	protected InstanceMemberVO handleGetBasicInstanceMemberVO(InstanceMember instanceMember) throws Exception {
 		InstanceMemberVO vo = new  InstanceMemberVO();
 		super.toInstanceMemberVO(instanceMember, vo);
-		vo.setMember(getMemberDao().getBasicMemberVO(instanceMember.getMember()));
-		vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(instanceMember.getMotsheloInstance()));
+		
+		if(instanceMember.getMember() != null) {
+			vo.setMember(getMemberDao().getBasicMemberVO(instanceMember.getMember()));
+		}
+		
+		if(instanceMember.getMotsheloInstance() != null) {
+			vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(instanceMember.getMotsheloInstance()));
+		}
 		
 		return vo;
 	}

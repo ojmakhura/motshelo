@@ -13,6 +13,14 @@
 		<p:messages id="messages" showDetail="true" closable="true">
 		</p:messages>
 		<p:panelGrid columns="3">
+			<!-- instancePeriodVOStatus -->
+	        <p:outputLabel id="instancePeriodVOStatus_label" for="instancePeriodVOStatus" value="#{messages['status']}:"/>
+	        <p:selectOneMenu id="instancePeriodVOStatus" value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVO.status}" label="#{messages['status']}:" required="false" readonly="false">
+	            <f:converter converterId="com.systemsjr.motshelo.instance.period.InstancePeriodStatus"/>
+	            <f:selectItem itemLabel=""/>
+	            <f:selectItems value="#{ajsf:getEnumSelectItems('instance.period.status.','com.systemsjr.motshelo.instance.period.InstancePeriodStatus')}"/>
+	        </p:selectOneMenu>
+	        <p:message id="instancePeriodVOStatus_message" for="instancePeriodVOStatus"/>
 			<!-- instancePeriodVOPeriodName -->
 			<p:outputLabel id="instancePeriodVOPeriodName_label" for="instancePeriodVOPeriodName" value="#{messages['period.name']}:" />
 			<p:inputText id="instancePeriodVOPeriodName" value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVO.periodName}" required="false" readonly="true">
@@ -45,6 +53,20 @@
 				<f:convertDateTime pattern="MM/dd/yyyy" />
 			</p:calendar>
 			<p:message id="instancePeriodVOLoanByDate_message" for="instancePeriodVOLoanByDate" />
+			<!-- instancePeriodVOPreviousPeriod -->
+	        <p:outputLabel id="instancePeriodVOPreviousPeriod_label" for="instancePeriodVOPreviousPeriod" value="#{messages['previous.period']}:"/>
+	        <p:selectOneMenu id="instancePeriodVOPreviousPeriod" value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVO.previousPeriod.id}" label="#{messages['previous.period']}:" required="false" readonly="false">
+	            <f:selectItem itemLabel=""/>
+	            <f:selectItems value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVOPreviousPeriodBackingList}" />
+	        </p:selectOneMenu>
+	        <p:message id="instancePeriodVOPreviousPeriod_message" for="instancePeriodVOPreviousPeriod"/>
+	        <!-- instancePeriodVONextPeriod -->
+	        <p:outputLabel id="instancePeriodVONextPeriod_label" for="instancePeriodVONextPeriod" value="#{messages['next.period']}:"/>
+	        <p:selectOneMenu id="instancePeriodVONextPeriod" value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVO.nextPeriod.id}" label="#{messages['next.period']}:" required="false" readonly="false">
+	            <f:selectItem itemLabel=""/>
+	            <f:selectItems value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVONextPeriodBackingList}" />
+	        </p:selectOneMenu>
+	        <p:message id="instancePeriodVONextPeriod_message" for="instancePeriodVONextPeriod"/>
 			<f:facet name="footer">
 				<p:commandButton id="editInstancePeriodSaveAction" value="#{messages['save']}" action="#{instancePeriodEditController.editInstancePeriodSave}" ajax="false" />
 				<p:commandButton id="editInstancePeriodNewAction" value="#{messages['new']}" action="#{instancePeriodEditController.editInstancePeriodNew}" immediate="true" ajax="false" />

@@ -6,10 +6,25 @@
  */
 package com.systemsjr.motshelo.loan.payment;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Repository;
+
+import com.systemsjr.motshelo.instance.period.InstancePeriod;
+import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentSearchCriteria;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
-import java.util.Collection;
-import org.springframework.stereotype.Repository;
+import com.systemsjr.motshelo.transaction.Transaction;
 
 /**
  * @see LoanPayment
@@ -24,8 +39,32 @@ public class LoanPaymentDaoImpl
     @Override
     protected Collection<LoanPayment> handleFindByCriteria(LoanPaymentSearchCriteria searchCriteria)
     {
-        // TODO implement public Collection<LoanPayment> handleFindByCriteria(LoanPaymentSearchCriteria searchCriteria)
-        return null;
+    	CriteriaBuilder builder = getSession().getCriteriaBuilder();
+    	CriteriaQuery<LoanPayment> query = builder.createQuery(LoanPayment.class);
+    	Root<LoanPayment> root = query.from(LoanPayment.class);   
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		Join<InstancePeriod, Loan> loanJoin = root.join("loan", JoinType.INNER);
+		Join<InstancePeriod, Transaction> transactionJoin = root.join("transaction", JoinType.INNER);
+		
+		if(searchCriteria.getLoan() != null)
+		{
+			predicates.add(builder.equal(loanJoin.<Long>get("id"), searchCriteria.getLoan().getId()));
+		}
+		
+		if(searchCriteria.getTransaction() != null)
+		{
+			predicates.add(builder.equal(transactionJoin.<Long>get("id"), searchCriteria.getTransaction().getId()));
+		}
+		
+		if(!predicates.isEmpty()) {
+			query.where();
+	        Predicate[] pr = new Predicate[predicates.size()];
+	        predicates.toArray(pr);
+	        query.where(pr); 
+		}
+        
+		TypedQuery<LoanPayment> typedQuery = getSession().createQuery(query);
+		return typedQuery.getResultList();
     }
 
     /**
@@ -34,8 +73,13 @@ public class LoanPaymentDaoImpl
     @Override
     protected LoanPayment handleGetBasicLoanPaymentEntity(LoanPaymentVO loanPaymentVO)
     {
-        // TODO implement public LoanPayment handleGetBasicLoanPaymentEntity(LoanPaymentVO loanPaymentVO)
-        return null;
+    	LoanPayment loanPayment = LoanPayment.Factory.newInstance();    	
+    	loanPayment.setId(loanPaymentVO.getId());
+    	super.loanPaymentVOToEntity(loanPaymentVO, loanPayment, true);
+    	loanPayment.setLoan(getLoanDao().getBasicLoanEntity(loanPaymentVO.getLoan()));
+    	loanPayment.setTransaction(getTransactionDao().getBasicTransactionEntity(loanPaymentVO.getTransaction()));
+    	
+        return loanPayment;
     }
 
     /**
@@ -44,8 +88,12 @@ public class LoanPaymentDaoImpl
     @Override
     protected LoanPaymentVO handleGetBasicLoanPaymentVO(LoanPayment loanPayment)
     {
-        // TODO implement public LoanPaymentVO handleGetBasicLoanPaymentVO(LoanPayment loanPayment)
-        return null;
+    	LoanPaymentVO loanPaymentVO = new LoanPaymentVO();
+    	super.toLoanPaymentVO(loanPayment, loanPaymentVO);
+    	loanPaymentVO.setLoan(getLoanDao().getBasicLoanVO(loanPayment.getLoan()));
+    	loanPaymentVO.setTransaction(getTransactionDao().getBasicTransactionVO(loanPayment.getTransaction()));
+    	
+        return loanPaymentVO;
     }
 
     /**
@@ -59,7 +107,9 @@ public class LoanPaymentDaoImpl
         // TODO verify behavior of toLoanPaymentVO
         super.toLoanPaymentVO(source, target);
         // WARNING! No conversion for target.loan (can't convert source.getLoan():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO
+        target.setLoan(getLoanDao().getBasicLoanVO(source.getLoan()));
         // WARNING! No conversion for target.transaction (can't convert source.getTransaction():com.systemsjr.motshelo.transaction.Transaction to com.systemsjr.motshelo.transaction.vo.TransactionVO
+        target.setTransaction(getTransactionDao().getBasicTransactionVO(source.getTransaction()));
     }
 
     /**
@@ -79,19 +129,14 @@ public class LoanPaymentDaoImpl
      */
     private LoanPayment loadLoanPaymentFromLoanPaymentVO(LoanPaymentVO loanPaymentVO)
     {
-        // TODO implement loadLoanPaymentFromLoanPaymentVO
-        throw new UnsupportedOperationException("com.systemsjr.motshelo.loan.payment.loadLoanPaymentFromLoanPaymentVO(LoanPaymentVO) not yet implemented.");
-
-        /* A typical implementation looks like this:
-        if (loanPaymentVO.getId() == null)
-        {
-            return  LoanPayment.Factory.newInstance();
-        }
-        else
-        {
-            return this.load(loanPaymentVO.getId());
-        }
-        */
+    	LoanPayment loanPayment = LoanPayment.Factory.newInstance();
+        
+    	if(loanPaymentVO.getId() != null)
+    	{
+    		loanPayment = this.load(loanPaymentVO.getId());
+    	}
+    	
+    	return loanPayment;
     }
 
     /**
@@ -102,6 +147,17 @@ public class LoanPaymentDaoImpl
         // TODO verify behavior of loanPaymentVOToEntity
         LoanPayment entity = this.loadLoanPaymentFromLoanPaymentVO(loanPaymentVO);
         this.loanPaymentVOToEntity(loanPaymentVO, entity, true);
+        
+        if(loanPaymentVO.getLoan() != null)
+        {
+        	entity.setLoan(getLoanDao().getBasicLoanEntity(loanPaymentVO.getLoan()));
+        }
+        
+        if(loanPaymentVO.getTransaction() != null)
+        {
+        	entity.setTransaction(getTransactionDao().getBasicTransactionEntity(loanPaymentVO.getTransaction()));
+        }
+        
         return entity;
     }
 
