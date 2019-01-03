@@ -6,6 +6,7 @@
  */
 package com.systemsjr.motshelo.loan;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -51,13 +52,13 @@ public class LoanDaoImpl
     {
         // TODO verify behavior of toLoanVO
         super.toLoanVO(source, target);
-        
-        
+        BigDecimal amount = new BigDecimal(0);
+        amount.add(source.getAmount());
         if(source.getInstanceMember() != null)
         {
         	target.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(source.getInstanceMember()));
         }
-        
+
         // WARNING! No conversion for target.motshelo (can't convert source.getMotshelo():com.systemsjr.motshelo.Motshelo to com.systemsjr.motshelo.vo.MotsheloVO
         if(source.getMotsheloInstance() != null)
         {
@@ -65,16 +66,23 @@ public class LoanDaoImpl
         }
         
         target.setInterests(new ArrayList<InterestVO>());
-        for(Interest insterest : source.getInterests())
+        for(Interest interest : source.getInterests())
         {
-        	target.getInterests().add(getInterestDao().getBasicInterestVO(insterest));
+        	target.getInterests().add(getInterestDao().getBasicInterestVO(interest));
+        	amount.add(interest.getAmount());
         }
-        
+
         target.setLoanPayments(new ArrayList<LoanPaymentVO>());
         for(LoanPayment loanPayment : source.getLoanPayments())
         {
-        	target.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(loanPayment));
+        	target.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(loanPayment));        	
+        	amount.subtract(loanPayment.getPaymentAmount());
         }
+
+        target.setBalance(amount);
+        
+        System.out.println("Amount is " + amount.doubleValue());
+        System.out.println("target.getBalance() is " + target.getBalance().doubleValue());
     }
 
     /**
@@ -227,5 +235,22 @@ public class LoanDaoImpl
 		}
 		
 		return loanVO;
+	}
+
+	@Override
+	protected BigDecimal handleCalculateLoanBalance(Loan loan) throws Exception {
+		BigDecimal balance = loan.getAmount();
+		
+		for(Interest interest : loan.getInterests())
+		{
+			balance.add(interest.getAmount());
+		}
+		
+		for(LoanPayment payment : loan.getLoanPayments())
+		{
+			balance.subtract(payment.getPaymentAmount());
+		}
+		
+		return balance;
 	}
 }

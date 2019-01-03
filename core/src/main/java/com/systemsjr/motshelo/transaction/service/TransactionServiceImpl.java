@@ -58,6 +58,9 @@ public class TransactionServiceImpl
     	loanCriteria.setStatus(LoanStatus.ACTIVE);
     	
     	Collection<LoanVO> loans = getLoanService().searchLoans(loanCriteria);
+    	for(LoanVO loan : loans) {
+    		
+    	}
     	
     	return getTransactionDao().toTransactionVO(transaction);
     }

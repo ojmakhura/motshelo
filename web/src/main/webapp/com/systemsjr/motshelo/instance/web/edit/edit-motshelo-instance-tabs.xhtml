@@ -77,18 +77,25 @@
 			        </f:facet>
 				</p:panelGrid>
 				<p:dataTable id="loans" var="row" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.loans}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
-			        <p:column sortBy="motsheloInstance">
+			        <!-- <p:column sortBy="motsheloInstance">
 			            <f:facet name="header">
 			                <h:outputText id="columnHeader_motsheloInstance" value="#{messages['motshelo.instance']}"/>
 			            </f:facet>
 			            <h:outputText id="motsheloInstance" value="#{row.motsheloInstance.instanceName}">
 			            </h:outputText>
-			        </p:column>
+			        </p:column> -->
 			        <p:column sortBy="instanceMember">
 			            <f:facet name="header">
 			                <h:outputText id="columnHeader_instanceMember" value="#{messages['instance.member']}"/>
 			            </f:facet>
 			            <h:outputText id="instanceMember" value="#{row.instanceMember.member.username}">
+			            </h:outputText>
+			        </p:column>
+			        <p:column sortBy="startDate">
+			            <f:facet name="header">
+			                <h:outputText id="columnHeader_startDate" value="#{messages['start.date']}"/>
+			            </f:facet>
+			            <h:outputText id="startDate" value="#{row.motsheloInstance.startDate}">
 			            </h:outputText>
 			        </p:column>
 			        <p:column sortBy="amount">
