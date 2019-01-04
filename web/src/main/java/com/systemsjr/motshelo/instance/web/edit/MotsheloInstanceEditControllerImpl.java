@@ -69,7 +69,6 @@ public class MotsheloInstanceEditControllerImpl
     	
     	Collection<MotsheloVO> metshelo = getMotsheloService().getAllMetshelo();
     	Collection<SelectItem> metsheloBackingList = new ArrayList<SelectItem>();
-    	metsheloBackingList.add(new SelectItem(-1, "--NONE--"));
     	for(MotsheloVO motshelo : metshelo)
     	{
     		metsheloBackingList.add(new SelectItem(motshelo.getId(), motshelo.getName()));
@@ -103,7 +102,6 @@ public class MotsheloInstanceEditControllerImpl
     	
     	form.setMotsheloInstanceVO(motsheloInstanceVO); 
     	
-    	//addNewLoanVOToFlash(motsheloInstanceVO);
     	LoanVO loanVO = new LoanVO();
     	loanVO.setMotsheloInstance(motsheloInstanceVO);
     	loanVO.setInstanceMember(new InstanceMemberVO());
@@ -119,18 +117,6 @@ public class MotsheloInstanceEditControllerImpl
     		instanceMemberBackingList.add(new SelectItem(instanceMember.getId(), member.getName() + " " + member.getSurname()));
     	}
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberBackingList", instanceMemberBackingList);
-    }
-
-    private LoanVO addNewLoanVOToFlash(MotsheloInstanceVO motsheloInstanceVO)
-    {
-    	LoanVO loanVO = new LoanVO();
-    	loanVO.setMotsheloInstance(motsheloInstanceVO);
-    	loanVO.setInstanceMember(new InstanceMemberVO());
-    	loanVO.setType(LoanType.STANDARD);
-    	loanVO.setExpectedEndDate(new Date());
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanVO", loanVO);
-    	
-    	return loanVO;
     }
     
 	@Override

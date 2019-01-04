@@ -13,12 +13,8 @@
 			src="/com/systemsjr/motshelo/instance/web/edit/edit-motshelo-instance-save-hidden-params.xhtml" />
 		<p:panelGrid columns="3">
 			<!-- motsheloInstanceVOInstanceName -->
-			<p:outputLabel id="motsheloInstanceVOInstanceName_label"
-				for="motsheloInstanceVOInstanceName"
-				value="#{messages['instance.name']}:" />
-			<p:inputText id="motsheloInstanceVOInstanceName"
-				value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.instanceName}"
-				required="false" readonly="true">
+			<p:outputLabel id="motsheloInstanceVOInstanceName_label" for="motsheloInstanceVOInstanceName" value="#{messages['instance.name']}:" />
+			<p:inputText id="motsheloInstanceVOInstanceName" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.instanceName}" required="false" readonly="true">
 			</p:inputText>
 			<p:message id="motsheloInstanceVOInstanceName_message"
 				for="motsheloInstanceVOInstanceName" />

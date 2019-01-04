@@ -24,6 +24,7 @@ import org.springframework.stereotype.Repository;
 import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 
 /**
  * @see InstancePeriod
@@ -173,7 +174,14 @@ public class InstancePeriodDaoImpl
 		super.toInstancePeriodVO(instancePeriod, vo);
 		if(instancePeriod.getMotsheloInstance() != null)
 		{
-			vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(instancePeriod.getMotsheloInstance()));
+			MotsheloInstanceVO instancevo = new MotsheloInstanceVO();
+			instancevo.setId(instancePeriod.getMotsheloInstance().getId());
+			instancevo.setBalance(instancePeriod.getMotsheloInstance().getBalance());
+			instancevo.setInstanceName(instancePeriod.getMotsheloInstance().getInstanceName());
+			instancevo.setStartDate(instancePeriod.getMotsheloInstance().getStartDate());
+			instancevo.setCloseDate(instancePeriod.getMotsheloInstance().getCloseDate());
+			
+			vo.setMotsheloInstance(instancevo);
 		}
 		
 		return vo;
@@ -185,9 +193,10 @@ public class InstancePeriodDaoImpl
 		InstancePeriod entity = InstancePeriod.Factory.newInstance();//this.loadInstancePeriodFromInstancePeriodVO(instancePeriodVO);
 		entity.setId(instancePeriodVO.getId());
 		super.instancePeriodVOToEntity(instancePeriodVO, entity, true);
+		
 		if(instancePeriodVO.getMotsheloInstance() != null)
 		{
-			entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instancePeriodVO.getMotsheloInstance()));
+			entity.setMotsheloInstance(getMotsheloInstanceDao().load(instancePeriodVO.getMotsheloInstance().getId()));
 		}
 		
 		return entity;

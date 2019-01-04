@@ -18,6 +18,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
@@ -138,8 +140,8 @@ public class TransactionDaoImpl
 		Transaction transaction = Transaction.Factory.newInstance();
 		transaction.setId(transactionVO.getId());
 		super.transactionVOToEntity(transactionVO, transaction, true);
-		transaction.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberEntity(transactionVO.getInstanceMember()));
-		transaction.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(transactionVO.getMotsheloInstance()));
+		transaction.setInstanceMember(getInstanceMemberDao().load(transactionVO.getInstanceMember().getId()));
+		transaction.setMotsheloInstance(getMotsheloInstanceDao().load(transactionVO.getMotsheloInstance().getId()));
 		
 		return transaction;
 	}
@@ -149,7 +151,18 @@ public class TransactionDaoImpl
 		
 		TransactionVO vo = new TransactionVO();
 		super.toTransactionVO(transaction, vo);
-		vo.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(transaction.getInstanceMember()));
+		
+		InstanceMemberVO memberVO = new InstanceMemberVO();
+		memberVO.setId(transaction.getInstanceMember().getId());
+		memberVO.setBalance(transaction.getInstanceMember().getBalance());
+		vo.setInstanceMember(memberVO);
+		
+		MotsheloInstanceVO instancevo = new MotsheloInstanceVO();
+		instancevo.setId(transaction.getMotsheloInstance().getId());
+		instancevo.setBalance(transaction.getMotsheloInstance().getBalance());
+		instancevo.setInstanceName(transaction.getMotsheloInstance().getInstanceName());
+		instancevo.setStartDate(transaction.getMotsheloInstance().getStartDate());
+		instancevo.setCloseDate(transaction.getMotsheloInstance().getCloseDate());
 		vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(transaction.getMotsheloInstance()));
 		
 		return vo;

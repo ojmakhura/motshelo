@@ -62,7 +62,7 @@ public class MotsheloInstanceServiceImpl
     	
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(motsheloInstanceVO.getCloseDate());
-    	motsheloInstanceVO.setInstanceName(motsheloInstanceVO.getMotshelo().getName() + " " + cal.get(Calendar.YEAR));  
+    	instance.setInstanceName(instance.getMotshelo().getName() + " " + cal.get(Calendar.YEAR));  
     	
     	instance = getMotsheloInstanceDao().createOrUpdate(instance);
     	return getMotsheloInstanceDao().toMotsheloInstanceVO(instance);

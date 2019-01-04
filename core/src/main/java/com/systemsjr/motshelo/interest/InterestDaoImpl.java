@@ -13,13 +13,19 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.interest.vo.InterestSearchCritirea;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
 
 /**
  * @see Interest
@@ -110,10 +116,16 @@ public class InterestDaoImpl
     	Root<Interest> root = query.from(Interest.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		/*if(searchCriteria.getName() != null)
+		Join<Interest, Loan> loanJoin = root.join("loan");
+		if(searchCriteria.getLoan() != null)
 		{
-			predicates.add(builder.like(root.<String>get("name"), "%" + searchCriteria.getName() + "%"));
-		}*/		
+			predicates.add(builder.equal(loanJoin.<Long>get("id"), searchCriteria.getLoan().getId() ));
+		}	
+		
+		if(searchCriteria.getType() != null)
+		{
+			predicates.add(builder.equal(root.<String>get("type"), searchCriteria.getType()));
+		}	
 		
 		if(!predicates.isEmpty()) {
 			query.where();
@@ -134,7 +146,8 @@ public class InterestDaoImpl
 		entity.setId(interestVO.getId());
 		super.interestVOToEntity(interestVO, entity, true);
 		if(interestVO.getLoan() != null) {
-			entity.setLoan(getLoanDao().getBasicLoanEntity(interestVO.getLoan()));
+			Loan loan = getLoanDao().load(interestVO.getLoan().getId());
+			entity.setLoan(loan);
 		}
 		return entity;
 	}
@@ -143,10 +156,13 @@ public class InterestDaoImpl
 	protected InterestVO handleGetBasicInterestVO(Interest interest) throws Exception {
 		
 		InterestVO vo = new InterestVO();
-		super.interestVOToEntity(vo, interest, true);
+		super.toInterestVO(interest, vo);
 		
 		if(interest.getLoan() != null) {
-			vo.setLoan(getLoanDao().getBasicLoanVO(interest.getLoan()));
+			LoanVO lv = new LoanVO();
+			lv.setId(interest.getLoan().getId());
+			lv.setAmount(interest.getLoan().getAmount());
+			vo.setLoan(lv);
 		}
 		return vo;
 	}

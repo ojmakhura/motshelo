@@ -26,12 +26,15 @@ import org.springframework.util.CollectionUtils;
 import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
+import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.payment.LoanPayment;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.transaction.vo.TransactionVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 import sun.security.action.GetLongAction;
 
@@ -53,36 +56,31 @@ public class LoanDaoImpl
         // TODO verify behavior of toLoanVO
         super.toLoanVO(source, target);
         BigDecimal amount = new BigDecimal(0);
-        amount.add(source.getAmount());
+        amount = amount.add(source.getAmount());
         if(source.getInstanceMember() != null)
         {
         	target.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(source.getInstanceMember()));
         }
-
         // WARNING! No conversion for target.motshelo (can't convert source.getMotshelo():com.systemsjr.motshelo.Motshelo to com.systemsjr.motshelo.vo.MotsheloVO
         if(source.getMotsheloInstance() != null)
         {
         	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
         }
-        
         target.setInterests(new ArrayList<InterestVO>());
         for(Interest interest : source.getInterests())
         {
         	target.getInterests().add(getInterestDao().getBasicInterestVO(interest));
-        	amount.add(interest.getAmount());
+        	amount = amount.add(interest.getAmount());
+        	
         }
-
         target.setLoanPayments(new ArrayList<LoanPaymentVO>());
         for(LoanPayment loanPayment : source.getLoanPayments())
         {
         	target.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(loanPayment));        	
-        	amount.subtract(loanPayment.getPaymentAmount());
+        	amount = amount.subtract(loanPayment.getPaymentAmount());
         }
-
         target.setBalance(amount);
         
-        System.out.println("Amount is " + amount.doubleValue());
-        System.out.println("target.getBalance() is " + target.getBalance().doubleValue());
     }
 
     /**
@@ -217,6 +215,20 @@ public class LoanDaoImpl
 			loan.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(loanVO.getMotsheloInstance()));
 		}
 		
+		Collection<Interest> interests = new ArrayList<Interest>();
+		for(InterestVO interest : loanVO.getInterests())
+		{
+			interests.add(getInterestDao().getBasicInterestEntity(interest));
+		}
+		loan.setInterests(interests);
+		
+		Collection<LoanPayment> payments = new ArrayList<LoanPayment>();
+		for(LoanPaymentVO payment : loanVO.getLoanPayments())
+		{
+			payments.add(getLoanPaymentDao().getBasicLoanPaymentEntity(payment));
+		}
+		loan.setLoanPayments(payments);
+				
 		return loan;
 	}
 
@@ -225,14 +237,27 @@ public class LoanDaoImpl
 		
 		LoanVO loanVO = new LoanVO();
 		super.toLoanVO(loan, loanVO);
-		
-		if(loan.getInstanceMember() != null) {
+		BigDecimal balance = new BigDecimal(0);
+		balance = balance.add(loan.getAmount());
+		if(loan.getInstanceMember() != null) {			
 			loanVO.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(loan.getInstanceMember()));
 		}
 		
 		if(loan.getMotsheloInstance() != null) {
+			
 			loanVO.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(loan.getMotsheloInstance()));
 		}
+				
+		for(Interest interest : loan.getInterests())
+		{
+			balance = balance.add(interest.getAmount());
+		}
+
+		for(LoanPayment payment : loan.getLoanPayments())
+		{
+			balance = balance.subtract(payment.getPaymentAmount());	
+		}
+		loanVO.setBalance(balance);
 		
 		return loanVO;
 	}
@@ -243,12 +268,12 @@ public class LoanDaoImpl
 		
 		for(Interest interest : loan.getInterests())
 		{
-			balance.add(interest.getAmount());
+			balance = balance.add(interest.getAmount());
 		}
 		
 		for(LoanPayment payment : loan.getLoanPayments())
 		{
-			balance.subtract(payment.getPaymentAmount());
+			balance = balance.subtract(payment.getPaymentAmount());
 		}
 		
 		return balance;

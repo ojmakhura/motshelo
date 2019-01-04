@@ -101,7 +101,8 @@ public class MotsheloInstanceDaoImpl
         target.setLoans(new ArrayList<LoanVO>());
         for(Loan loan : source.getLoans())
         {
-        	target.getLoans().add(getLoanDao().getBasicLoanVO(loan));
+        	LoanVO lv = getLoanDao().getBasicLoanVO(loan);
+        	target.getLoans().add(lv);
         }
         
         // WARNING! No conversion for target.loans (can't convert source.getLoans():com.systemsjr.motshelo.loan.Loan to com.systemsjr.motshelo.loan.vo.LoanVO

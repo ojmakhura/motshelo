@@ -77,13 +77,13 @@
 			        </f:facet>
 				</p:panelGrid>
 				<p:dataTable id="loans" var="row" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.loans}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
-			        <!-- <p:column sortBy="motsheloInstance">
+			        <p:column sortBy="motsheloInstance">
 			            <f:facet name="header">
 			                <h:outputText id="columnHeader_motsheloInstance" value="#{messages['motshelo.instance']}"/>
 			            </f:facet>
-			            <h:outputText id="motsheloInstance" value="#{row.motsheloInstance.instanceName}">
+			            <h:outputText id="motsheloInstance" value="#{row.status}">
 			            </h:outputText>
-			        </p:column> -->
+			        </p:column>
 			        <p:column sortBy="instanceMember">
 			            <f:facet name="header">
 			                <h:outputText id="columnHeader_instanceMember" value="#{messages['instance.member']}"/>
@@ -109,7 +109,7 @@
 			            <f:facet name="header">
 			                <h:outputText id="columnHeader_balance" value="#{messages['balance']}"/>
 			            </f:facet>
-			            <h:outputText id="balance" value="#{row.motsheloInstance.balance}">
+			            <h:outputText id="balance" value="#{row.balance}">
 			            </h:outputText>
 			        </p:column>
 			    </p:dataTable>

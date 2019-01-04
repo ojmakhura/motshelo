@@ -73,7 +73,6 @@ public class InstancePeriodEditControllerImpl
     {
     	Collection<MotsheloInstanceVO> motsheloInstances = getMotsheloInstanceService().getAllMotsheloInstances();
     	Collection<SelectItem> instancesBackingList = new ArrayList<SelectItem>();
-    	//instancesBackingList.add(new SelectItem(-1, "--NONE--"));
     	for(MotsheloInstanceVO instance : motsheloInstances)
     	{
     		instancesBackingList.add(new SelectItem(instance.getId(), instance.getInstanceName()));
@@ -101,23 +100,24 @@ public class InstancePeriodEditControllerImpl
         	instancePeriodVO.setNextPeriod(new InstancePeriodVO());
         }
         
-        form.setInstancePeriodVO(instancePeriodVO);
-        
+        form.setInstancePeriodVO(instancePeriodVO);        
         MotsheloInstanceVO instanceVO = instancePeriodVO.getMotsheloInstance();
-        InstancePeriodSearchCriteria criteria = new InstancePeriodSearchCriteria();
         
-        if(instanceVO != null && instanceVO.getId() != null) {
-        	criteria.setMotsheloInstance(instanceVO);
-        }
-        
-        Collection<InstancePeriodVO> periods = getInstancePeriodService().searchInstancePeriods(criteria);
         Collection<SelectItem> nextBackingList = new ArrayList<SelectItem>();
         Collection<SelectItem> previousBackingList = new ArrayList<SelectItem>();
-        for(InstancePeriodVO period : periods)
-        {
-        	nextBackingList.add(new SelectItem(period.getId(), period.getPeriodName()));
-        	previousBackingList.add(new SelectItem(period.getId(), period.getPeriodName()));
+        
+        if(instanceVO != null && instanceVO.getId() != null) {
+        	InstancePeriodSearchCriteria criteria = new InstancePeriodSearchCriteria();
+        	criteria.setMotsheloInstance(instanceVO);
+        	Collection<InstancePeriodVO> periods = getInstancePeriodService().searchInstancePeriods(criteria);
+        	
+	        for(InstancePeriodVO period : periods)
+	        {
+	        	nextBackingList.add(new SelectItem(period.getId(), period.getPeriodName()));
+	        	previousBackingList.add(new SelectItem(period.getId(), period.getPeriodName()));
+	        }
         }
+        
         form.setInstancePeriodVONextPeriodBackingList(nextBackingList);
         getEditInstancePeriodSaveForm().setInstancePeriodVONextPeriodBackingList(nextBackingList);
         form.setInstancePeriodVOPreviousPeriodBackingList(previousBackingList);

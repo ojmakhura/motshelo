@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import com.systemsjr.motshelo.Motshelo;
@@ -26,7 +25,6 @@ import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.LoanType;
-import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.vo.MotsheloVO;
