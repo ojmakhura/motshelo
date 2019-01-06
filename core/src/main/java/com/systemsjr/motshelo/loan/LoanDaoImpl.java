@@ -21,22 +21,16 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
-import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.payment.LoanPayment;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.transaction.vo.TransactionVO;
-import com.systemsjr.motshelo.vo.MotsheloVO;
-
-import sun.security.action.GetLongAction;
 
 /**
  * @see Loan
@@ -187,7 +181,27 @@ public class LoanDaoImpl
 		{
 			predicates.add(builder.equal(root.<String>get("type"), searchCriteria.getType().getValue()));
 		}
-
+		
+		if(searchCriteria.getMaxDate() != null)
+		{
+			predicates.add(builder.lessThanOrEqualTo(root.<Date>get("startDate"), searchCriteria.getMaxDate()));
+		}
+		
+		if(searchCriteria.getMinDate() != null)
+		{
+			predicates.add(builder.greaterThanOrEqualTo(root.<Date>get("startDate"), searchCriteria.getMinDate()));
+		}
+		
+		if(searchCriteria.getMaxAmount() != null)
+		{
+			predicates.add(builder.lessThanOrEqualTo(root.<BigDecimal>get("amount"), searchCriteria.getMaxAmount()));
+		}
+		
+		if(searchCriteria.getMinAmount() != null)
+		{
+			predicates.add(builder.greaterThanOrEqualTo(root.<BigDecimal>get("amount"), searchCriteria.getMaxAmount()));
+		}
+		
 		if(!predicates.isEmpty()) {
 			query.where();
 	        Predicate[] pr = new Predicate[predicates.size()];
@@ -277,5 +291,22 @@ public class LoanDaoImpl
 		}
 		
 		return balance;
+	}
+
+	@Override
+	protected Loan handleCreateContributionLoan(InstanceMember instanceMember, InstancePeriod instancePeriod)
+			throws Exception {
+		
+		Loan loan = new Loan();
+		MotsheloInstance instance = instancePeriod.getMotsheloInstance();
+		loan.setAmount(instance.getMotshelo().getMonthlyContribution());
+		loan.setExpectedEndDate(instancePeriod.getEndDate());
+		loan.setStartDate(instancePeriod.getStartDate());
+		loan.setInstanceMember(instanceMember);
+		loan.setMotsheloInstance(instance);
+		loan.setType(LoanType.INTERESTFREE);
+		loan.setStatus(LoanStatus.ACTIVE);
+		
+		return this.create(loan);
 	}
 }

@@ -11,20 +11,12 @@ package com.systemsjr.motshelo.instance.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
 import com.systemsjr.motshelo.instance.MotsheloInstance;
-import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
-import com.systemsjr.motshelo.instance.period.InstancePeriodStatus;
-import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceSearchCriteria;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
-import com.systemsjr.motshelo.loan.LoanStatus;
-import com.systemsjr.motshelo.loan.LoanType;
-import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see com.systemsjr.motshelo.instance.service.MotsheloInstanceService

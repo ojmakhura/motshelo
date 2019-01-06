@@ -26,7 +26,7 @@ public class MemberEditControllerImpl
     	MemberVO memberVO = getEditMemberSaveForm().getMemberVO();
     	memberVO = getMemberService().saveMember(memberVO);
     	getEditMemberSaveForm().setMemberVO(memberVO);
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", getEditMemberSaveForm().getMemberVO());
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", memberVO);
     }
 
     /**
@@ -36,8 +36,7 @@ public class MemberEditControllerImpl
     public void doNewMember()
     {
     	MemberVO memberVO = new MemberVO();
-    	getEditMemberForm().setMemberVO(memberVO);
-    	getEditMemberSaveForm().setMemberVO(memberVO);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", memberVO);
     }
 
     /**

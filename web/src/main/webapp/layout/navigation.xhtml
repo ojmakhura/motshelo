@@ -6,15 +6,15 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
     <h:form>    	
-        <p:menu toggleable="true">
+        <p:menu toggleable="true" collapsed="true">
         	<p:submenu label="#{messages['motshelo.title']}">
 	            <p:menuitem value="#{messages['edit.motshelo.title']}" url="/com/systemsjr/motshelo/web/edit/edit-motshelouc.jsf"/>     
 	            <p:menuitem value="#{messages['search.metshelo.title']}" url="/com/systemsjr/motshelo/web/search/search-metshelouc.jsf"/>     
 	            <p:menuitem value="#{messages['motshelo.details.title']}" url="/com/systemsjr/motshelo/web/details/motshelo-details.jsf"/>          	
         	</p:submenu> 
-        	<p:submenu label="#{messages['motshelo.instance.title']}">     
-	            <p:menuitem value="#{messages['search.motshelo.instances.title']}" url="/com/systemsjr/motshelo/instance/web/search/search-motshelo-instancesuc.jsf"/>     
+        	<p:submenu label="#{messages['motshelo.instance.title']}">        
 	            <p:menuitem value="#{messages['edit.motshelo.instance.title']}" url="/com/systemsjr/motshelo/instance/web/edit/edit-motshelo-instanceuc.jsf"/>     
+	            <p:menuitem value="#{messages['search.motshelo.instances.title']}" url="/com/systemsjr/motshelo/instance/web/search/search-motshelo-instancesuc.jsf"/>  
 	            <p:menuitem value="#{messages['motshelo.instance.details.title']}" url="/com/systemsjr/motshelo/instance/web/details/motshelo-instance-details.jsf"/>       
         	</p:submenu>
         	<p:submenu label="#{messages['instance.period.title']}">
@@ -22,19 +22,24 @@
             	<p:menuitem value="#{messages['search.instance.periods.title']}" url="/com/systemsjr/motshelo/instance/period/web/search/search-instance-periodsuc.jsf"/>     
             	<p:menuitem value="#{messages['instance.period.details.title']}" url="/com/systemsjr/motshelo/instance/period/web/details/instance-period-details.jsf"/>    
         	</p:submenu>     
-        	<p:submenu label="#{messages['member.title']}">
-	            <p:menuitem value="#{messages['search.members.title']}" url="/com/systemsjr/motshelo/member/web/search/search-membersuc.jsf"/>     
+        	<p:submenu label="#{messages['member.title']}">    
 	            <p:menuitem value="#{messages['edit.member.title']}" url="/com/systemsjr/motshelo/member/web/edit/edit-memberuc.jsf"/>     
+	            <p:menuitem value="#{messages['search.members.title']}" url="/com/systemsjr/motshelo/member/web/search/search-membersuc.jsf"/> 
 	            <p:menuitem value="#{messages['member.details.title']}" url="/com/systemsjr/motshelo/member/web/details/member-details.jsf"/>   
-        	</p:submenu>     
+        	</p:submenu>
+        	<p:submenu label="#{messages['instance.member.title']}">    
+	            <p:menuitem value="#{messages['edit.instance.member.title']}" url="/com/systemsjr/motshelo/instance/member/web/edit/edit-instance-memberuc.jsf"/> 
+	        	<p:menuitem value="#{messages['search.instance.members.title']}" url="/com/systemsjr/motshelo/instance/member/web/search/search-instance-membersuc.jsf"/>     
+	            <p:menuitem value="#{messages['instance.member.details.title']}" url="/com/systemsjr/motshelo/instance/member/web/details/instance-member-details.jsf"/> 
+        	</p:submenu>
         	<p:submenu label="#{messages['loan.title']}">
-	            <p:menuitem value="#{messages['search.loans.title']}" url="/com/systemsjr/motshelo/loan/web/search/search-loansuc.jsf"/>     
 	            <p:menuitem value="#{messages['edit.loan.title']}" url="/com/systemsjr/motshelo/loan/web/edit/edit-loanuc.jsf"/>     
+	            <p:menuitem value="#{messages['search.loans.title']}" url="/com/systemsjr/motshelo/loan/web/search/search-loansuc.jsf"/>     
 	            <p:menuitem value="#{messages['loan.details.title']}" url="/com/systemsjr/motshelo/loan/web/details/loan-details.jsf"/>   
         	</p:submenu>     
-        	<p:submenu label="#{messages['transaction.title']}">
-	            <p:menuitem value="#{messages['search.transactions.title']}" url="/com/systemsjr/motshelo/transaction/web/search/search-transactionsuc.jsf"/>     
-	            <p:menuitem value="#{messages['edit.transaction.title']}" url="/com/systemsjr/motshelo/transaction/web/edit/edit-transactionuc.jsf"/>     
+        	<p:submenu label="#{messages['transaction.title']}">   
+	            <p:menuitem value="#{messages['edit.transaction.title']}" url="/com/systemsjr/motshelo/transaction/web/edit/edit-transactionuc.jsf"/>
+	            <p:menuitem value="#{messages['search.transactions.title']}" url="/com/systemsjr/motshelo/transaction/web/search/search-transactionsuc.jsf"/>  
 	            <p:menuitem value="#{messages['transaction.details.title']}" url="/com/systemsjr/motshelo/transaction/web/details/transaction-details.jsf"/>   
         	</p:submenu>     
         </p:menu>

@@ -6,18 +6,24 @@
  */
 package com.systemsjr.motshelo.transaction;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
@@ -121,6 +127,43 @@ public class TransactionDaoImpl
     	CriteriaQuery<Transaction> query = builder.createQuery(Transaction.class);
     	Root<Transaction> root = query.from(Transaction.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		if(searchCriteria.getInstanceMember() != null && searchCriteria.getInstanceMember().getId() != null)
+		{
+			Join<Transaction, InstanceMember> join = root.join("instanceMember", JoinType.INNER);
+			predicates.add(builder.equal(join.<Long>get("id"), searchCriteria.getInstanceMember().getId()));
+		}
+
+		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
+		{
+			Join<Transaction, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
+			predicates.add(builder.equal(join.<Long>get("id"), searchCriteria.getMotsheloInstance().getId()));
+		}
+		
+		if(searchCriteria.getRemainingAmount() != null)
+		{
+			predicates.add(builder.greaterThan(root.<BigDecimal>get("remainingAmount"), searchCriteria.getRemainingAmount()));
+		}
+		
+		if(searchCriteria.getMaxDate() != null)
+		{
+			predicates.add(builder.lessThanOrEqualTo(root.<Date>get("transactionDate"), searchCriteria.getMaxDate()));
+		}
+		
+		if(searchCriteria.getMinDate() != null)
+		{
+			predicates.add(builder.greaterThanOrEqualTo(root.<Date>get("transactionDate"), searchCriteria.getMinDate()));
+		}
+		
+		if(searchCriteria.getTransactionMode() != null)
+		{
+			predicates.add(builder.equal(root.<String>get("transactionMode"), searchCriteria.getTransactionMode().getValue()));
+		}
+
+		if(searchCriteria.getTransactionType() != null)
+		{
+			predicates.add(builder.equal(root.<String>get("transactionType"), searchCriteria.getTransactionType().getValue()));
+		}
 
 		if(!predicates.isEmpty()) {
 			query.where();

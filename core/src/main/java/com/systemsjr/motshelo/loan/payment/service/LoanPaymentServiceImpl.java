@@ -8,12 +8,13 @@
  */
 package com.systemsjr.motshelo.loan.payment.service;
 
+import java.util.Collection;
+
+import org.springframework.stereotype.Service;
+
 import com.systemsjr.motshelo.loan.payment.LoanPayment;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentSearchCriteria;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
-import com.systemsjr.motshelo.loan.vo.LoanVO;
-import java.util.Collection;
-import org.springframework.stereotype.Service;
 
 /**
  * @see com.systemsjr.motshelo.loan.payment.service.LoanPaymentService

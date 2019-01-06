@@ -9,7 +9,7 @@
     xmlns:t="http://myfaces.apache.org/tomahawk"
     xmlns:p="http://primefaces.org/ui">
     <p:dataTable id="instancePeriods" var="row" value="#{viewVariables.instancePeriods}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
-        <p:column>
+        <p:column style="width:70px;" exportable="false" >
             <p:commandButton id="searchInstancePeriodsDetailsAction" icon="ui-icon-circle-check" action="#{instancePeriodSearchController.searchInstancePeriodsDetails}" immediate="true">
                 <f:setPropertyActionListener target="#{searchInstancePeriodsSearchInstancePeriodsDetailsForm.id}" value="#{row.id}"/>
             </p:commandButton>

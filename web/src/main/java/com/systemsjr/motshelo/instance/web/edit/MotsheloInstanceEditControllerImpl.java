@@ -4,18 +4,13 @@ package com.systemsjr.motshelo.instance.web.edit;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
-import com.systemsjr.motshelo.instance.period.InstancePeriod;
-import com.systemsjr.motshelo.instance.period.InstancePeriodStatus;
-import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.LoanType;
@@ -133,12 +128,14 @@ public class MotsheloInstanceEditControllerImpl
 		{
 			getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO().getInstanceMembers().add(instanceMember);
 		}
+		
+		Collection<SelectItem> instanceMemberBackingList = (Collection<SelectItem>) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("instanceMemberBackingList");
+		instanceMemberBackingList.add(new SelectItem(instanceMember.getId(), member.getName() + " " + member.getSurname()));
 	}
 
 	@Override
 	public void doAddLoan() throws Throwable {
 		LoanVO loanVO = (LoanVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loanVO");
-		//loanVO.setInstanceMember(getInstanceMemberService().findById(loanVO.getInstanceMember().getId()));
 		LoanVO newLoanVO = getLoanService().saveLoan(loanVO);
 		if(newLoanVO.getId() != null)
 		{

@@ -43,10 +43,10 @@ public class InstancePeriodDaoImpl
     	CriteriaQuery<InstancePeriod> query = builder.createQuery(InstancePeriod.class);
     	Root<InstancePeriod> root = query.from(InstancePeriod.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
-		Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
 		
 		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
 		{
+			Join<InstancePeriod, MotsheloInstance> join = root.join("motsheloInstance", JoinType.INNER);
 			predicates.add(builder.equal(join.<Long>get("id"), searchCriteria.getMotsheloInstance().getId() ));
 		}
     	

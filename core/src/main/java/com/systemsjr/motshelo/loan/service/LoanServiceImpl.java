@@ -17,16 +17,23 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.systemsjr.motshelo.Motshelo;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
+import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.interest.InterestType;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.LoanType;
+import com.systemsjr.motshelo.loan.payment.LoanPayment;
+import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.transaction.Transaction;
+import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
@@ -54,7 +61,7 @@ public class LoanServiceImpl
     protected  LoanVO handleSaveLoan(LoanVO loanVO)
         throws Exception
     {
-    	
+    	boolean isNew = false;
     	if(loanVO == null)
     	{
     		return null;
@@ -65,6 +72,7 @@ public class LoanServiceImpl
     	if(loanVO.getId() == null) // this is a new loan
     	{
     		loanVO.setExpectedEndDate(expectedEnd);
+    		isNew = true;
     	} else {
     		if(expectedEnd.compareTo(loanVO.getExpectedEndDate()) > 0)
     		{
@@ -89,11 +97,61 @@ public class LoanServiceImpl
     			
     			loanVO.getInterests().add(interest);
     			BigDecimal balance = loanVO.getBalance();
-    			balance.subtract(interest.getAmount());
+    			balance.add(interest.getAmount());
     			loanVO.setBalance(balance);
+    			
+    			BigDecimal instanceBalance = loanVO.getMotsheloInstance().getCumulativeBalance();
+    			instanceBalance = instanceBalance.add(interest.getAmount());
+    			loanVO.getMotsheloInstance().setCumulativeBalance(instanceBalance);
+    			getMotsheloInstanceDao().update(getMotsheloInstanceDao().motsheloInstanceVOToEntity(loanVO.getMotsheloInstance()));
     		}
     	}
-    	    	
+    	
+    	if(loanVO.getId() != null && isNew)
+    	{
+    		InstanceMemberVO member = loanVO.getInstanceMember();
+    		BigDecimal balance = member.getBalance();
+    		balance = balance.subtract(loanVO.getAmount());
+    		member.setBalance(balance);
+    		getInstanceMemberDao().update(getInstanceMemberDao().instanceMemberVOToEntity(member));
+    		
+    		// Search for any of the transactions that still have money left
+    		TransactionSearchCriteria criteria = new TransactionSearchCriteria();
+    		criteria.setInstanceMember(member);
+    		criteria.setMotsheloInstance(loanVO.getMotsheloInstance());
+    		criteria.setRemainingAmount(new BigDecimal(0.0));
+    		
+    		double loanBalance = calculateLoanBalance(loanVO).doubleValue();
+    		Collection<Transaction> transactions = getTransactionDao().findByCriteria(criteria);
+    		for(Transaction transaction : transactions)
+    		{
+    			if(loanVO.getStatus() == LoanStatus.COMPLETED)
+    			{
+    				break;
+    			}
+    			
+    			LoanPayment payment = new LoanPayment();
+    			payment.setLoan(getLoanDao().load(loanVO.getId()));
+    			payment.setTransaction(transaction);
+    			double transAmount = transaction.getRemainingAmount().doubleValue();
+    			if(loanBalance <= transAmount)
+    			{
+    				payment.setPaymentAmount(new BigDecimal(loanBalance));
+    				loanVO.setStatus(LoanStatus.COMPLETED);
+    				loanBalance = 0;
+    			} else {
+    				payment.setPaymentAmount(new BigDecimal(transAmount));
+    				loanBalance -= transAmount;
+    			}
+    			payment = getLoanPaymentDao().create(payment);
+    			if(loanVO.getLoanPayments() == null)
+    			{
+    				loanVO.setLoanPayments(new ArrayList<LoanPaymentVO>());
+    			}
+    			loanVO.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(payment));
+    		}
+    	}
+    	loanVO.setBalance(calculateLoanBalance(loanVO));
     	return loanVO;
     }
 
@@ -256,6 +314,16 @@ public class LoanServiceImpl
 	protected BigDecimal handleCalculateLoanBalance(LoanVO loanVO) throws Exception {
 		
 		return getLoanDao().calculateLoanBalance(getLoanDao().loanVOToEntity(loanVO));
+	}
+
+	@Override
+	protected LoanVO handleCreateMemberContribution(InstanceMemberVO instanceMemberVO,
+			InstancePeriodVO instancePeriodVO) throws Exception {
+		// TODO Auto-generated method stub
+		InstancePeriod period = getInstancePeriodDao().instancePeriodVOToEntity(instancePeriodVO);
+		InstanceMember member = getInstanceMemberDao().instanceMemberVOToEntity(instanceMemberVO);
+		Loan loan = getLoanDao().createContributionLoan(member, period);
+		return getLoanDao().toLoanVO(loan);
 	}
 
 }

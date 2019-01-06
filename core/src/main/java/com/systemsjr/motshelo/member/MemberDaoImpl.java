@@ -17,7 +17,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import com.systemsjr.motshelo.Motshelo;
 import com.systemsjr.motshelo.instance.member.InstanceMember;

@@ -30,13 +30,16 @@
         <p:message id="loanVOType_message" for="loanVOType"/>
         <!-- loanVOMotsheloInstance -->
         <p:outputLabel id="loanVOMotsheloInstance_label" for="loanVOMotsheloInstance" value="#{messages['motshelo.instance']}:"/>
-        <p:selectOneMenu id="loanVOMotsheloInstance" value="#{editLoanEditLoanSaveForm.loanVO.motsheloInstance}" label="#{messages['motshelo.instance']}:" required="true" readonly="false">
+        <p:selectOneMenu id="loanVOMotsheloInstance" value="#{editLoanEditLoanSaveForm.loanVO.motsheloInstance.id}" label="#{messages['motshelo.instance']}:" required="true" readonly="false">
+            <f:selectItem itemLabel=""/>
             <f:selectItems value="#{editLoanEditLoanSaveForm.loanVOMotsheloInstanceBackingList}" />
+            <p:ajax update="loanVOInstanceMember" listener="#{loanEditController.updateEditForm()}"/>
         </p:selectOneMenu>
         <p:message id="loanVOMotsheloInstance_message" for="loanVOMotsheloInstance"/>
         <!-- loanVOInstanceMember -->
         <p:outputLabel id="loanVOInstanceMember_label" for="loanVOInstanceMember" value="#{messages['instance.member']}:"/>
-        <p:selectOneMenu id="loanVOInstanceMember" value="#{editLoanEditLoanSaveForm.loanVO.instanceMember}" label="#{messages['instance.member']}:" required="true" readonly="false">
+        <p:selectOneMenu id="loanVOInstanceMember" value="#{editLoanEditLoanSaveForm.loanVO.instanceMember.id}" label="#{messages['instance.member']}:" required="true" readonly="false">
+            <f:selectItem itemLabel=""/>
             <f:selectItems value="#{editLoanEditLoanSaveForm.loanVOInstanceMemberBackingList}" />
         </p:selectOneMenu>
         <p:message id="loanVOInstanceMember_message" for="loanVOInstanceMember"/>

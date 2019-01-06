@@ -9,6 +9,7 @@
 package com.systemsjr.motshelo.instance.period.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -16,10 +17,15 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see com.systemsjr.motshelo.instance.period.service.InstancePeriodService
@@ -183,6 +189,19 @@ public class InstancePeriodServiceImpl
 	protected InstancePeriodVO handleGetCurrentPeriod(MotsheloInstanceVO motsheloInstanceVO) throws Exception {
 		InstancePeriod instancePeriod = getInstancePeriodDao().getCurrentPeriod(getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO));
     	return instancePeriod != null ? getInstancePeriodDao().toInstancePeriodVO(instancePeriod) : null;
+	}
+
+	@Override
+	protected Collection<LoanVO> handleCreatePeriodContributions(InstancePeriodVO instancePeriodVO) throws Exception {
+		InstancePeriod instancePeriod = getInstancePeriodDao().load(instancePeriodVO.getId());
+		Collection<LoanVO> loans = new ArrayList<LoanVO>();
+		for(InstanceMember member : instancePeriod.getMotsheloInstance().getInstanceMembers())
+		{
+			Loan loan = getLoanDao().createContributionLoan(member, instancePeriod);
+			loans.add(getLoanDao().toLoanVO(loan));
+		}
+		
+		return loans;
 	}
 
 }

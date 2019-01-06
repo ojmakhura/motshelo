@@ -14,14 +14,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.systemsjr.motshelo.instance.MotsheloInstance;
-import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.interest.vo.InterestSearchCritirea;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.Loan;
@@ -116,9 +113,9 @@ public class InterestDaoImpl
     	Root<Interest> root = query.from(Interest.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		Join<Interest, Loan> loanJoin = root.join("loan");
 		if(searchCriteria.getLoan() != null)
 		{
+			Join<Interest, Loan> loanJoin = root.join("loan");
 			predicates.add(builder.equal(loanJoin.<Long>get("id"), searchCriteria.getLoan().getId() ));
 		}	
 		

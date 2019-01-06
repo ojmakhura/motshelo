@@ -4,7 +4,6 @@ package com.systemsjr.motshelo.loan.web.edit;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -30,6 +29,9 @@ public class LoanEditControllerImpl
     @Override
     public void doSaveLoan()
     {
+    	LoanVO loan = getEditLoanSaveForm().getLoanVO();
+    	loan = getLoanService().saveLoan(loan);
+    	getEditLoanSaveForm().setLoanVO(loan);
     }
 
     /**
@@ -38,6 +40,8 @@ public class LoanEditControllerImpl
     @Override
     public void doNewLoan()
     {
+    	LoanVO loan = new LoanVO();
+    	getEditLoanSaveForm().setLoanVO(loan);
     }
 
     /**
@@ -47,7 +51,6 @@ public class LoanEditControllerImpl
     public void doInitialiseEditScreen(DoInitialiseEditScreenForm form)
     {
     	LoanVO loanVO = (LoanVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loanVO");
-    	
     	if(loanVO == null)
     	{
     		loanVO = new LoanVO();
@@ -84,30 +87,27 @@ public class LoanEditControllerImpl
 
 	@Override
 	public void updateMemberBackingList() throws Throwable {
-		// TODO Auto-generated method stub
 		Collection<SelectItem> memberBackingList = new ArrayList<SelectItem>();
 		if (getEditLoanSaveForm().getLoanVO() != null && getEditLoanSaveForm().getLoanVO().getMotsheloInstance() != null) {
 			MotsheloInstanceVO insVO = getMotsheloInstanceService().findById(getEditLoanSaveForm().getLoanVO().getMotsheloInstance().getId());
-			//insVO = getMotsheloInstanceService().findById(insVO.getId());
 			for(InstanceMemberVO memVO : insVO.getInstanceMembers())
 			{
 				memberBackingList.add(new SelectItem(memVO.getId(), memVO.getMember().getName() + " " + memVO.getMember().getSurname()));
 			}
 		}
-		//get.setLoanVOInstanceMemberBackingList(memberBackingList);
 		getEditLoanSaveForm().setLoanVOInstanceMemberBackingList(memberBackingList);
 	}
 
 	@Override
 	public void calculateEndDate() throws Throwable {
 		// TODO Auto-generated method stub
-		
+		getLoanService().calculateLoanEndDate(getEditLoanSaveForm().getLoanVO());
 	}
 
 	@Override
 	public void addInterest() throws Throwable {
 		// TODO Auto-generated method stub
-		
+		getLoanService().getLoanInterest(getEditLoanSaveForm().getLoanVO());
 	}
 
 }

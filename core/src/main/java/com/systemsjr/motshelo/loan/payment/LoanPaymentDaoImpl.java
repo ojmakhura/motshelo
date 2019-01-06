@@ -20,7 +20,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.systemsjr.motshelo.instance.period.InstancePeriod;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentSearchCriteria;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
@@ -43,16 +42,16 @@ public class LoanPaymentDaoImpl
     	CriteriaQuery<LoanPayment> query = builder.createQuery(LoanPayment.class);
     	Root<LoanPayment> root = query.from(LoanPayment.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
-		Join<InstancePeriod, Loan> loanJoin = root.join("loan", JoinType.INNER);
-		Join<InstancePeriod, Transaction> transactionJoin = root.join("transaction", JoinType.INNER);
 		
 		if(searchCriteria.getLoan() != null)
 		{
+			Join<LoanPayment, Loan> loanJoin = root.join("loan", JoinType.INNER);
 			predicates.add(builder.equal(loanJoin.<Long>get("id"), searchCriteria.getLoan().getId()));
 		}
 		
 		if(searchCriteria.getTransaction() != null)
 		{
+			Join<LoanPayment, Transaction> transactionJoin = root.join("transaction", JoinType.INNER);
 			predicates.add(builder.equal(transactionJoin.<Long>get("id"), searchCriteria.getTransaction().getId()));
 		}
 		

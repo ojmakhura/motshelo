@@ -37,7 +37,6 @@ public class MemberSearchControllerImpl
     public void doMemberSearch()
     {
     	Collection<MemberVO> members = getMemberService().searchMembers(getSearchMembersSearchForm().getSearchCriteria());
-    	//getSearchMembersForm().setMembers(members);
     	getSearchMembersSearchForm().setMembers(members);
     }
 
@@ -47,16 +46,13 @@ public class MemberSearchControllerImpl
     @Override
     public void doMemberEdit(DoMemberEditForm form)
     {
-    	MemberVO memberVO = (MemberVO) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("row");
-    	
-    	if(memberVO != null && memberVO.getId() != null)
-    	{
-    		memberVO = getMemberService().findById(memberVO.getId());
-    		form.setMemberVO(memberVO);
-    		getSearchMembersEditForm().setMemberVO(memberVO);
-    	}
-    	
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", memberVO);
+    	getSearchMembersForm().setId(form.getId());
+
+    	try {
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", getSelectedMember());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
     }
 
     /**
@@ -65,21 +61,19 @@ public class MemberSearchControllerImpl
     @Override
     public void doMemberDetails(DoMemberDetailsForm form)
     {
-    	MemberVO memberVO = (MemberVO) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("row");
+    	getSearchMembersForm().setId(form.getId());
     	
-    	if(memberVO != null && memberVO.getId() != null)
-    	{
-    		memberVO = getMemberService().findById(memberVO.getId());
-    		form.setMemberVO(memberVO);
-    		getSearchMembersDetailsForm().setMemberVO(memberVO);
-    	}
-    	
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", getSearchMembersDetailsForm().getMemberVO());
+    	try {
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", getSelectedMember());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
     }
 
 	@Override
 	protected MemberVO getSelectedMember() throws Throwable {
-		// TODO Auto-generated method stub
-		return null;
+		MemberVO memberVO = getMemberService().findById(getSearchMembersForm().getId());
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberVO", memberVO);
+		return memberVO;
 	}
 }

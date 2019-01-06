@@ -8,6 +8,7 @@
  */
 package com.systemsjr.motshelo.instance.member.service;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -94,7 +95,7 @@ public class InstanceMemberServiceImpl
      * @see com.systemsjr.motshelo.instance.member.service.InstanceMemberService#searchMetshelo(InstanceMemberSearchCriteria)
      */
     @Override
-    protected  Collection<InstanceMemberVO> handleSearchMetshelo(InstanceMemberSearchCriteria searchCriteria)
+    protected  Collection<InstanceMemberVO> handleSearchInstanceMembers(InstanceMemberSearchCriteria searchCriteria)
         throws Exception
     {
     	Collection<InstanceMember> instanceMembers = getInstanceMemberDao().findByCriteria(searchCriteria);
@@ -111,5 +112,11 @@ public class InstanceMemberServiceImpl
     	Collection<InstanceMember> instanceMembers = getInstanceMemberDao().findByCriteria(searchCriteria);
     	return getInstanceMemberDao().toInstanceMemberVOArray(instanceMembers);
     }
+
+	@Override
+	protected BigDecimal handleCalculateMemberBalance(InstanceMemberVO instanceMemberVO) throws Exception {
+		// TODO Auto-generated method stub
+		return getInstanceMemberDao().getInstanceMemberBalance(getInstanceMemberDao().instanceMemberVOToEntity(instanceMemberVO));
+	}
 
 }

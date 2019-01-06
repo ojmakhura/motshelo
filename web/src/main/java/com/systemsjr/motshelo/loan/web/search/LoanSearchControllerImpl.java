@@ -30,12 +30,20 @@ public class LoanSearchControllerImpl
     @Override
     public void doInitialiseSearchScreen(DoInitialiseSearchScreenForm form)
     {
-        LoanSearchCriteria searchCriteria = new LoanSearchCriteria();        
-        form.setSearchCriteria(searchCriteria);
+        LoanSearchCriteria searchCriteria = form.getSearchCriteria();   
+        
+        if(searchCriteria.getMotsheloInstance() == null)
+        {
+        	searchCriteria.setMotsheloInstance(new MotsheloInstanceVO());
+        }
+        
+        if(searchCriteria.getInstanceMember() == null)
+        {
+        	searchCriteria.setInstanceMember(new InstanceMemberVO());
+        }
         
         Collection<MotsheloInstanceVO> motsheloInstances = getMotsheloInstanceService().getAllMotsheloInstances();
         final Collection<SelectItem> motsheloInstanceBackingList = new ArrayList<SelectItem>();
-        motsheloInstanceBackingList.add(new SelectItem(-1, "--NONE--"));
         for(MotsheloInstanceVO instance : motsheloInstances)
         {
         	motsheloInstanceBackingList.add(new SelectItem(instance.getId(), instance.getInstanceName()));

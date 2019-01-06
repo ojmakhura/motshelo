@@ -6,6 +6,7 @@
  */
 package com.systemsjr.motshelo.instance.member;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,18 +14,20 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
+import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberSearchCriteria;
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
-import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.member.Member;
 import com.systemsjr.motshelo.transaction.Transaction;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
@@ -116,7 +119,7 @@ public class InstanceMemberDaoImpl
         
         if(instanceMemberVO.getMotsheloInstance() != null)
         {
-        	entity.setMotsheloInstance(getMotsheloInstanceDao().load(instanceMemberVO.getMotsheloInstance().getId()));
+        	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instanceMemberVO.getMotsheloInstance()));
         }
         
         Collection<LoanVO> loanVOs = instanceMemberVO.getLoans();
@@ -155,10 +158,17 @@ public class InstanceMemberDaoImpl
     	Root<InstanceMember> root = query.from(InstanceMember.class);   
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
-		/*if(searchCriteria.getName() != null)
+		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
 		{
-			predicates.add(builder.like(root.<String>get("name"), "%" + searchCriteria.getName() + "%"));
-		}*/		
+			Join<InstanceMember, MotsheloInstance> instanceJoin = root.join("motsheloInstance", JoinType.INNER);
+			predicates.add(builder.equal(instanceJoin.<Long>get("id"), searchCriteria.getMotsheloInstance().getId() ));
+		}
+		
+		if(searchCriteria.getMember() != null && searchCriteria.getMember().getId() != null)
+		{
+			Join<InstanceMember, Member> memberJoin = root.join("member", JoinType.INNER);
+			predicates.add(builder.equal(memberJoin.<Long>get("id"), searchCriteria.getMember().getId() ));
+		}
 		
 		if(!predicates.isEmpty()) {
 			query.where();
@@ -203,5 +213,27 @@ public class InstanceMemberDaoImpl
 		}
 		
 		return vo;
+	}
+
+	@Override
+	protected BigDecimal handleGetInstanceMemberBalance(InstanceMember instanceMember) throws Exception {
+		// TODO Auto-generated method stub
+		instanceMember = this.load(instanceMember.getId());
+		
+		BigDecimal balance = new BigDecimal(0);
+		for(Transaction transaction : instanceMember.getTransactions()) {
+			balance = balance.add(transaction.getTransactionAmount());
+		}
+		
+		for(Loan loan : instanceMember.getLoans()) {
+			BigDecimal lb = loan.getAmount();
+			balance = balance.subtract(lb);
+			for(Interest interest : loan.getInterests())
+			{
+				balance = balance.subtract(interest.getAmount());
+			}
+		}
+		
+		return balance;
 	}
 }

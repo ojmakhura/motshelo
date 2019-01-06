@@ -10,9 +10,13 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see com.systemsjr.motshelo.instance.period.web.edit.InstancePeriodEditController
@@ -100,10 +104,20 @@ public class InstancePeriodEditControllerImpl
         	instancePeriodVO.setNextPeriod(new InstancePeriodVO());
         }
         
-        form.setInstancePeriodVO(instancePeriodVO);        
-        MotsheloInstanceVO instanceVO = instancePeriodVO.getMotsheloInstance();
+        form.setInstancePeriodVO(instancePeriodVO);  
         
-        Collection<SelectItem> nextBackingList = new ArrayList<SelectItem>();
+        try {
+			updateEditForm();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+    }
+
+
+	@Override
+	public void updateEditForm() throws Throwable {
+		MotsheloInstanceVO instanceVO = getEditInstancePeriodForm().getInstancePeriodVO().getMotsheloInstance();
+		Collection<SelectItem> nextBackingList = new ArrayList<SelectItem>();
         Collection<SelectItem> previousBackingList = new ArrayList<SelectItem>();
         
         if(instanceVO != null && instanceVO.getId() != null) {
@@ -118,10 +132,15 @@ public class InstancePeriodEditControllerImpl
 	        }
         }
         
-        form.setInstancePeriodVONextPeriodBackingList(nextBackingList);
         getEditInstancePeriodSaveForm().setInstancePeriodVONextPeriodBackingList(nextBackingList);
-        form.setInstancePeriodVOPreviousPeriodBackingList(previousBackingList);
         getEditInstancePeriodSaveForm().setInstancePeriodVOPreviousPeriodBackingList(previousBackingList);
-    }
+	}
+
+
+	@Override
+	public void doNewPeriodContributions() throws Throwable {
+		
+		getInstancePeriodService().createPeriodContributions(getEditInstancePeriodSaveForm().getInstancePeriodVO());
+	}
 
 }

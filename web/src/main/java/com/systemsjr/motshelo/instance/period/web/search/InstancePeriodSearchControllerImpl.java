@@ -4,7 +4,6 @@ package com.systemsjr.motshelo.instance.period.web.search;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -33,7 +32,6 @@ public class InstancePeriodSearchControllerImpl
     {
     	Collection<MotsheloInstanceVO> motsheloInstances = getMotsheloInstanceService().getAllMotsheloInstances();
     	Collection<SelectItem> instancesBackingList = new ArrayList<SelectItem>();
-    	//instancesBackingList.add(new SelectItem(-1, "--NONE--"));
     	for(MotsheloInstanceVO instance : motsheloInstances)
     	{
     		instancesBackingList.add(new SelectItem(instance.getId(), instance.getInstanceName()));
@@ -68,7 +66,6 @@ public class InstancePeriodSearchControllerImpl
     	try {
 			form.setInstancePeriodVO(getSelectedInstancePeriod());
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }   
@@ -83,7 +80,6 @@ public class InstancePeriodSearchControllerImpl
     	try {
 			form.setInstancePeriodVO(getSelectedInstancePeriod());
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

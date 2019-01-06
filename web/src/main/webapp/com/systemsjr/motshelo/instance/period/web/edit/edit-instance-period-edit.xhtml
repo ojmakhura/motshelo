@@ -31,6 +31,7 @@
 			<p:selectOneMenu id="instancePeriodVOMotsheloInstance" value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVO.motsheloInstance.id}" label="#{messages['motshelo.instance']}:" required="true" readonly="false">
 				<f:selectItem itemLabel="" />
 				<f:selectItems value="#{editInstancePeriodEditInstancePeriodSaveForm.instancePeriodVOMotsheloInstanceBackingList}" />
+				<p:ajax update="instancePeriodVOPreviousPeriod instancePeriodVONextPeriod" listener="#{instancePeriodEditController.updateEditForm()}"/>
 			</p:selectOneMenu>
 			<p:message id="instancePeriodVOMotsheloInstance_message"
 				for="instancePeriodVOMotsheloInstance" />
@@ -70,6 +71,7 @@
 			<f:facet name="footer">
 				<p:commandButton id="editInstancePeriodSaveAction" value="#{messages['save']}" action="#{instancePeriodEditController.editInstancePeriodSave}" ajax="false" />
 				<p:commandButton id="editInstancePeriodNewAction" value="#{messages['new']}" action="#{instancePeriodEditController.editInstancePeriodNew}" immediate="true" ajax="false" />
+				<p:commandButton id="editInstancePeriodNewCotributionsAction" value="#{messages['new.contributions']}" action="#{instancePeriodEditController.editInstancePeriodNewContributions}" ajax="false"/>
 			</f:facet>
 		</p:panelGrid>
 	</h:form>

@@ -16,17 +16,12 @@
 			<p:outputLabel id="motsheloInstanceVOInstanceName_label" for="motsheloInstanceVOInstanceName" value="#{messages['instance.name']}:" />
 			<p:inputText id="motsheloInstanceVOInstanceName" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.instanceName}" required="false" readonly="true">
 			</p:inputText>
-			<p:message id="motsheloInstanceVOInstanceName_message"
-				for="motsheloInstanceVOInstanceName" />
+			<p:message id="motsheloInstanceVOInstanceName_message" for="motsheloInstanceVOInstanceName" />
 			<!-- motsheloInstanceVOMotshelo -->
-			<p:outputLabel id="motsheloInstanceVOMotshelo_label"
-				for="motsheloInstanceVOMotshelo" value="#{messages['motshelo']}:" />
-			<p:selectOneMenu id="motsheloInstanceVOMotshelo"
-				value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.motshelo.id}"
-				label="#{messages['motshelo']}:" required="true" readonly="false">
+			<p:outputLabel id="motsheloInstanceVOMotshelo_label" for="motsheloInstanceVOMotshelo" value="#{messages['motshelo']}:" />
+			<p:selectOneMenu id="motsheloInstanceVOMotshelo" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.motshelo.id}" label="#{messages['motshelo']}:" required="true" readonly="false">
 				<f:selectItem itemLabel="" />
-				<f:selectItems
-					value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVOMotsheloBackingList}" />
+				<f:selectItems value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVOMotsheloBackingList}" />
 			</p:selectOneMenu>
 			<p:message id="motsheloInstanceVOMotshelo_message"
 				for="motsheloInstanceVOMotshelo" />
