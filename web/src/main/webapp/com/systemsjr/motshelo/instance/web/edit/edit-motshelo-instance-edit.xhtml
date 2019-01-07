@@ -11,6 +11,8 @@
 	<h:form id="editMotsheloInstanceEditMotsheloInstanceSaveForm">
 		<ui:include
 			src="/com/systemsjr/motshelo/instance/web/edit/edit-motshelo-instance-save-hidden-params.xhtml" />
+		<p:messages id="messages" showDetail="true" closable="true">
+		</p:messages>
 		<p:panelGrid columns="3">
 			<!-- motsheloInstanceVOInstanceName -->
 			<p:outputLabel id="motsheloInstanceVOInstanceName_label" for="motsheloInstanceVOInstanceName" value="#{messages['instance.name']}:" />
@@ -37,25 +39,28 @@
 			<p:message id="motsheloInstanceVOStartDate_message"
 				for="motsheloInstanceVOStartDate" />
 			<!-- motsheloInstanceVOCloseDate -->
-			<p:outputLabel id="motsheloInstanceVOCloseDate_label"
-				for="motsheloInstanceVOCloseDate" value="#{messages['close.date']}:" />
-			<p:calendar id="motsheloInstanceVOCloseDate"
-				value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.closeDate}"
-				label="#{messages['close.date']}:" required="true" readonly="false"
-				navigator="true" pattern="MM/dd/yyyy" showOn="button">
+			<p:outputLabel id="motsheloInstanceVOCloseDate_label" for="motsheloInstanceVOCloseDate" value="#{messages['close.date']}:" />
+			<p:calendar id="motsheloInstanceVOCloseDate" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.closeDate}" label="#{messages['close.date']}:" required="true" readonly="false" navigator="true" pattern="MM/dd/yyyy" showOn="button">
 				<f:convertDateTime pattern="MM/dd/yyyy" />
 			</p:calendar>
-			<p:message id="motsheloInstanceVOCloseDate_message"
-				for="motsheloInstanceVOCloseDate" />
+			<p:message id="motsheloInstanceVOCloseDate_message" for="motsheloInstanceVOCloseDate" />
+				<!-- motsheloInstanceVOStartingBalance -->
+	        <p:outputLabel id="motsheloInstanceVOStartingBalance_label" for="motsheloInstanceVOStartingBalance" value="#{messages['starting.balance']}:"/>
+	        <p:inputText id="motsheloInstanceVOStartingBalance" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.startingBalance}" required="false" readonly="false">
+	        </p:inputText>
+	        <p:message id="motsheloInstanceVOStartingBalance_message" for="motsheloInstanceVOStartingBalance"/>
 			<!-- motsheloInstanceVOBalance -->
 			<p:outputLabel id="motsheloInstanceVOBalance_label"
 				for="motsheloInstanceVOBalance" value="#{messages['balance']}:" />
-			<p:inputText id="motsheloInstanceVOBalance"
-				value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.balance}"
-				required="true" readonly="false">
+			<p:inputText id="motsheloInstanceVOBalance" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.balance}" required="false" readonly="false">
 			</p:inputText>
-			<p:message id="motsheloInstanceVOBalance_message"
-				for="motsheloInstanceVOBalance" />
+			<p:message id="motsheloInstanceVOBalance_message" for="motsheloInstanceVOBalance" />
+			<!-- motsheloInstanceVOCummulativeBalance -->
+	        <p:outputLabel id="motsheloInstanceVOCummulativeBalance_label" for="motsheloInstanceVOCummulativeBalance" value="#{messages['cummulative.balance']}:"/>
+	        <p:inputText id="motsheloInstanceVOCummulativeBalance" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.cummulativeBalance}" required="false" readonly="false">
+	        </p:inputText>
+	        <p:message id="motsheloInstanceVOCummulativeBalance_message" for="motsheloInstanceVOCummulativeBalance"/>
+	        
 			<f:facet name="footer">
 				<p:commandButton id="editMotsheloInstanceSaveAction" value="#{messages['save']}" action="#{motsheloInstanceEditController.editMotsheloInstanceSave}" ajax="false" />
 				<p:commandButton id="editMotsheloInstanceNewAction" value="#{messages['new']}" action="#{motsheloInstanceEditController.editMotsheloInstanceNew}" immediate="true" ajax="false" />

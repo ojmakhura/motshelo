@@ -10,13 +10,13 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
+import org.apache.commons.collections4.CollectionUtils;
+
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
-import com.systemsjr.motshelo.member.vo.MemberVO;
-import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see com.systemsjr.motshelo.instance.period.web.edit.InstancePeriodEditController
@@ -139,8 +139,41 @@ public class InstancePeriodEditControllerImpl
 
 	@Override
 	public void doNewPeriodContributions() throws Throwable {
+		Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Contribution loans created.";
+    	
+    	InstancePeriodVO instancePeriodVO = getEditInstancePeriodSaveForm().getInstancePeriodVO();
+    	LoanSearchCriteria loanCriteria = new LoanSearchCriteria();
+    	loanCriteria.setMotsheloInstance(instancePeriodVO.getMotsheloInstance());
+    	loanCriteria.setMinDate(instancePeriodVO.getStartDate());
+    	loanCriteria.setMaxDate(instancePeriodVO.getEndDate());
+    	
+    	Collection<LoanVO> loans = getLoanService().searchLoans(loanCriteria);
+    	
+    	if(!CollectionUtils.isEmpty(loans))
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "FAILED: ";
+        	details = "Contribution loans already exists.";
+    	}
+    	
+    	InstancePeriodVO period = getEditInstancePeriodSaveForm().getInstancePeriodVO();
+		loans = new ArrayList<LoanVO>();
 		
-		getInstancePeriodService().createPeriodContributions(getEditInstancePeriodSaveForm().getInstancePeriodVO());
+		for(LoanVO loan : getInstancePeriodService().createPeriodContributions(period))
+		{
+			loans.add(getLoanService().saveLoan(loan));			
+		}
+		
+		if(CollectionUtils.isEmpty(loans))
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "FAILED: ";
+        	details = "Contribution loans not created.";
+    	}
+		
+		FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
 	}
 
 }

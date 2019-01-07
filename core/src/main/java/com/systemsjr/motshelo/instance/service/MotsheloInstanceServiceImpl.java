@@ -49,6 +49,12 @@ public class MotsheloInstanceServiceImpl
     protected  MotsheloInstanceVO handleSaveMotsheloInstance(MotsheloInstanceVO motsheloInstanceVO)
         throws Exception
     {
+    	if(motsheloInstanceVO.getId() == null)
+    	{
+    		motsheloInstanceVO.setBalance(motsheloInstanceVO.getStartingBalance());
+    		motsheloInstanceVO.setCummulativeBalance(motsheloInstanceVO.getStartingBalance());
+    	}
+    	
     	MotsheloInstance instance = getMotsheloInstanceDao().motsheloInstanceVOToEntity(motsheloInstanceVO);
     	instance.setMotshelo(getMotsheloDao().load(motsheloInstanceVO.getMotshelo().getId()));
     	

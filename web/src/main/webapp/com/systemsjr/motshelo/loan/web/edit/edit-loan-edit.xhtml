@@ -11,6 +11,8 @@
     xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
 <h:form id="editLoanEditLoanSaveForm">
     <ui:include src="/com/systemsjr/motshelo/loan/web/edit/edit-loan-save-hidden-params.xhtml"/>
+    <p:messages id="messages" showDetail="true" closable="true">
+	</p:messages>
     <p:panelGrid columns="3">
         <!-- loanVOStatus -->
         <p:outputLabel id="loanVOStatus_label" for="loanVOStatus" value="#{messages['status']}:"/>

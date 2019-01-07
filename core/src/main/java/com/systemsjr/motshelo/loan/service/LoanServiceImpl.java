@@ -17,6 +17,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.systemsjr.motshelo.Motshelo;
+import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
@@ -79,9 +80,9 @@ public class LoanServiceImpl
     			loanVO.setStatus(LoanStatus.DAFAULTED);
     		}
     	}
-    	
+    	InstanceMember member = getInstanceMemberDao().load(loanVO.getInstanceMember().getId());
     	Loan loan = getLoanDao().loanVOToEntity(loanVO);   
-    	loan.setInstanceMember(getInstanceMemberDao().load(loan.getInstanceMember().getId()));
+    	loan.setInstanceMember(member);
     	loan = getLoanDao().createOrUpdate(loan);
     	loanVO = getLoanDao().toLoanVO(loan);
     	
@@ -100,24 +101,38 @@ public class LoanServiceImpl
     			balance.add(interest.getAmount());
     			loanVO.setBalance(balance);
     			
-    			BigDecimal instanceBalance = loanVO.getMotsheloInstance().getCumulativeBalance();
+    			BigDecimal instanceBalance = loanVO.getMotsheloInstance().getCummulativeBalance();
     			instanceBalance = instanceBalance.add(interest.getAmount());
-    			loanVO.getMotsheloInstance().setCumulativeBalance(instanceBalance);
+    			loanVO.getMotsheloInstance().setCummulativeBalance(instanceBalance);
     			getMotsheloInstanceDao().update(getMotsheloInstanceDao().motsheloInstanceVOToEntity(loanVO.getMotsheloInstance()));
     		}
     	}
     	
     	if(loanVO.getId() != null && isNew)
     	{
-    		InstanceMemberVO member = loanVO.getInstanceMember();
-    		BigDecimal balance = member.getBalance();
-    		balance = balance.subtract(loanVO.getAmount());
-    		member.setBalance(balance);
-    		getInstanceMemberDao().update(getInstanceMemberDao().instanceMemberVOToEntity(member));
+			BigDecimal balance = member.getBalance();
+			balance = balance.subtract(loanVO.getAmount());
+			member.setBalance(balance);
+			getInstanceMemberDao().update(member);
+			
+			// need to update instance balance
+			MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
+			if(loanVO.getType() != LoanType.CONTRIBUTION)
+			{
+				BigDecimal instanceBalance = instance.getBalance();
+				instanceBalance = instanceBalance.subtract(loanVO.getAmount());
+				instance.setBalance(instanceBalance);
+				
+			} else {
+				BigDecimal instanceBalance = instance.getCummulativeBalance();
+				instanceBalance = instanceBalance.add(loanVO.getAmount());
+				instance.setCummulativeBalance(instanceBalance);
+			}
+			getMotsheloInstanceDao().update(instance);
     		
     		// Search for any of the transactions that still have money left
     		TransactionSearchCriteria criteria = new TransactionSearchCriteria();
-    		criteria.setInstanceMember(member);
+    		criteria.setInstanceMember(loanVO.getInstanceMember());
     		criteria.setMotsheloInstance(loanVO.getMotsheloInstance());
     		criteria.setRemainingAmount(new BigDecimal(0.0));
     		
@@ -255,7 +270,7 @@ public class LoanServiceImpl
 		// With a new loan we start from the startDate
 		if(loanVO.getId() == null) { 
 			date = loanVO.getStartDate();
-			if(loanVO.getType() == LoanType.INTERESTFREE) // Contribution loan has no interest
+			if(loanVO.getType() == LoanType.CONTRIBUTION) // Contribution loan has no interest
 			{
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(date);				
@@ -319,11 +334,10 @@ public class LoanServiceImpl
 	@Override
 	protected LoanVO handleCreateMemberContribution(InstanceMemberVO instanceMemberVO,
 			InstancePeriodVO instancePeriodVO) throws Exception {
-		// TODO Auto-generated method stub
 		InstancePeriod period = getInstancePeriodDao().instancePeriodVOToEntity(instancePeriodVO);
 		InstanceMember member = getInstanceMemberDao().instanceMemberVOToEntity(instanceMemberVO);
 		Loan loan = getLoanDao().createContributionLoan(member, period);
-		return getLoanDao().toLoanVO(loan);
+		return this.saveLoan(getLoanDao().toLoanVO(loan));
 	}
 
 }

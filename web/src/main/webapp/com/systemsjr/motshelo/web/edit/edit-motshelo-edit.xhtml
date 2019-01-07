@@ -11,13 +11,9 @@
 	<h:form id="editMotsheloEditMotsheloSaveForm">
 		<ui:include
 			src="/com/systemsjr/motshelo/web/edit/edit-motshelo-edit-hidden-params.xhtml" />
+		<p:messages id="messages" showDetail="true" closable="true">
+		</p:messages>
 		<p:panelGrid columns="3">
-			<!-- motsheloVOId -->
-			<!-- <p:outputLabel id="motsheloVOId_label" for="motsheloVOId" value="#{messages['id']}:"/>
-		        <p:inputText id="motsheloVOId" value="#{editMotsheloEditMotsheloSaveForm.motsheloVO.id}" required="false" readonly="false">
-		        </p:inputText>
-		        <p:message id="motsheloVOId_message" for="motsheloVOId"/> -->
-
 			<!-- motsheloVOMembers -->
 			<!-- <p:outputLabel id="motsheloVOMembers_label" for="motsheloVOMembers" value="#{messages['members']}:"/>
 		        <p:inputText id="motsheloVOMembers" value="#{editMotsheloEditMotsheloSaveForm.motsheloVO.members}" required="false" readonly="false">

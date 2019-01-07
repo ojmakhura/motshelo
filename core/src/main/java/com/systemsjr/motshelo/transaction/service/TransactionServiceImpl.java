@@ -14,7 +14,8 @@ import java.util.Collection;
 
 import org.springframework.stereotype.Service;
 
-import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
+import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.loan.Loan;
 import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.LoanType;
@@ -85,36 +86,34 @@ public class TransactionServiceImpl
         throws Exception
     {
     	boolean isNew = false;
-    	
     	if(transactionVO.getId() == null)
     	{
     		isNew = true;
     		transactionVO.setRemainingAmount(transactionVO.getTransactionAmount());
     	}
-    	
     	Transaction transaction = getTransactionDao().transactionVOToEntity(transactionVO);
     	transaction = getTransactionDao().createOrUpdate(transaction);
-    	
     	/**
     	 * First find the unpaid contributions for the member's transaction
     	 */
-    	Collection<LoanPayment> payments = getLoanPayments(transactionVO, LoanType.INTERESTFREE); // interest free loans first#
-    	payments.addAll(getLoanPayments(transactionVO, LoanType.STANDARD));    	
+    	Collection<LoanPayment> payments = getLoanPayments(transactionVO, LoanType.CONTRIBUTION); // interest free loans first#
+    	payments.addAll(getLoanPayments(transactionVO, LoanType.INTERESTFREE));
+    	payments.addAll(getLoanPayments(transactionVO, LoanType.STANDARD));    
     	
     	if(transaction.getId() != null && isNew)
     	{
-    		InstanceMemberVO member = transactionVO.getInstanceMember();
+    		InstanceMember member = getInstanceMemberDao().load(transactionVO.getInstanceMember().getId());
     		BigDecimal balance = member.getBalance();
-    		balance = balance.subtract(transactionVO.getTransactionAmount());
+    		balance = balance.add(transactionVO.getTransactionAmount());
     		member.setBalance(balance);
-    		getInstanceMemberDao().update(getInstanceMemberDao().instanceMemberVOToEntity(member));
+    		getInstanceMemberDao().update(member);
     		
-    		BigDecimal instanceBalance = transactionVO.getMotsheloInstance().getCumulativeBalance();
+    		MotsheloInstance instance = getMotsheloInstanceDao().load(transactionVO.getMotsheloInstance().getId());
+    		BigDecimal instanceBalance = instance.getBalance();
 			instanceBalance = instanceBalance.add(transactionVO.getTransactionAmount());
-			transactionVO.getMotsheloInstance().setCumulativeBalance(instanceBalance);
-			getMotsheloInstanceDao().update(getMotsheloInstanceDao().motsheloInstanceVOToEntity(transactionVO.getMotsheloInstance()));
+			instance.setBalance(instanceBalance);
+			getMotsheloInstanceDao().update(instance);
     	}
-    	
     	return getTransactionDao().toTransactionVO(transaction);
     }
 

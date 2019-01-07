@@ -11,6 +11,8 @@
     xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
 <h:form id="editInstanceMemberEditInstanceMemberSaveForm">
     <ui:include src="/com/systemsjr/motshelo/instance/member/web/edit/edit-instance-member-save-hidden-params.xhtml"/>
+    <p:messages id="messages" showDetail="true" closable="true">
+	</p:messages>
     <p:panelGrid columns="3">
         <!-- instanceMemberVOMotsheloInstance -->
         <p:outputLabel id="instanceMemberVOMotsheloInstance_label" for="instanceMemberVOMotsheloInstance" value="#{messages['motshelo.instance']}:"/>

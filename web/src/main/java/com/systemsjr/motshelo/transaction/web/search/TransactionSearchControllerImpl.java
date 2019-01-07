@@ -111,6 +111,12 @@ public class TransactionSearchControllerImpl
 		if(searchCriteria.getMotsheloInstance() != null)
 		{
 			MotsheloInstanceVO motshelo = getMotsheloInstanceService().findById(searchCriteria.getMotsheloInstance().getId());
+			
+			if(motshelo == null || motshelo.getId() == null)
+			{
+				return;
+			}
+			
 			Collection<SelectItem> memberBackingList = new ArrayList<SelectItem>();
 			for(InstanceMemberVO member : motshelo.getInstanceMembers())
 			{

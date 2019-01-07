@@ -174,12 +174,12 @@ public class LoanDaoImpl
 		
 		if(searchCriteria.getStatus() != null)
 		{
-			predicates.add(builder.equal(root.<String>get("status"), searchCriteria.getStatus().getValue()));
+			predicates.add(builder.equal(root.<LoanStatus>get("status"), searchCriteria.getStatus()));
 		}
 		
 		if(searchCriteria.getType() != null)
 		{
-			predicates.add(builder.equal(root.<String>get("type"), searchCriteria.getType().getValue()));
+			predicates.add(builder.equal(root.<LoanType>get("type"), searchCriteria.getType()));
 		}
 		
 		if(searchCriteria.getMaxDate() != null)
@@ -304,9 +304,9 @@ public class LoanDaoImpl
 		loan.setStartDate(instancePeriod.getStartDate());
 		loan.setInstanceMember(instanceMember);
 		loan.setMotsheloInstance(instance);
-		loan.setType(LoanType.INTERESTFREE);
+		loan.setType(LoanType.CONTRIBUTION);
 		loan.setStatus(LoanStatus.ACTIVE);
 		
-		return this.create(loan);
+		return loan;
 	}
 }

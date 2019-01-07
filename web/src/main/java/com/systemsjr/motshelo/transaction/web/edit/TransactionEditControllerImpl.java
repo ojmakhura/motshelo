@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
@@ -29,7 +30,12 @@ public class TransactionEditControllerImpl
     @Override
     public void doInitialiseEditScreen(DoInitialiseEditScreenForm form)
     {
-    	TransactionVO transaction = form.getTransactionVO();
+    	TransactionVO transaction = (TransactionVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("transactionVO");
+    	if(transaction == null)
+    	{
+    		transaction = form.getTransactionVO();
+    	}
+    	
     	if(transaction.getMotsheloInstance() == null)
     	{
     		transaction.setMotsheloInstance(new MotsheloInstanceVO());
@@ -39,7 +45,12 @@ public class TransactionEditControllerImpl
     	{
     		transaction.setInstanceMember(new InstanceMemberVO());
     	}
-        form.getTransactionVO().setTransactionDate(new Date());
+    	
+    	if(transaction.getId() == null)
+    	{
+    		transaction.setTransactionDate(new Date());
+    	}
+
         Collection<SelectItem> motsheloInstanceBackingList = new ArrayList<SelectItem>();
         for(MotsheloInstanceVO instance : getMotsheloInstanceService().getAllMotsheloInstances())
         {
@@ -47,12 +58,16 @@ public class TransactionEditControllerImpl
         }
         form.setTransactionVOMotsheloInstanceBackingList(motsheloInstanceBackingList);
         getEditTransactionSaveForm().setTransactionVOMotsheloInstanceBackingList(motsheloInstanceBackingList);
+        form.setTransactionVO(transaction);
+        getEditTransactionSaveForm().setTransactionVO(transaction);
         
         try {
 			updateEditForm();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+        
+        
     }
 
     /**
@@ -61,8 +76,8 @@ public class TransactionEditControllerImpl
     @Override
     public void doNewTransaction()
     {
-    	TransactionVO transaction = new TransactionVO();
-    	getEditTransactionSaveForm().setTransactionVO(transaction);
+    	TransactionVO transactionVO = new TransactionVO();
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactionVO", transactionVO);
     }
 
     /**
@@ -73,12 +88,14 @@ public class TransactionEditControllerImpl
     {
     	TransactionVO transaction = getEditTransactionSaveForm().getTransactionVO();
     	transaction = getTransactionService().saveTransaction(transaction);
-    	getEditTransactionSaveForm().setTransactionVO(transaction);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactionVO", transaction);
     }
 
 	@Override
 	public void updateEditForm() throws Throwable {
+		
 		TransactionVO transactionVO = getEditTransactionSaveForm().getTransactionVO();
+		
 		if(transactionVO.getMotsheloInstance() != null) {
 			MotsheloInstanceVO instance = getMotsheloInstanceService().findById(transactionVO.getMotsheloInstance().getId());
 			Collection<SelectItem> memberBackingList = new ArrayList<SelectItem>();

@@ -11,12 +11,9 @@
     xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
 <h:form id="editMemberEditMemberSaveForm">
     <ui:include src="/com/systemsjr/motshelo/member/web/edit/edit-member-save-hidden-params.xhtml"/>
+    <p:messages id="messages" showDetail="true" closable="true">
+	</p:messages>
     <p:panelGrid columns="3">
-        <!-- memberVOId -->
-        <!-- <p:outputLabel id="memberVOId_label" for="memberVOId" value="#{messages['id']}:"/>
-        <p:inputText id="memberVOId" value="#{editMemberEditMemberSaveForm.memberVO.id}" required="false" readonly="false">
-        </p:inputText>
-        <p:message id="memberVOId_message" for="memberVOId"/> -->
         <!-- memberVOStatus -->
         <p:outputLabel id="memberVOStatus_label" for="memberVOStatus" value="#{messages['status']}:"/>
         <p:selectOneMenu id="memberVOStatus" value="#{editMemberEditMemberSaveForm.memberVO.status}" label="#{messages['status']}:" required="true" readonly="false">
@@ -40,6 +37,11 @@
         <p:inputText id="memberVOSurname" value="#{editMemberEditMemberSaveForm.memberVO.surname}" required="true" readonly="false">
         </p:inputText>
         <p:message id="memberVOSurname_message" for="memberVOSurname"/>
+        <!-- memberVOEmail -->
+        <p:outputLabel id="memberVOEmail_label" for="memberVOEmail" value="#{messages['email']}:"/>
+        <p:inputText id="memberVOEmail" value="#{editMemberEditMemberSaveForm.memberVO.email}" required="false" readonly="false">
+        </p:inputText>
+        <p:message id="memberVOEmail_message" for="memberVOEmail"/>
         <!-- memberVOInstanceMembers -->
         <!-- <p:outputLabel id="memberVOInstanceMembers_label" for="memberVOInstanceMembers" value="#{messages['instance.members']}:"/>
         <p:inputText id="memberVOInstanceMembers" value="#{editMemberEditMemberSaveForm.memberVO.instanceMembers}" required="false" readonly="false">

@@ -13,7 +13,7 @@
             <p:commandButton id="searchTransactionsDetailsAction" icon="ui-icon-circle-check" action="#{transactionSearchController.searchTransactionsDetails}" immediate="true">
                 <f:setPropertyActionListener target="#{searchTransactionsSearchTransactionsDetailsForm.id}" value="#{row.id}"/>
             </p:commandButton>
-            <p:commandButton id="searchTransactionsEditAction" icon="ui-icon-circle-pencil" action="#{transactionSearchController.searchTransactionsEdit}" immediate="true">
+            <p:commandButton id="searchTransactionsEditAction" icon="ui-icon-pencil" action="#{transactionSearchController.searchTransactionsEdit}" immediate="true">
                 <f:setPropertyActionListener target="#{searchTransactionsSearchTransactionsEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
@@ -35,7 +35,7 @@
             <f:facet name="header">
                 <h:outputText id="columnHeader_instanceMember" value="#{messages['instance.member']}"/>
             </f:facet>
-            <h:outputText id="instanceMember" value="#{row.instanceMember}">
+            <h:outputText id="instanceMember" value="#{row.instanceMember.member.name.concat(' ').concat(row.instanceMember.member.surname)}">
             </h:outputText>
         </p:column>
         <p:column sortBy="transactionDate">

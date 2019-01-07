@@ -11,6 +11,8 @@
     xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
 <h:form id="editTransactionEditTransactionSaveForm">
     <ui:include src="/com/systemsjr/motshelo/transaction/web/edit/edit-transaction-save-hidden-params.xhtml"/>
+    <p:messages id="messages" showDetail="true" closable="true">
+	</p:messages>
     <p:panelGrid columns="3">
         <!-- transactionVOTransactionType -->
         <p:outputLabel id="transactionVOTransactionType_label" for="transactionVOTransactionType" value="#{messages['transaction.type']}:"/>
@@ -33,7 +35,7 @@
         <p:selectOneMenu id="transactionVOMotsheloInstance" value="#{editTransactionEditTransactionSaveForm.transactionVO.motsheloInstance.id}" label="#{messages['motshelo.instance']}:" required="true" readonly="false">
             <f:selectItem itemLabel=""/>
             <f:selectItems value="#{editTransactionEditTransactionSaveForm.transactionVOMotsheloInstanceBackingList}" />
-            <p:ajax update="transactionVOInstanceMember" listener="#{transactionEditController.updateMemberBackingList()}"/>
+            <p:ajax update="transactionVOInstanceMember" listener="#{transactionEditController.updateEditForm()}"/>
         </p:selectOneMenu>
         <p:message id="transactionVOMotsheloInstance_message" for="transactionVOMotsheloInstance"/>
         <!-- transactionVOInstanceMember -->
@@ -54,6 +56,11 @@
         <p:inputText id="transactionVOTransactionAmount" value="#{editTransactionEditTransactionSaveForm.transactionVO.transactionAmount}" required="true" readonly="false">
         </p:inputText>
         <p:message id="transactionVOTransactionAmount_message" for="transactionVOTransactionAmount"/>
+        <!-- transactionVOTransactionNote -->
+        <p:outputLabel id="transactionVOTransactionNote_label" for="transactionVOTransactionNote" value="#{messages['transaction.note']}:"/>
+        <p:inputText id="transactionVOTransactionNote" value="#{editTransactionEditTransactionSaveForm.transactionVO.transactionNote}" required="false" readonly="false">
+        </p:inputText>
+        <p:message id="transactionVOTransactionNote_message" for="transactionVOTransactionNote"/>
         <!-- transactionVOAttachment -->
         <p:outputLabel id="transactionVOAttachment_label" for="transactionVOAttachment" value="#{messages['attachment']}:"/>
         <p:inputText id="transactionVOAttachment" value="#{editTransactionEditTransactionSaveForm.transactionVO.attachment}" required="false" readonly="false">
