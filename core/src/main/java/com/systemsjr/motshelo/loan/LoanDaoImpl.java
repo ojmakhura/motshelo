@@ -8,6 +8,7 @@ package com.systemsjr.motshelo.loan;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -22,15 +23,18 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.systemsjr.motshelo.Motshelo;
 import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.instance.period.InstancePeriod;
+import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.interest.Interest;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
 import com.systemsjr.motshelo.loan.payment.LoanPayment;
 import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
+import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
  * @see Loan
@@ -308,5 +312,11 @@ public class LoanDaoImpl
 		loan.setStatus(LoanStatus.ACTIVE);
 		
 		return loan;
+	}
+
+	@Override
+	protected Date handleCalculateLoanEndDate(Loan loan) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

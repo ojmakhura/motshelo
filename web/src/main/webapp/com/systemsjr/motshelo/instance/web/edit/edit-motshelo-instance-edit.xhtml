@@ -24,6 +24,7 @@
 			<p:selectOneMenu id="motsheloInstanceVOMotshelo" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.motshelo.id}" label="#{messages['motshelo']}:" required="true" readonly="false">
 				<f:selectItem itemLabel="" />
 				<f:selectItems value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVOMotsheloBackingList}" />
+				<!-- <p:ajax update="instanceMemberVOMember" listener="#{motsheloInstanceEditController.updateEditForm()}"/> -->
 			</p:selectOneMenu>
 			<p:message id="motsheloInstanceVOMotshelo_message"
 				for="motsheloInstanceVOMotshelo" />

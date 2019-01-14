@@ -22,6 +22,8 @@ import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.loan.Loan;
+import com.systemsjr.motshelo.loan.LoanType;
+import com.systemsjr.motshelo.loan.vo.LoanSearchCriteria;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 
 /**
@@ -199,6 +201,25 @@ public class InstancePeriodServiceImpl
 		}
 		
 		return loans;
+	}
+
+	@Override
+	protected InstancePeriodVO handleFinaliseInstancePeriod(InstancePeriodVO instancePeriodVO) throws Exception {
+		LoanSearchCriteria loanCriteria = new LoanSearchCriteria();
+    	loanCriteria.setMotsheloInstance(instancePeriodVO.getMotsheloInstance());
+    	loanCriteria.setType(LoanType.CONTRIBUTION);
+    	loanCriteria.setMinDate(instancePeriodVO.getStartDate());
+    	loanCriteria.setMaxDate(instancePeriodVO.getEndDate());
+    	
+    	Collection<Loan> loans = getLoanDao().findByCriteria(loanCriteria);
+    	
+    	for(Loan loan : loans)
+    	{
+    		Date date = getLoanDao().calculateLoanEndDate(loan);
+    		
+    	}
+    	
+		return instancePeriodVO;
 	}
 
 }

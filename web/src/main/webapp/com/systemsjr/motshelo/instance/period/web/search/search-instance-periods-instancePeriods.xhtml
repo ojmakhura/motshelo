@@ -17,6 +17,13 @@
                 <f:setPropertyActionListener target="#{searchInstancePeriodsSearchInstancePeriodsEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
+        <p:column sortBy="instanceName">
+            <f:facet name="header">
+                <h:outputText id="columnHeader_instanceName" value="#{messages['motshelo.instance']}"/>
+            </f:facet>
+            <h:outputText id="instanceName" value="#{row.motsheloInstance.instanceName}">
+            </h:outputText>
+        </p:column>
         <p:column sortBy="loanByDate">
             <f:facet name="header">
                 <h:outputText id="columnHeader_loanByDate" value="#{messages['loan.by.date']}"/>
@@ -34,21 +41,21 @@
         </p:column>
 		<f:facet name="footer">
 			<h:form>
-				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty viewVariables.members}">
+				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty viewVariables.instancePeriods}">
 					<p:menuitem value="#{messages['export.spreadsheet']}" ajax="false"> 
-						<p:dataExporter type="xls" target="members" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
+						<p:dataExporter type="xls" target="instancePeriods" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
 					<p:menuitem value="#{messages['export.pdf']}">
-						<p:dataExporter type="pdf" target="members" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
+						<p:dataExporter type="pdf" target="instancePeriods" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
 					<p:menuitem value="#{messages['export.csv']}" ajax="false">
-						<p:dataExporter type="csv" target="members" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
+						<p:dataExporter type="csv" target="instancePeriods" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
 				</p:menuButton>
 			</h:form>
 			<p:spacer width="10" />
 			<h:outputText
-				value="#{fn:length(viewVariables.members)} #{messages['records.found']}" rendered="#{not empty viewVariables.members}" />
+				value="#{fn:length(viewVariables.instancePeriods)} #{messages['records.found']}" rendered="#{not empty viewVariables.instancePeriods}" />
 		</f:facet>
     </p:dataTable>
 </ui:composition>

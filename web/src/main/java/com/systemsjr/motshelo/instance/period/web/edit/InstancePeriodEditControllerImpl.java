@@ -12,6 +12,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+import com.systemsjr.motshelo.instance.period.InstancePeriodStatus;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodSearchCriteria;
 import com.systemsjr.motshelo.instance.period.vo.InstancePeriodVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
@@ -174,6 +175,20 @@ public class InstancePeriodEditControllerImpl
     	}
 		
 		FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+	}
+
+
+	@Override
+	public void doFinaliseInstancePeriod() throws Throwable {
+		// TODO Auto-generated method stub
+		InstancePeriodVO instancePeriodVO = getEditInstancePeriodSaveForm().getInstancePeriodVO();
+		
+		instancePeriodVO = getInstancePeriodService().finaliseInstancePeriod(instancePeriodVO);
+	
+		Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Instance Period finalised.";
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
 	}
 
 }
