@@ -41,7 +41,7 @@ public class MotsheloInstanceEditControllerImpl
     	motsheloInstanceVO.setInstanceName("-");  	
     	motsheloInstanceVO = getMotsheloInstanceService().saveMotsheloInstance(motsheloInstanceVO);
     	getEditMotsheloInstanceSaveForm().setMotsheloInstanceVO(motsheloInstanceVO);
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO());
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", motsheloInstanceVO);
     }
 
 
@@ -141,7 +141,7 @@ public class MotsheloInstanceEditControllerImpl
 		{
 			getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO().getLoans().add(newLoanVO);
 		}
-
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", loanVO.getMotsheloInstance());
 		loanVO.setActualEndDate(null);
 		loanVO.setAmount(null);
 		loanVO.setId(null);

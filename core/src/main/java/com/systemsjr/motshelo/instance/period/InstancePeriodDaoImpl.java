@@ -184,6 +184,20 @@ public class InstancePeriodDaoImpl
 			vo.setMotsheloInstance(instancevo);
 		}
 		
+		if(instancePeriod.getNextPeriod() != null)
+		{
+			InstancePeriodVO next = new InstancePeriodVO();			
+			super.toInstancePeriodVO(instancePeriod.getNextPeriod(), next);
+			vo.setNextPeriod(next);
+		}
+		
+		if(instancePeriod.getPreviousPeriod() != null)
+		{
+			InstancePeriodVO previous = new InstancePeriodVO();
+			super.toInstancePeriodVO(instancePeriod.getPreviousPeriod(), previous);
+			vo.setPreviousPeriod(previous);
+		}
+		
 		return vo;
 	}
 
@@ -197,6 +211,16 @@ public class InstancePeriodDaoImpl
 		if(instancePeriodVO.getMotsheloInstance() != null)
 		{
 			entity.setMotsheloInstance(getMotsheloInstanceDao().load(instancePeriodVO.getMotsheloInstance().getId()));
+		}
+		
+		if(instancePeriodVO.getNextPeriod() != null)
+		{
+			entity.setNextPeriod(this.load(instancePeriodVO.getNextPeriod().getId()));
+		}
+		
+		if(instancePeriodVO.getPreviousPeriod() != null)
+		{
+			entity.setPreviousPeriod(this.load(instancePeriodVO.getPreviousPeriod().getId()));
 		}
 		
 		return entity;

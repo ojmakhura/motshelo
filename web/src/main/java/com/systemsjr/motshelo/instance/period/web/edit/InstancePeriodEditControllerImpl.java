@@ -159,10 +159,10 @@ public class InstancePeriodEditControllerImpl
         	details = "Contribution loans already exists.";
     	}
     	
-    	InstancePeriodVO period = getEditInstancePeriodSaveForm().getInstancePeriodVO();
+    	//InstancePeriodVO period = getEditInstancePeriodSaveForm().getInstancePeriodVO();
 		loans = new ArrayList<LoanVO>();
 		
-		for(LoanVO loan : getInstancePeriodService().createPeriodContributions(period))
+		for(LoanVO loan : getInstancePeriodService().createPeriodContributions(instancePeriodVO))
 		{
 			loans.add(getLoanService().saveLoan(loan));			
 		}
@@ -173,6 +173,10 @@ public class InstancePeriodEditControllerImpl
         	summary = "FAILED: ";
         	details = "Contribution loans not created.";
     	}
+		
+		instancePeriodVO = getInstancePeriodService().findById(instancePeriodVO.getId());
+		getEditInstancePeriodSaveForm().setInstancePeriodVO(instancePeriodVO);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instancePeriodVO", instancePeriodVO);
 		
 		FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
 	}
