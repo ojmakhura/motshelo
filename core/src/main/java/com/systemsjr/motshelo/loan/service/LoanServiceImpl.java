@@ -80,7 +80,9 @@ public class LoanServiceImpl
     			loanVO.setStatus(LoanStatus.DAFAULTED);
     		}
     	}
+    	
     	InstanceMember member = getInstanceMemberDao().load(loanVO.getInstanceMember().getId());
+    	MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
     	Loan loan = getLoanDao().loanVOToEntity(loanVO);   
     	loan.setInstanceMember(member);
     	loan = getLoanDao().createOrUpdate(loan);
@@ -101,10 +103,10 @@ public class LoanServiceImpl
     			balance.add(interest.getAmount());
     			loanVO.setBalance(balance);
     			
-    			BigDecimal instanceBalance = loanVO.getMotsheloInstance().getCummulativeBalance();
+    			/// Update cummulative balance
+    			BigDecimal instanceBalance = instance.getCummulativeBalance();
     			instanceBalance = instanceBalance.add(interest.getAmount());
-    			loanVO.getMotsheloInstance().setCummulativeBalance(instanceBalance);
-    			getMotsheloInstanceDao().update(getMotsheloInstanceDao().motsheloInstanceVOToEntity(loanVO.getMotsheloInstance()));
+    			instance.setCummulativeBalance(instanceBalance);
     		}
     	}
     	
@@ -115,8 +117,7 @@ public class LoanServiceImpl
 			member.setBalance(balance);
 			getInstanceMemberDao().update(member);
 			
-			// need to update instance balance
-			MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
+			// need to update instance balance			
 			if(loanVO.getType() != LoanType.CONTRIBUTION)
 			{
 				BigDecimal instanceBalance = instance.getBalance();
@@ -128,7 +129,7 @@ public class LoanServiceImpl
 				instanceBalance = instanceBalance.add(loanVO.getAmount());
 				instance.setCummulativeBalance(instanceBalance);
 			}
-			getMotsheloInstanceDao().update(instance);
+			
     		
     		// Search for any of the transactions that still have money left
     		TransactionSearchCriteria criteria = new TransactionSearchCriteria();
@@ -152,7 +153,9 @@ public class LoanServiceImpl
     			if(loanBalance <= transAmount)
     			{
     				payment.setPaymentAmount(new BigDecimal(loanBalance));
+    				transAmount -= loanBalance;
     				loanVO.setStatus(LoanStatus.COMPLETED);
+    				loanVO.setActualEndDate(new Date());
     				loanBalance = 0;
     			} else {
     				payment.setPaymentAmount(new BigDecimal(transAmount));
@@ -164,9 +167,14 @@ public class LoanServiceImpl
     				loanVO.setLoanPayments(new ArrayList<LoanPaymentVO>());
     			}
     			loanVO.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(payment));
+    			transaction.setRemainingAmount(new BigDecimal(transAmount));
+    			getTransactionDao().update(transaction);
     		}
     	}
+    	
+    	getMotsheloInstanceDao().update(instance);
     	loanVO.setBalance(calculateLoanBalance(loanVO));
+    	getLoanDao().update(getLoanDao().loanVOToEntity(loanVO));
     	return loanVO;
     }
 
