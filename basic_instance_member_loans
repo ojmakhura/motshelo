@@ -1,0 +1,28 @@
+﻿SELECT
+     instance_member.id as instance_member_id,
+     instance_member.balance as instance_member_balance,
+     instance_member.member_fk as instance_member_member_fk,
+     instance_member.motshelo_instance_fk as instance_member_motshelo_instance_fk,
+     member.id as member_id,
+     member.name as member_name,
+     member.status as member_status,
+     member.surname as member_surname,
+     member.username as member_username,
+     member.email as  member_email,
+     motshelo_instance.id as motshelo_instance_id,
+     motshelo_instance.instance_name as motshelo_instance_instance_name,
+     loan.id as loan_id,
+     loan.amount as loan_amount,
+     loan.expected_end_date as loan_expected_end_date,
+     loan.start_date as loan_start_date,
+     loan.type as loan_type,
+     loan.instance_member_fk as loan_instance_member_fk,
+     loan.status as loan_status
+FROM
+     "public"."instance_member" instance_member INNER JOIN "public"."member" member ON instance_member."member_fk" = member."id"
+     INNER JOIN "public"."motshelo_instance" motshelo_instance ON instance_member."motshelo_instance_fk" = motshelo_instance."id",
+     "public"."loan" loan
+WHERE
+     instance_member.id = loan.instance_member_fk
+     AND motshelo_instance.id = 91
+ORDER BY motshelo_instance_id, instance_member_id

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instance_member" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d28657c-30ad-4098-b89d-4f49a1290b5c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="motshelo_instance_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[91]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     instance_member."id" AS instance_member_id,
+     instance_member."balance" AS instance_member_balance,
+     instance_member."member_fk" AS instance_member_member_fk,
+     instance_member."motshelo_instance_fk" AS instance_member_motshelo_instance_fk,
+     member."id" AS member_id,
+     member."name" AS member_name,
+     member."status" AS member_status,
+     member."surname" AS member_surname,
+     member."username" AS member_username,
+     member."email" AS member_email,
+     motshelo_instance."id" AS motshelo_instance_id,
+     motshelo_instance."instance_name" AS motshelo_instance_instance_name,
+     loan."id" AS loan_id,
+     loan."amount" AS loan_amount,
+     loan."expected_end_date" AS loan_expected_end_date,
+     loan."start_date" AS loan_start_date,
+     loan."type" AS loan_type,
+     loan."instance_member_fk" AS loan_instance_member_fk,
+     loan."status" AS loan_status
+FROM
+     "public"."instance_member" instance_member INNER JOIN "public"."member" member ON instance_member."member_fk" = member."id"
+     INNER JOIN "public"."motshelo_instance" motshelo_instance ON instance_member."motshelo_instance_fk" = motshelo_instance."id",
+     "public"."loan" loan
+WHERE
+     instance_member.id = loan.instance_member_fk
+     AND motshelo_instance."id" = $P{motshelo_instance_id}]]>
+	</queryString>
+	<field name="instance_member_id" class="java.lang.Long"/>
+	<field name="instance_member_balance" class="java.math.BigDecimal"/>
+	<field name="instance_member_member_fk" class="java.lang.Long"/>
+	<field name="instance_member_motshelo_instance_fk" class="java.lang.Long"/>
+	<field name="member_id" class="java.lang.Long"/>
+	<field name="member_name" class="java.lang.String"/>
+	<field name="member_status" class="java.lang.String"/>
+	<field name="member_surname" class="java.lang.String"/>
+	<field name="member_username" class="java.lang.String"/>
+	<field name="member_email" class="java.lang.String"/>
+	<field name="motshelo_instance_id" class="java.lang.Long"/>
+	<field name="motshelo_instance_instance_name" class="java.lang.String"/>
+	<field name="loan_id" class="java.lang.Long"/>
+	<field name="loan_amount" class="java.math.BigDecimal"/>
+	<field name="loan_expected_end_date" class="java.sql.Timestamp"/>
+	<field name="loan_start_date" class="java.sql.Timestamp"/>
+	<field name="loan_type" class="java.lang.String"/>
+	<field name="loan_instance_member_fk" class="java.lang.Long"/>
+	<field name="loan_status" class="java.lang.String"/>
+	<group name="instance_member_id">
+		<groupExpression><![CDATA[$F{instance_member_id}]]></groupExpression>
+	</group>
+	<group name="motshelo_instance_id">
+		<groupExpression><![CDATA[$F{motshelo_instance_id}]]></groupExpression>
+	</group>
+	<group name="loan_id">
+		<groupExpression><![CDATA[$F{loan_id}]]></groupExpression>
+	</group>
+	<group name="loans">
+		<groupExpression><![CDATA[$F{instance_member_id}]]></groupExpression>
+	</group>
+	<group name="member">
+		<groupExpression><![CDATA[$F{loan_id}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="0" y="25" width="250" height="25" uuid="04647a19-52e1-4a0d-838f-0cfff9131be2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{member_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="266" y="25" width="217" height="25" uuid="07d273f6-66d0-4e7e-aec6-875b1f76f217"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{member_surname}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField>
+					<reportElement x="24" y="12" width="100" height="20" uuid="22462cc6-cef3-4659-a05c-d9f20d13850a"/>
+					<textFieldExpression><![CDATA[$F{loan_amount}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="118" splitType="Stretch">
+			<image>
+				<reportElement x="350" y="-1" width="205" height="45" uuid="d2dd401e-bf1d-42cf-b083-144ed6b489f2"/>
+				<imageExpression><![CDATA["/home/junior/programming/jrsystems/motshelo/web/src/main/jasperreports/leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="350" height="44" uuid="168d24f5-c367-4291-8d8f-a46dd20d8cb4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="98" width="100" height="20" uuid="7d6f42a3-293a-4b0e-aed1-7ada6ee382ce"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="98" width="100" height="20" uuid="bec65035-a97d-4003-8ed6-a5d72c2c83ad"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="98" width="100" height="20" uuid="7eb5f105-7aa6-4325-a5a5-2eccb2ae8ab7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expected End Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="98" width="100" height="20" uuid="c2ea8661-2ef5-4fc9-a526-74572c2ac482"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loan Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="98" width="100" height="20" uuid="dcb24f68-11c0-4a0b-a71f-af0326a557e4"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
