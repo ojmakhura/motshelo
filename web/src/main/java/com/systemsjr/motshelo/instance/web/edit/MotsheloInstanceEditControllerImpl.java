@@ -6,7 +6,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -17,6 +20,7 @@ import com.systemsjr.motshelo.loan.LoanType;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.MemberStatus;
 import com.systemsjr.motshelo.member.vo.MemberVO;
+import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
 /**
@@ -40,6 +44,18 @@ public class MotsheloInstanceEditControllerImpl
     	motsheloInstanceVO.setMotshelo(motsheloInstanceVO.getMotshelo());
     	motsheloInstanceVO.setInstanceName("-");  	
     	motsheloInstanceVO = getMotsheloInstanceService().saveMotsheloInstance(motsheloInstanceVO);
+    	
+    	Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Motshelo instance saved.";
+    	if(motsheloInstanceVO.getId() == null)
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "ERROR: ";
+        	details = "Motshelo instance could not be saved.";
+    	}
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+    	
     	getEditMotsheloInstanceSaveForm().setMotsheloInstanceVO(motsheloInstanceVO);
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", motsheloInstanceVO);
     }
@@ -61,7 +77,6 @@ public class MotsheloInstanceEditControllerImpl
     @Override
     public void doInitialiseEditScreen(DoInitialiseEditScreenForm form)
     {
-    	
     	Collection<MotsheloVO> metshelo = getMotsheloService().getAllMetshelo();
     	Collection<SelectItem> metsheloBackingList = new ArrayList<SelectItem>();
     	for(MotsheloVO motshelo : metshelo)
@@ -105,6 +120,12 @@ public class MotsheloInstanceEditControllerImpl
     	loanVO.setExpectedEndDate(new Date());
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanVO", loanVO);
     	
+    	TransactionVO transactionVO = new TransactionVO();
+    	transactionVO.setMotsheloInstance(motsheloInstanceVO);
+    	transactionVO.setTransactionDate(new Date());
+    	transactionVO.setInstanceMember(new InstanceMemberVO());
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactionVO", transactionVO);
+    	
     	Collection<SelectItem> instanceMemberBackingList = new ArrayList<SelectItem>();
     	for(InstanceMemberVO instanceMember : motsheloInstanceVO.getInstanceMembers())
     	{
@@ -112,6 +133,25 @@ public class MotsheloInstanceEditControllerImpl
     		instanceMemberBackingList.add(new SelectItem(instanceMember.getId(), member.getName() + " " + member.getSurname()));
     	}
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberBackingList", instanceMemberBackingList);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMembers", motsheloInstanceVO.getInstanceMembers());
+    	
+    	/// Separate loans into contributions and standard loans
+    	Collection<LoanVO> contributions = new ArrayList<LoanVO>();
+    	Collection<LoanVO> others = new ArrayList<LoanVO>();
+    	for(LoanVO lv : motsheloInstanceVO.getLoans())
+    	{
+    		if(lv.getType() == LoanType.CONTRIBUTION)
+    		{
+    			contributions.add(lv);
+    		} else {
+    			others.add(lv);
+    		}
+    	}
+    	
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loans", others);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("contributions", contributions);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactions", motsheloInstanceVO.getTransactions());
+    	
     }
     
 	@Override
@@ -135,6 +175,8 @@ public class MotsheloInstanceEditControllerImpl
 
 	@Override
 	public void doAddLoan() throws Throwable {
+		System.out.println("doAddLoan()");
+		
 		LoanVO loanVO = (LoanVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("loanVO");
 		LoanVO newLoanVO = getLoanService().saveLoan(loanVO);
 		if(newLoanVO.getId() != null)
@@ -142,20 +184,43 @@ public class MotsheloInstanceEditControllerImpl
 			getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO().getLoans().add(newLoanVO);
 		}
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", loanVO.getMotsheloInstance());
-		loanVO.setActualEndDate(null);
-		loanVO.setAmount(null);
-		loanVO.setId(null);
+		loanVO = new LoanVO();
 		loanVO.setExpectedEndDate(new Date());
-		loanVO.setStartDate(null);
-		loanVO.setInstanceMember(new InstanceMemberVO());
-		
+		loanVO.setStartDate(new Date());
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanVO", loanVO);
 	}
 
 
 	@Override
-	public void updateMotsheloInstance() throws Throwable {
+	public void doUpdateMotsheloInstance() throws Throwable {
 		// TODO Auto-generated method stub
 		MotsheloInstanceVO motsheloInstanceVO = getMotsheloInstanceService().updateMotsheloInstance(getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO());
 		getEditMotsheloInstanceSaveForm().setMotsheloInstanceVO(motsheloInstanceVO);
+		Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Motshelo instance balances updated.";
+    	if(motsheloInstanceVO.getId() == null)
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "ERROR: ";
+        	details = "Motshelo instance balances not updated.";
+    	}
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", motsheloInstanceVO);
+	}
+
+
+	@Override
+	public void doAddTransaction() throws Throwable {
+		TransactionVO transactionVO = (TransactionVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("transactionVO");
+		TransactionVO newTransaction = getTransactionService().saveTransaction(transactionVO);
+		if(newTransaction.getId() != null)
+		{
+			getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO().getTransactions().add(newTransaction);
+		}
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloInstanceVO", transactionVO.getMotsheloInstance());
+		transactionVO = new TransactionVO();
+		transactionVO.setTransactionDate(new Date());
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactionVO", transactionVO);
 	}
 }

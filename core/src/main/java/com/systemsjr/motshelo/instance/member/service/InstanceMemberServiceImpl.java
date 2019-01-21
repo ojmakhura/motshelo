@@ -8,7 +8,6 @@
  */
 package com.systemsjr.motshelo.instance.member.service;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -114,9 +113,10 @@ public class InstanceMemberServiceImpl
     }
 
 	@Override
-	protected BigDecimal handleCalculateMemberBalance(InstanceMemberVO instanceMemberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return getInstanceMemberDao().getInstanceMemberBalance(getInstanceMemberDao().instanceMemberVOToEntity(instanceMemberVO));
+	protected InstanceMemberVO handleUpdateMemberBalance(InstanceMemberVO instanceMemberVO) throws Exception {
+		InstanceMember instanceMember = getInstanceMemberDao().instanceMemberVOToEntity(instanceMemberVO);
+		instanceMember = getInstanceMemberDao().updateInstanceMemberBalance(instanceMember);
+		return getInstanceMemberDao().toInstanceMemberVO(instanceMember);
 	}
 
 }

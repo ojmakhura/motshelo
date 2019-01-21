@@ -5,6 +5,8 @@ package com.systemsjr.motshelo.loan.web.edit;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -30,7 +32,20 @@ public class LoanEditControllerImpl
     public void doSaveLoan()
     {
     	LoanVO loan = getEditLoanSaveForm().getLoanVO();
+    	loan.setExpectedEndDate(loan.getStartDate());
     	loan = getLoanService().saveLoan(loan);
+
+    	Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Loan saved.";
+    	if(loan.getId() == null)
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "ERROR: ";
+        	details = "Loan could not be saved.";
+    	}
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+    	
     	getEditLoanSaveForm().setLoanVO(loan);
     }
 
@@ -74,11 +89,12 @@ public class LoanEditControllerImpl
     	{
     		instanceBackingList.add(new SelectItem(insVO.getId(), insVO.getInstanceName()));
     	}
+    	
     	form.setLoanVOMotsheloInstanceBackingList(instanceBackingList);
     	getEditLoanSaveForm().setLoanVOMotsheloInstanceBackingList(instanceBackingList);
     	
     	try {
-			updateMemberBackingList();
+    		updateEditForm();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,9 +102,9 @@ public class LoanEditControllerImpl
     }
 
 	@Override
-	public void updateMemberBackingList() throws Throwable {
+	public void updateEditForm() throws Throwable {
 		Collection<SelectItem> memberBackingList = new ArrayList<SelectItem>();
-		if (getEditLoanSaveForm().getLoanVO() != null && getEditLoanSaveForm().getLoanVO().getMotsheloInstance() != null) {
+		if (getEditLoanSaveForm().getLoanVO() != null && getEditLoanSaveForm().getLoanVO().getMotsheloInstance().getId() != null) {
 			MotsheloInstanceVO insVO = getMotsheloInstanceService().findById(getEditLoanSaveForm().getLoanVO().getMotsheloInstance().getId());
 			for(InstanceMemberVO memVO : insVO.getInstanceMembers())
 			{

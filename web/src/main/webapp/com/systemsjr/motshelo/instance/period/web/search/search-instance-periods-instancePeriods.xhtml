@@ -39,6 +39,22 @@
             <h:outputText id="periodName" value="#{row.periodName}">
             </h:outputText>
         </p:column>
+		<p:column sortBy="previousPeriod">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_previousPeriod"
+					value="#{messages['previous.period']}" />
+			</f:facet>
+			<h:outputText id="previousPeriod" value="#{row.previousPeriod.periodName}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="nextPeriod">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_nextPeriod"
+					value="#{messages['next.period']}" />
+			</f:facet>
+			<h:outputText id="nextPeriod" value="#{row.nextPeriod.periodName}">
+			</h:outputText>
+		</p:column>
 		<f:facet name="footer">
 			<h:form>
 				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty viewVariables.instancePeriods}">

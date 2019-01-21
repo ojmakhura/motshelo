@@ -264,6 +264,12 @@
 
         (*nix)
         /home/Onalenna Junior Makhura/.m2/repository/motshelo/
+        
+        
+	<context-param>
+        <param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
+        <param-value>/resources</param-value>
+    </context-param>
 
     For questions or feature requests please use our forum:
     http://forum.andromda.org/

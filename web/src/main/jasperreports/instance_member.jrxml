@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instance_member" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d28657c-30ad-4098-b89d-4f49a1290b5c">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instance_member" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d28657c-30ad-4098-b89d-4f49a1290b5c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -23,8 +23,8 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<parameter name="motshelo_instance_id" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[91]]></defaultValueExpression>
+	<parameter name="instance_member_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[94]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
@@ -53,7 +53,7 @@ FROM
      "public"."loan" loan
 WHERE
      instance_member.id = loan.instance_member_fk
-     AND motshelo_instance."id" = $P{motshelo_instance_id}]]>
+     AND instance_member."id" = $P{instance_member_id}]]>
 	</queryString>
 	<field name="instance_member_id" class="java.lang.Long"/>
 	<field name="instance_member_balance" class="java.math.BigDecimal"/>
@@ -88,29 +88,30 @@ WHERE
 	</group>
 	<group name="member">
 		<groupExpression><![CDATA[$F{loan_id}]]></groupExpression>
-		<groupHeader>
-			<band height="50">
-				<textField>
-					<reportElement x="0" y="25" width="250" height="25" uuid="04647a19-52e1-4a0d-838f-0cfff9131be2"/>
-					<textElement verticalAlignment="Middle">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{member_name}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="266" y="25" width="217" height="25" uuid="07d273f6-66d0-4e7e-aec6-875b1f76f217"/>
-					<textElement verticalAlignment="Middle">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{member_surname}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="23">
 				<textField>
-					<reportElement x="24" y="12" width="100" height="20" uuid="22462cc6-cef3-4659-a05c-d9f20d13850a"/>
+					<reportElement x="400" y="0" width="100" height="20" uuid="22462cc6-cef3-4659-a05c-d9f20d13850a"/>
 					<textFieldExpression><![CDATA[$F{loan_amount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="100" height="20" uuid="5766c308-2b73-46d4-9a50-7a838a029631"/>
+					<textFieldExpression><![CDATA[$F{loan_type}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="100" y="0" width="100" height="20" uuid="d27f2df3-a3c3-4839-a2af-6e90a97929c3"/>
+					<textFieldExpression><![CDATA[$F{loan_start_date}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="200" y="0" width="100" height="20" uuid="a47e0fad-d73b-483f-bf78-30d4043e6019"/>
+					<textFieldExpression><![CDATA[$F{loan_expected_end_date}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="300" y="0" width="100" height="20" uuid="43b928cb-9b1a-4dc6-a481-64b921d74634"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{loan_status}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -166,6 +167,20 @@ WHERE
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="59" width="250" height="25" uuid="04647a19-52e1-4a0d-838f-0cfff9131be2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{member_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="59" width="217" height="25" uuid="07d273f6-66d0-4e7e-aec6-875b1f76f217"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{member_surname}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<summary>

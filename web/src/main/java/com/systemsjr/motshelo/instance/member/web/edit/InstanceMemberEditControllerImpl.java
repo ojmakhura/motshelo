@@ -5,11 +5,15 @@ package com.systemsjr.motshelo.instance.member.web.edit;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.LoanType;
+import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
@@ -28,6 +32,18 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 	@Override
 	public void doSaveInstanceMember() {
 		InstanceMemberVO member = getEditInstanceMemberSaveForm().getInstanceMemberVO();
+
+    	Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Instance member saved.";
+    	if(member.getId() == null)
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "ERROR: ";
+        	details = "Instance member could not be saved.";
+    	}
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+    	
 		member = getInstanceMemberService().saveInstanceMember(member);
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberVO", member);
 	}
@@ -74,11 +90,27 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 		form.setInstanceMemberVOMotsheloInstanceBackingList(motsheloInstanceBackingList);
 		getEditInstanceMemberSaveForm().setInstanceMemberVOMotsheloInstanceBackingList(motsheloInstanceBackingList);
 		
+		Collection<LoanVO> contributions = new ArrayList<LoanVO>();
+    	Collection<LoanVO> others = new ArrayList<LoanVO>();
+		for(LoanVO lv : member.getLoans())
+		{
+    		if(lv.getType() == LoanType.CONTRIBUTION)
+    		{
+    			contributions.add(lv);
+    		} else {
+    			others.add(lv);
+    		}
+		}
+		
 		try {
 			updateEditForm();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loans", others);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("contributions", contributions);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactions", member.getTransactions());
 	}
 
 	/**
@@ -120,6 +152,46 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 			
 			getEditInstanceMemberSaveForm().setInstanceMemberVOMemberBackingList(memberBackingList);
 		}
+	}
+	
+	//public void exportPdf(Map<String, Object> params, String jasperPath, List<?> dataSource, String fileName) throws JRException, IOException {
+		
+		/*String relativeWebPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath(jasperPath);
+		File file = new File(relativeWebPath);
+		JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(dataSource, false);
+		JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, source);
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment;filename=" + fileName);
+		ServletOutputStream stream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(print, stream);
+		FacesContext.getCurrentInstance().responseComplete();*/
+	//}
+
+	@Override
+	public void printInstanceMember() throws Throwable {
+		//MotsheloPrintController printController = (MotsheloPrintController) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("motsheloPrintController");
+		/*List<InstanceMemberVO> list = new ArrayList<>();
+		list.add(getEditInstanceMemberSaveForm().getInstanceMemberVO());
+		String filename = "instance_members.pdf";
+		String jasperPath = "/resources/reports/sources";
+		this.exportPdf(null, jasperPath, list, filename);*/
+	}
+
+	@Override
+	public void doUpdateInstanceMemberBalance() throws Throwable {
+		// TODO Auto-generated method stub
+		InstanceMemberVO instanceMemberVO = getInstanceMemberService().updateMemberBalance(getEditInstanceMemberSaveForm().getInstanceMemberVO());
+		Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Instance member balanse updated.";
+    	if(instanceMemberVO.getId() == null)
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "ERROR: ";
+        	details = "Instance member balance could not be updated.";
+    	}
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberVO", instanceMemberVO);
 	}
 
 }

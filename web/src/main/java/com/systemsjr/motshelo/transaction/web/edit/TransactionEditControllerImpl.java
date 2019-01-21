@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -88,6 +90,18 @@ public class TransactionEditControllerImpl
     {
     	TransactionVO transaction = getEditTransactionSaveForm().getTransactionVO();
     	transaction = getTransactionService().saveTransaction(transaction);
+
+    	Severity severity = FacesMessage.SEVERITY_INFO;
+    	String summary = "SUCCESS: ";
+    	String details = "Transaction saved.";
+    	if(transaction.getId() == null)
+    	{
+    		severity = FacesMessage.SEVERITY_ERROR;
+        	summary = "ERROR: ";
+        	details = "Transaction could not be saved.";
+    	}
+    	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
+    	
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactionVO", transaction);
     }
 

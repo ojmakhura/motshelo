@@ -19,37 +19,10 @@
 					</p:selectOneMenu>
 					<p:commandButton id="editMotsheloInstanceAddMemberAction" value="Add" action="#{motsheloInstanceEditController.doAddMember(motsheloInstanceVOMember)}" ajax="false" />
 				</p:panelGrid>
-				<p:dataTable id="motsheloInstanceMembers" var="row" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.instanceMembers}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
-					<p:column sortBy="username">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_username"
-								value="#{messages['username']}" />
-						</f:facet>
-						<h:outputText id="username" value="#{row.member.username}">
-						</h:outputText>
-					</p:column>
-					<p:column sortBy="name">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_name" value="#{messages['name']}" />
-						</f:facet>
-						<h:outputText id="name" value="#{row.member.name}">
-						</h:outputText>
-					</p:column>
-					<p:column sortBy="surname">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_surname" value="#{messages['surname']}" />
-						</f:facet>
-						<h:outputText id="surname" value="#{row.member.surname}">
-						</h:outputText>
-					</p:column>
-					<p:column sortBy="balance">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_balance" value="#{messages['balance']}" />
-						</f:facet>
-						<h:outputText id="balance" value="#{row.balance}">
-						</h:outputText>
-					</p:column>
-				</p:dataTable>
+				<ui:include src="/com/systemsjr/motshelo/instance/member/web/instance-member-table.xhtml"/>				
+			</p:tab>
+			<p:tab title="#{messages['monthly.contribution']}s">				
+				<ui:include src="/com/systemsjr/motshelo/loan/web/contribution-details-table.xhtml" />
 			</p:tab>
 			<p:tab title="#{messages['loans']}">
 				<p:panelGrid columns="6">
@@ -75,45 +48,59 @@
 			            <p:commandButton id="editMotsheloInstanceAddLoanAction" value="Add" action="#{motsheloInstanceEditController.doAddLoan()}" ajax="false" />
 			        </f:facet>
 				</p:panelGrid>
-				<p:dataTable id="loans" var="row" value="#{editMotsheloInstanceEditMotsheloInstanceSaveForm.motsheloInstanceVO.loans}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
-			        <p:column sortBy="motsheloInstance">
-			            <f:facet name="header">
-			                <h:outputText id="columnHeader_motsheloInstance" value="#{messages['motshelo.instance']}"/>
-			            </f:facet>
-			            <h:outputText id="motsheloInstance" value="#{row.status}">
-			            </h:outputText>
-			        </p:column>
-			        <p:column sortBy="instanceMember">
-			            <f:facet name="header">
-			                <h:outputText id="columnHeader_instanceMember" value="#{messages['instance.member']}"/>
-			            </f:facet>
-			            <h:outputText id="instanceMember" value="#{row.instanceMember.member.username}">
-			            </h:outputText>
-			        </p:column>
-			        <p:column sortBy="startDate">
-			            <f:facet name="header">
-			                <h:outputText id="columnHeader_startDate" value="#{messages['start.date']}"/>
-			            </f:facet>
-			            <h:outputText id="startDate" value="#{row.motsheloInstance.startDate}">
-			            </h:outputText>
-			        </p:column>
-			        <p:column sortBy="amount">
-			            <f:facet name="header">
-			                <h:outputText id="columnHeader_amount" value="#{messages['amount']}"/>
-			            </f:facet>
-			            <h:outputText id="amount" value="#{row.amount}">
-			            </h:outputText>
-			        </p:column>
-			        <p:column sortBy="balance">
-			            <f:facet name="header">
-			                <h:outputText id="columnHeader_balance" value="#{messages['balance']}"/>
-			            </f:facet>
-			            <h:outputText id="balance" value="#{row.balance}">
-			            </h:outputText>
-			        </p:column>
-			    </p:dataTable>
+				<ui:include src="/com/systemsjr/motshelo/loan/web/loan-details-table.xhtml" />
 			</p:tab>
-			<p:tab title="#{messages['transactions']}">
+			<p:tab title="#{messages['transactions']}">			
+		    <p:panelGrid columns="6">
+		        <!-- transactionVOTransactionType -->
+		        <p:outputLabel id="transactionVOTransactionType_label" for="transactionVOTransactionType" value="#{messages['transaction.type']}:"/>
+		        <p:selectOneMenu id="transactionVOTransactionType" value="#{flash.keep.transactionVO.transactionType}" label="#{messages['transaction.type']}:" required="true" readonly="false">
+		            <f:converter converterId="com.systemsjr.motshelo.transaction.TransactionType"/>
+		            <f:selectItem itemLabel=""/>
+		            <f:selectItems value="#{ajsf:getEnumSelectItems('transaction.type.','com.systemsjr.motshelo.transaction.TransactionType')}"/>
+		        </p:selectOneMenu>
+		        <p:message id="transactionVOTransactionType_message" for="transactionVOTransactionType"/>
+		        <!-- transactionVOTransactionMode -->
+		        <p:outputLabel id="transactionVOTransactionMode_label" for="transactionVOTransactionMode" value="#{messages['transaction.mode']}:"/>
+		        <p:selectOneMenu id="transactionVOTransactionMode" value="#{flash.keep.transactionVO.transactionMode}" label="#{messages['transaction.mode']}:" required="true" readonly="false">
+		            <f:converter converterId="com.systemsjr.motshelo.transaction.TransactionMode"/>
+		            <f:selectItem itemLabel=""/>
+		            <f:selectItems value="#{ajsf:getEnumSelectItems('transaction.mode.','com.systemsjr.motshelo.transaction.TransactionMode')}"/>
+		        </p:selectOneMenu>
+		        <p:message id="transactionVOTransactionMode_message" for="transactionVOTransactionMode"/>
+		        <!-- transactionVOInstanceMember -->
+		        <p:outputLabel id="transactionVOInstanceMember_label" for="transactionVOInstanceMember" value="#{messages['instance.member']}:"/>
+		        <p:selectOneMenu id="transactionVOInstanceMember" value="#{flash.keep.transactionVO.instanceMember.id}" label="#{messages['instance.member']}:" required="true" readonly="false">
+		            <f:selectItem itemLabel=""/>
+		            <f:selectItems value="#{flash.keep.instanceMemberBackingList}" />
+		        </p:selectOneMenu>
+		        <p:message id="transactionVOInstanceMember_message" for="transactionVOInstanceMember"/>
+		        <!-- transactionVOTransactionDate -->
+		        <p:outputLabel id="transactionVOTransactionDate_label" for="transactionVOTransactionDate" value="#{messages['transaction.date']}:"/>
+		        <p:calendar id="transactionVOTransactionDate" value="#{flash.keep.transactionVO.transactionDate}" label="#{messages['transaction.date']}:" required="false" readonly="false" navigator="true" pattern="MM/dd/yyyy" showOn="button">
+		            <f:convertDateTime pattern="MM/dd/yyyy"/>
+		        </p:calendar>
+		        <p:message id="transactionVOTransactionDate_message" for="transactionVOTransactionDate"/>
+		        <!-- transactionVOTransactionAmount -->
+		        <p:outputLabel id="transactionVOTransactionAmount_label" for="transactionVOTransactionAmount" value="#{messages['transaction.amount']}:"/>
+		        <p:inputText id="transactionVOTransactionAmount" value="#{flash.keep.transactionVO.transactionAmount}" required="true" readonly="false">
+		        </p:inputText>
+		        <p:message id="transactionVOTransactionAmount_messagecontributionscontributions" for="transactionVOTransactionAmount"/>
+		        <!-- transactionVOTransactionNote -->
+		        <p:outputLabel id="transactionVOTransactionNote_label" for="transactionVOTransactionNote" value="#{messages['transaction.note']}:"/>
+		        <p:inputText id="transactionVOTransactionNote" value="#{flash.keep.transactionVO.transactionNote}" required="false" readonly="false">
+		        </p:inputText>
+		        <p:message id="transactionVOTransactionNote_message" for="transactionVOTransactionNote"/>
+		        <!-- transactionVOAttachment -->
+		        <p:outputLabel id="transactionVOAttachment_label" for="transactionVOAttachment" value="#{messages['attachment']}:"/>
+		        <p:inputText id="transactionVOAttachment" value="#{flash.keep.transactionVO.attachment}" required="false" readonly="false">
+		        </p:inputText>
+		        <p:message id="transactionVOAttachment_message" for="transactionVOAttachment"/>
+		        <f:facet name="footer">
+			    	<p:commandButton id="editMotsheloInstanceAddTransactionAction" value="Add" action="#{motsheloInstanceEditController.doAddTransaction()}" ajax="false" />
+			    </f:facet>
+		    </p:panelGrid>
+				<ui:include src="/com/systemsjr/motshelo/transaction/web/transaction-details-table.xhtml"/>
 			</p:tab>
 		</p:tabView>
 	</h:form>

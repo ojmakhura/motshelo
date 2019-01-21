@@ -17,27 +17,37 @@
                 <f:setPropertyActionListener target="#{searchInstanceMembersSearchInstanceMembersEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
-        <p:column sortBy="motsheloInstance">
-            <f:facet name="header">
-                <h:outputText id="columnHeader_motsheloInstance" value="#{messages['motshelo.instance']}"/>
-            </f:facet>
-            <h:outputText id="motsheloInstance" value="#{row.motsheloInstance.instanceName}">
-            </h:outputText>
-        </p:column>
-        <p:column sortBy="member">
-            <f:facet name="header">
-                <h:outputText id="columnHeader_member" value="#{messages['member']}"/>
-            </f:facet>
-            <h:outputText id="member" value="#{row.member.username}">
-            </h:outputText>
-        </p:column>
-        <p:column sortBy="balance">
-            <f:facet name="header">
-                <h:outputText id="columnHeader_balance" value="#{messages['balance']}"/>
-            </f:facet>
-            <h:outputText id="balance" value="#{row.balance}">
-            </h:outputText>
-        </p:column>        
+       <p:column sortBy="username">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_username"
+					value="#{messages['username']}" />
+			</f:facet>
+			<h:outputText id="username" value="#{row.member.username}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="name">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_name" value="#{messages['name']}" />
+			</f:facet>
+			<h:outputText id="name" value="#{row.member.name}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="surname">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_surname"
+					value="#{messages['surname']}" />
+			</f:facet>
+			<h:outputText id="surname" value="#{row.member.surname}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="balance">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_balance"
+					value="#{messages['balance']}" />
+			</f:facet>
+			<h:outputText id="balance" value="#{row.balance}">
+			</h:outputText>
+		</p:column>        
 		<f:facet name="footer">
 			<h:form>
 				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty viewVariables.instanceMembers}">

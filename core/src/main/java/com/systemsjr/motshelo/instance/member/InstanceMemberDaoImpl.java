@@ -62,8 +62,6 @@ public class InstanceMemberDaoImpl
         }
                 
         // WARNING! No conversion for target.motsheloInstance (can't convert source.getMotsheloInstance():com.systemsjr.motshelo.instance.MotsheloInstance to com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO
-       
-        
         if(source.getMotsheloInstance() != null)
         {
         	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
@@ -121,19 +119,7 @@ public class InstanceMemberDaoImpl
         {
         	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(instanceMemberVO.getMotsheloInstance()));
         }
-        
-        Collection<LoanVO> loanVOs = instanceMemberVO.getLoans();
-        for(LoanVO loanVO : loanVOs)
-        {
-        	entity.addLoans(getLoanDao().getBasicLoanEntity(loanVO));
-        }
-        
-        Collection<TransactionVO> transactionVOs = instanceMemberVO.getTransactions();
-        for(TransactionVO transactionVO : transactionVOs)
-        {
-        	entity.addTransactions(getTransactionDao().getBasicTransactionEntity(transactionVO));
-        }
-        
+                
         return entity;
     }
 
@@ -216,9 +202,8 @@ public class InstanceMemberDaoImpl
 	}
 
 	@Override
-	protected BigDecimal handleGetInstanceMemberBalance(InstanceMember instanceMember) throws Exception {
+	protected InstanceMember handleUpdateInstanceMemberBalance(InstanceMember instanceMember) throws Exception {
 		// TODO Auto-generated method stub
-		instanceMember = this.load(instanceMember.getId());
 		
 		BigDecimal balance = new BigDecimal(0);
 		for(Transaction transaction : instanceMember.getTransactions()) {
@@ -233,7 +218,8 @@ public class InstanceMemberDaoImpl
 				balance = balance.subtract(interest.getAmount());
 			}
 		}
-		
-		return balance;
+		instanceMember.setBalance(balance);
+		this.update(instanceMember);
+		return instanceMember;
 	}
 }

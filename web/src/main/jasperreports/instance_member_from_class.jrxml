@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instance_member_from_class" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38afe279-0358-4177-9db9-ee5a8de388d1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="instance_member_id" class="java.lang.Long"/>
+	<field name="instance_member_balance" class="java.math.BigDecimal"/>
+	<field name="instance_member_member_fk" class="java.lang.Long"/>
+	<field name="instance_member_motshelo_instance_fk" class="java.lang.Long"/>
+	<field name="member_id" class="java.lang.Long"/>
+	<field name="member_name" class="java.lang.String"/>
+	<field name="member_status" class="java.lang.String"/>
+	<field name="member_surname" class="java.lang.String"/>
+	<field name="member_username" class="java.lang.String"/>
+	<field name="member_email" class="java.lang.String"/>
+	<field name="motshelo_instance_id" class="java.lang.Long"/>
+	<field name="motshelo_instance_instance_name" class="java.lang.String"/>
+	<field name="loan_id" class="java.lang.Long"/>
+	<field name="loan_amount" class="java.math.BigDecimal"/>
+	<field name="loan_expected_end_date" class="java.sql.Timestamp"/>
+	<field name="loan_start_date" class="java.sql.Timestamp"/>
+	<field name="loan_type" class="java.lang.String"/>
+	<field name="loan_instance_member_fk" class="java.lang.Long"/>
+	<field name="loan_status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="11" width="350" height="44" uuid="f1e3303d-2490-40b8-9634-1de3f69dc5a7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Member Report]]></text>
+			</staticText>
+			<image>
+				<reportElement x="360" y="10" width="205" height="45" uuid="d05ed52c-a6e8-4f2d-8c68-1e38cfe09125"/>
+				<imageExpression><![CDATA["/home/junior/programming/jrsystems/motshelo/web/src/main/jasperreports/leaf_banner_green.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="74" width="100" height="20" uuid="0cbdf8e9-9407-455d-bae0-1c2633cce85d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="74" width="100" height="20" uuid="b9850aeb-88ce-4526-b292-1b559b7dd271"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="74" width="100" height="20" uuid="5e5ee7f3-aea1-451b-9252-833aa7e5035d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expected End Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="74" width="100" height="20" uuid="7ca49a33-6f1f-43e0-ac2e-7268b617c9f3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loan Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="74" width="100" height="20" uuid="a5a8fc3a-ac6d-483b-9254-1e57c48dc63d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="250" height="25" uuid="1a20f676-9b2c-4726-b92c-f2144fd01ea6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{member_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="20" width="217" height="25" uuid="3c2e1c34-5060-4fb0-a5a1-ac5aa7ed0d0b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{member_surname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="7df90bd9-7494-4b9d-bf03-f28303af0845"/>
+				<textFieldExpression><![CDATA[$F{loan_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="230b6b55-df61-4e90-a760-0197890146db"/>
+				<textFieldExpression><![CDATA[$F{loan_start_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="d51d8d5b-3294-474d-a0cd-13cdcafea6f9"/>
+				<textFieldExpression><![CDATA[$F{loan_expected_end_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="155778a8-25b3-4fe4-9186-9f278ef7792e"/>
+				<textFieldExpression><![CDATA[$F{loan_status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20" uuid="b575fcf0-02a2-427e-9d10-20a25f050c21"/>
+				<textFieldExpression><![CDATA[$F{loan_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

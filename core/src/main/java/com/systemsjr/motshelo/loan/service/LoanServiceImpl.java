@@ -238,8 +238,10 @@ public class LoanServiceImpl
 
 	@Override
 	protected InterestVO handleGetLoanInterest(LoanVO loanVO) throws Exception {
-		
-		Motshelo motshelo = getMotsheloDao().load(loanVO.getMotsheloInstance().getMotshelo().getId());
+		//System.out.println(1 + " " + loanVO);
+		MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
+		Motshelo motshelo = instance.getMotshelo();
+		//System.out.println(8 + " " + period);
 		InterestType type = null;
 		Float interestRate = null;
 		
@@ -274,34 +276,44 @@ public class LoanServiceImpl
 	@Override
 	protected Date handleCalculateLoanEndDate(LoanVO loanVO) throws Exception {
 		Date date = null;
-		MotsheloVO motshelo = loanVO.getMotsheloInstance().getMotshelo();
+		MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
+		Motshelo motshelo = instance.getMotshelo();
+		Calendar cal = Calendar.getInstance();
+		
 		// With a new loan we start from the startDate
 		if(loanVO.getId() == null) { 
 			date = loanVO.getStartDate();
+			cal.setTime(date);
+			
+			InstancePeriodSearchCriteria criteria = new InstancePeriodSearchCriteria();
+			criteria.setDate(date);
+			criteria.setMotsheloInstance(loanVO.getMotsheloInstance());
+			ArrayList<InstancePeriod> periods = (ArrayList<InstancePeriod>) getInstancePeriodDao().findByCriteria(criteria);
+			InstancePeriod period = periods.size() > 0 ? periods.get(0) : null;
+				
 			if(loanVO.getType() == LoanType.CONTRIBUTION) // Contribution loan has no interest
 			{
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(date);				
-				int lastDate = cal.getActualMaximum(Calendar.DATE);
-				// set the expected date to the last day of the month
-				cal.set(Calendar.DAY_OF_MONTH, lastDate);
-				date = cal.getTime();
+				if(period != null)
+				{
+					cal.setTime(period.getEndDate());
+				}
+				else {
+					int lastDate = cal.getActualMaximum(Calendar.DATE);
+					// set the expected date to the last day of the month
+					cal.set(Calendar.DAY_OF_MONTH, lastDate);
+				}
 			} else {
-				InstancePeriodSearchCriteria criteria = new InstancePeriodSearchCriteria();
-				criteria.setDate(date);
-				criteria.setMotsheloInstance(loanVO.getMotsheloInstance());
-				ArrayList<InstancePeriod> periods = (ArrayList<InstancePeriod>) getInstancePeriodDao().findByCriteria(criteria);
-				InstancePeriod period = periods.size() > 0 ? periods.get(0) : null;
-				
-				// If the loan was taken out before the loanByDate, 
+				//cal.add(Calendar.MONTH, motshelo.getRepaymentTerm());
+				// If the loan was taken out after the loanByDate, 
 				// then the first period is the next one
+				
 				if(period != null && period.getNextPeriod() != null)
 				{
-					if(date.compareTo(period.getLoanByDate()) > 0);
+					if(loanVO.getStartDate().compareTo(period.getLoanByDate()) > 0);
 					{
 						period.getNextPeriod();
 					}
-					
+
 					int i = 1;
 					
 					while(i < motshelo.getRepaymentTerm() && period.getNextPeriod() != null) /// guard against the last period
@@ -310,19 +322,17 @@ public class LoanServiceImpl
 						i++;
 					}
 				}
+				cal.setTime(period.getEndDate());
 			}
 		} else { /// If this is not a new loan
 			date = loanVO.getExpectedEndDate();
 			if(date.compareTo(new Date()) < 0) /// The loan is overdue
 			{
-				Calendar cal = Calendar.getInstance();
 				cal.setTime(date);
 				cal.add(Calendar.MONTH, motshelo.getRepaymentTerm()); /// increase the expected date by the number of repayment months
-				
-				date = cal.getTime();
 			}
 		}		
-		
+		date = cal.getTime();
 		return date;
 	}
 

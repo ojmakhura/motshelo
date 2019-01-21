@@ -34,19 +34,11 @@
         <p:inputText id="instanceMemberVOBalance" value="#{editInstanceMemberEditInstanceMemberSaveForm.instanceMemberVO.balance}" required="true" readonly="false">
         </p:inputText>
         <p:message id="instanceMemberVOBalance_message" for="instanceMemberVOBalance"/>
-        <!-- instanceMemberVOLoans -->
-        <!-- <p:outputLabel id="instanceMemberVOLoans_label" for="instanceMemberVOLoans" value="#{messages['loans']}:"/>
-        <p:inputText id="instanceMemberVOLoans" value="#{editInstanceMemberEditInstanceMemberSaveForm.instanceMemberVO.loans}" required="false" readonly="false">
-        </p:inputText>
-        <p:message id="instanceMemberVOLoans_message" for="instanceMemberVOLoans"/> -->
-        <!-- instanceMemberVOTransactions -->
-        <!-- <p:outputLabel id="instanceMemberVOTransactions_label" for="instanceMemberVOTransactions" value="#{messages['transactions']}:"/>
-        <p:inputText id="instanceMemberVOTransactions" value="#{editInstanceMemberEditInstanceMemberSaveForm.instanceMemberVO.transactions}" required="false" readonly="false">
-        </p:inputText>
-        <p:message id="instanceMemberVOTransactions_message" for="instanceMemberVOTransactions"/> -->
         <f:facet name="footer">
             <p:commandButton id="editInstanceMemberSaveAction" value="#{messages['save']}" action="#{instanceMemberEditController.editInstanceMemberSave}" ajax="false"/>
         	<p:commandButton id="editInstanceMemberNewAction" value="#{messages['new']}" action="#{instanceMemberEditController.editInstanceMemberNew}" immediate="true" ajax="false"/>
+        	<!-- <p:commandButton id="editInstanceMemberPrintAction" value="#{messages['print']}" action="#{instanceMemberEditController.printInstanceMember}" immediate="true" ajax="false"/> -->
+        	<p:commandButton id="editInstanceMemberUpdateAction" value="#{messages['update']}" action="#{instanceMemberEditController.editInstanceMemberUpdate}" immediate="true" ajax="false"/>
         </f:facet>
     </p:panelGrid>
 </h:form>
