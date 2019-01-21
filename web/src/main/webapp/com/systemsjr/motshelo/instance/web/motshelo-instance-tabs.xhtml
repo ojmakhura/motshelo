@@ -17,7 +17,7 @@
 						<f:selectItem itemLabel="" />
 						<f:selectItems value="#{flash.keep.memberBackingList}" />
 					</p:selectOneMenu>
-					<p:commandButton id="editMotsheloInstanceAddMemberAction" value="Add" action="#{motsheloInstanceEditController.doAddMember(motsheloInstanceVOMember)}" ajax="false" />
+					<p:commandButton id="editMotsheloInstanceAddLoanAction" value="#{messages['add.loan']}" action="#{motsheloInstanceEditController.editMotsheloInstanceAddLoan}" immediate="true" ajax="false"/>
 				</p:panelGrid> -->
 				<ui:include src="/com/systemsjr/motshelo/instance/member/web/instance-member-details-table.xhtml"/>				
 			</p:tab>
@@ -45,13 +45,13 @@
 			        </p:calendar>
 			        <p:message id="loanVOStartDate_message" for="loanVOStartDate"/>
 			        <f:facet name="footer">
-			            <p:commandButton id="editMotsheloInstanceAddLoanAction" value="Add" action="#{motsheloInstanceEditController.doAddLoan()}" ajax="false" />
+			            <p:commandButton id="editMotsheloInstanceAddMemberAction" value="#{messages['add.member']}" action="#{motsheloInstanceEditController.editMotsheloInstanceAddMember}" ajax="false"/>
 			        </f:facet>
 				</p:panelGrid> -->
 				<ui:include src="/com/systemsjr/motshelo/loan/web/loan-details-table.xhtml" />
 			</p:tab>
 			<p:tab title="#{messages['transactions']}">			
-			    <!-- <p:panelGrid columns="6">
+			   <!--  <p:panelGrid columns="6">
 			        transactionVOTransactionType
 			        <p:outputLabel id="transactionVOTransactionType_label" for="transactionVOTransactionType" value="#{messages['transaction.type']}:"/>
 			        <p:selectOneMenu id="transactionVOTransactionType" value="#{flash.keep.transactionVO.transactionType}" label="#{messages['transaction.type']}:" required="true" readonly="false">
@@ -97,7 +97,7 @@
 			        </p:inputText>
 			        <p:message id="transactionVOAttachment_message" for="transactionVOAttachment"/>
 			        <f:facet name="footer">
-				    	<p:commandButton id="editMotsheloInstanceAddTransactionAction" value="Add" action="#{motsheloInstanceController.doAddTransaction()}" ajax="false" />
+				    	<p:commandButton id="editMotsheloInstanceAddTransactionAction" value="#{messages['add.transaction']}" action="#{motsheloInstanceEditController.editMotsheloInstanceAddTransaction}" immediate="true" ajax="false"/>
 				    </f:facet>
 			    </p:panelGrid> -->
 				<ui:include src="/com/systemsjr/motshelo/transaction/web/transaction-details-table.xhtml"/>

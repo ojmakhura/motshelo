@@ -168,7 +168,7 @@ public class MotsheloInstanceServiceImpl
 	protected MotsheloInstanceVO handleUpdateMotsheloInstance(MotsheloInstanceVO motsheloInstanceVO) throws Exception {
 		
 		MotsheloInstance instance = getMotsheloInstanceDao().updateMotsheloInstance(getMotsheloInstanceDao().load(motsheloInstanceVO.getId()));		
-		return getMotsheloInstanceDao().getBasicMotsheloInstanceVO(instance);
+		return getMotsheloInstanceDao().toMotsheloInstanceVO(instance);
 	}
 
 	@Override

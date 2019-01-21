@@ -147,7 +147,6 @@ public class MotsheloInstanceEditControllerImpl
     			others.add(lv);
     		}
     	}
-    	
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loans", others);
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("contributions", contributions);
     	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactions", motsheloInstanceVO.getTransactions());
@@ -195,7 +194,7 @@ public class MotsheloInstanceEditControllerImpl
 	public void doUpdateMotsheloInstance() throws Throwable {
 		// TODO Auto-generated method stub
 		MotsheloInstanceVO motsheloInstanceVO = getMotsheloInstanceService().updateMotsheloInstance(getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO());
-		getEditMotsheloInstanceSaveForm().setMotsheloInstanceVO(motsheloInstanceVO);
+		//getEditMotsheloInstanceSaveForm().setMotsheloInstanceVO(motsheloInstanceVO);
 		Severity severity = FacesMessage.SEVERITY_INFO;
     	String summary = "SUCCESS: ";
     	String details = "Motshelo instance balances updated.";
@@ -212,6 +211,7 @@ public class MotsheloInstanceEditControllerImpl
 
 	@Override
 	public void doAddTransaction() throws Throwable {
+		System.out.println("doAddTransaction()");
 		TransactionVO transactionVO = (TransactionVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("transactionVO");
 		TransactionVO newTransaction = getTransactionService().saveTransaction(transactionVO);
 		if(newTransaction.getId() != null)
