@@ -31,14 +31,17 @@ public class LoanEditControllerImpl
     @Override
     public void doSaveLoan()
     {
-    	LoanVO loan = getEditLoanSaveForm().getLoanVO();
-    	loan.setExpectedEndDate(loan.getStartDate());
-    	loan = getLoanService().saveLoan(loan);
+    	LoanVO loanVO = getEditLoanSaveForm().getLoanVO();
+    	if(loanVO.getId() == null)
+    	{
+    		loanVO.setExpectedEndDate(loanVO.getStartDate());
+    	}
+    	loanVO = getLoanService().saveLoan(loanVO);
 
     	Severity severity = FacesMessage.SEVERITY_INFO;
     	String summary = "SUCCESS: ";
     	String details = "Loan saved.";
-    	if(loan.getId() == null)
+    	if(loanVO.getId() == null)
     	{
     		severity = FacesMessage.SEVERITY_ERROR;
         	summary = "ERROR: ";
@@ -46,7 +49,8 @@ public class LoanEditControllerImpl
     	}
     	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
     	
-    	getEditLoanSaveForm().setLoanVO(loan);
+    	getEditLoanSaveForm().setLoanVO(loanVO);
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanVO", loanVO);
     }
 
     /**
@@ -80,10 +84,7 @@ public class LoanEditControllerImpl
     	{
     		loanVO.setInstanceMember(new InstanceMemberVO());
     	}
-    	
-    	form.setLoanVO(loanVO);
-    	getEditLoanSaveForm().setLoanVO(loanVO);
-    	
+    	   	
     	Collection<SelectItem> instanceBackingList = new ArrayList<SelectItem>();
     	for(MotsheloInstanceVO insVO : getMotsheloInstanceService().getAllMotsheloInstances())
     	{
@@ -93,12 +94,16 @@ public class LoanEditControllerImpl
     	form.setLoanVOMotsheloInstanceBackingList(instanceBackingList);
     	getEditLoanSaveForm().setLoanVOMotsheloInstanceBackingList(instanceBackingList);
     	
+    	form.setLoanVO(loanVO);
+    	getEditLoanSaveForm().setLoanVO(loanVO);
+    	
     	try {
     		updateEditForm();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	
     }
 
 	@Override

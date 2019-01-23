@@ -11,6 +11,7 @@ package com.systemsjr.motshelo.transaction.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,6 @@ public class TransactionServiceImpl
     	loanCriteria.setMotsheloInstance(transactionVO.getMotsheloInstance());
     	loanCriteria.setInstanceMember(transactionVO.getInstanceMember());
     	loanCriteria.setType(type);
-    	
     	Collection<Loan> loans = getLoanDao().findByCriteria(loanCriteria);
     	
     	for(Loan loan : loans) {
@@ -71,12 +71,22 @@ public class TransactionServiceImpl
     		} else {
     			payment.setPaymentAmount(loan.getAmount());
     			remaining -= payment.getPaymentAmount().doubleValue();
+    			loan.setStatus(LoanStatus.COMPLETED);
+    			loan.setActualEndDate(new Date());
     		}
     		payment = getLoanPaymentDao().create(payment);
     		payments.add(payment);
+    		
+    		// Update the loan status and the transaction remaining amount
+    		getLoanDao().update(loan);
+    		
+    		transactionVO.setRemainingAmount(new BigDecimal(remaining));
+    		getTransactionDao().update(getTransactionDao().transactionVOToEntity(transactionVO));
     	}
     	return payments;
     }
+    
+    
 
     /**
      * @see com.systemsjr.motshelo.transaction.service.TransactionService#saveTransaction(TransactionVO)
@@ -93,28 +103,29 @@ public class TransactionServiceImpl
     	}
     	Transaction transaction = getTransactionDao().transactionVOToEntity(transactionVO);
     	transaction = getTransactionDao().createOrUpdate(transaction);
+    	transactionVO = getTransactionDao().toTransactionVO(transaction);
     	/**
     	 * First find the unpaid contributions for the member's transaction
     	 */
     	Collection<LoanPayment> payments = getLoanPayments(transactionVO, LoanType.CONTRIBUTION); // interest free loans first#
     	payments.addAll(getLoanPayments(transactionVO, LoanType.INTERESTFREE));
-    	payments.addAll(getLoanPayments(transactionVO, LoanType.STANDARD));    
+    	payments.addAll(getLoanPayments(transactionVO, LoanType.STANDARD));
     	
     	if(transaction.getId() != null && isNew)
     	{
     		InstanceMember member = getInstanceMemberDao().load(transactionVO.getInstanceMember().getId());
     		BigDecimal balance = member.getBalance();
-    		balance = balance.add(transactionVO.getTransactionAmount());
+    		balance = balance.add(transaction.getTransactionAmount());
     		member.setBalance(balance);
     		getInstanceMemberDao().update(member);
     		
-    		MotsheloInstance instance = getMotsheloInstanceDao().load(transactionVO.getMotsheloInstance().getId());
+    		MotsheloInstance instance = getMotsheloInstanceDao().load(transaction.getMotsheloInstance().getId());
     		BigDecimal instanceBalance = instance.getBalance();
-			instanceBalance = instanceBalance.add(transactionVO.getTransactionAmount());
+			instanceBalance = instanceBalance.add(transaction.getTransactionAmount());
 			instance.setBalance(instanceBalance);
 			getMotsheloInstanceDao().update(instance);
     	}
-    	return getTransactionDao().toTransactionVO(transaction);
+    	return transactionVO;
     }
 
     /**

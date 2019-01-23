@@ -41,6 +41,7 @@ public class LoanSearchControllerImpl
         {
         	searchCriteria.setInstanceMember(new InstanceMemberVO());
         }
+        getSearchLoansSearchForm().setSearchCriteria(searchCriteria);
         
         Collection<MotsheloInstanceVO> motsheloInstances = getMotsheloInstanceService().getAllMotsheloInstances();
         final Collection<SelectItem> motsheloInstanceBackingList = new ArrayList<SelectItem>();
@@ -49,9 +50,17 @@ public class LoanSearchControllerImpl
         	motsheloInstanceBackingList.add(new SelectItem(instance.getId(), instance.getInstanceName()));
         }
         form.setSearchCriteriaMotsheloInstanceBackingList(motsheloInstanceBackingList);
+        getSearchLoansSearchForm().setSearchCriteriaMotsheloInstanceBackingList(motsheloInstanceBackingList);
+        System.out.println(getSearchLoansSearchForm().getLoans());
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loans", getSearchLoansSearchForm().getLoans());
 
-        // Get members
-        //Collection<InstanceMemberVO> members = getInstanceMemberService().getAllInstanceMembers();
+        try {
+			updateSearchForm();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
 
     /**
@@ -62,6 +71,7 @@ public class LoanSearchControllerImpl
     {
     	Collection<LoanVO> loans = getLoanService().searchLoans(getSearchLoansSearchForm().getSearchCriteria());
     	getSearchLoansSearchForm().setLoans(loans);
+    	
     }
 
     /**
@@ -96,5 +106,21 @@ public class LoanSearchControllerImpl
 		LoanVO loanVO = getLoanService().findById(getSearchLoansForm().getId());
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanVO", loanVO);
 		return loanVO;
+	}
+
+	@Override
+	public void updateSearchForm() throws Throwable {
+		System.out.println("1 updateSearchForm");
+		Collection<SelectItem> memberBackingList = new ArrayList<SelectItem>();
+		System.out.println("2 updateSearchForm " + getSearchLoansSearchForm().getSearchCriteria());
+		if (getSearchLoansSearchForm().getSearchCriteria() != null && getSearchLoansSearchForm().getSearchCriteria().getMotsheloInstance().getId() != null) {
+			System.out.println("3 updateSearchForm");
+			MotsheloInstanceVO insVO = getMotsheloInstanceService().findById(getSearchLoansSearchForm().getSearchCriteria().getMotsheloInstance().getId());
+			for(InstanceMemberVO memVO : insVO.getInstanceMembers())
+			{
+				memberBackingList.add(new SelectItem(memVO.getId(), memVO.getMember().getName() + " " + memVO.getMember().getSurname()));
+			}
+		}
+		getSearchLoansSearchForm().setSearchCriteriaInstanceMemberBackingList(memberBackingList);
 	}
 }

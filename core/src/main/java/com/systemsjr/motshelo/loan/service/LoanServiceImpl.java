@@ -75,10 +75,16 @@ public class LoanServiceImpl
     		loanVO.setExpectedEndDate(expectedEnd);
     		isNew = true;
     	} else {
-    		if(expectedEnd.compareTo(loanVO.getExpectedEndDate()) > 0)
-    		{
-    			loanVO.setStatus(LoanStatus.DAFAULTED);
-    		}
+    		
+	    	if(expectedEnd.compareTo(loanVO.getExpectedEndDate()) > 0 && loanVO.getBalance().doubleValue() > 0.0)
+	    	{
+	    		loanVO.setStatus(LoanStatus.DAFAULTED);
+	    	}
+	    	
+	    	if(loanVO.getActualEndDate() == null && loanVO.getBalance().doubleValue() == 0.00)
+	    	{
+	    		loanVO.setActualEndDate(new Date());
+	    	}
     	}
     	
     	InstanceMember member = getInstanceMemberDao().load(loanVO.getInstanceMember().getId());
@@ -266,7 +272,7 @@ public class LoanServiceImpl
 		{
 			interest = new InterestVO();
 			interest.setType(type);
-			double interestAmount = interestRate * loanVO.getAmount().doubleValue() / 100;
+			double interestAmount = interestRate * loanVO.getBalance().doubleValue() / 100;
 			interest.setAmount(new BigDecimal(interestAmount));
 		}
 		

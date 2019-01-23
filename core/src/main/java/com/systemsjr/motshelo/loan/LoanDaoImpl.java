@@ -172,7 +172,7 @@ public class LoanDaoImpl
 		
 		if(searchCriteria.getMotsheloInstance() != null && searchCriteria.getMotsheloInstance().getId() != null)
 		{
-			Join<Loan, MotsheloInstance> joinMotsheloInstance = root.join("instanceMember", JoinType.INNER);
+			Join<Loan, MotsheloInstance> joinMotsheloInstance = root.join("motsheloInstance", JoinType.INNER);
 			predicates.add(builder.equal(joinMotsheloInstance.<Long>get("id"), searchCriteria.getMotsheloInstance().getId() ));
 		}
 		

@@ -18,26 +18,67 @@
             </p:commandButton>
         </p:column>
         <p:column sortBy="motsheloInstance">
-            <f:facet name="header">
-                <h:outputText id="columnHeader_motsheloInstance" value="#{messages['motshelo.instance']}"/>
-            </f:facet>
-            <h:outputText id="motsheloInstance" value="#{row.motsheloInstance.instanceName}">
-            </h:outputText>
-        </p:column>
-        <p:column sortBy="instanceMember">
-            <f:facet name="header">
-                <h:outputText id="columnHeader_instanceMember" value="#{messages['instance.member']}"/>
-            </f:facet>
-            <h:outputText id="instanceMember" value="#{row.instanceMember.member.name.concat(' ').concat(row.instanceMember.member.surname)}">
-            </h:outputText>
-        </p:column>
-        <p:column sortBy="amount">
-            <f:facet name="header">
-                <h:outputText id="columnHeader_amount" value="#{messages['amount']}"/>
-            </f:facet>
-            <h:outputText id="amount" value="#{row.amount}">
-            </h:outputText>
-        </p:column>                    
+			<f:facet name="header">
+				<h:outputText id="columnHeader_motsheloInstance"
+					value="#{messages['motshelo.instance']}" />
+			</f:facet>
+			<h:outputText id="motsheloInstance"
+				value="#{row.motsheloInstance.instanceName}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="status">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_status"
+					value="#{messages['status']}" />
+			</f:facet>
+			<h:outputText id="status"
+				value="#{row.status}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="instanceMember">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_instanceMember"
+					value="#{messages['instance.member']}" />
+			</f:facet>
+			<h:outputText id="instanceMember"
+				value="#{row.instanceMember.member.name.concat(' ').concat(row.instanceMember.member.surname)}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="startDate">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_startDate" value="#{messages['start.date']}" />
+			</f:facet>
+			<h:outputText id="startDate" value="#{row.startDate}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="expectedEndDate">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_expectedEndDate" value="#{messages['expected.end.date']}" />
+			</f:facet>
+			<h:outputText id="expectedEndDate" value="#{row.expectedEndDate}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="actualEndDate">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_actualEndDate" value="#{messages['actual.end.date']}" />
+			</f:facet>
+			<h:outputText id="actualEndDate" value="#{row.actualEndDate}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="amount">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_amount" value="#{messages['amount']}" />
+			</f:facet>
+			<h:outputText id="amount" value="#{row.amount}">
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="balance">
+			<f:facet name="header">
+				<h:outputText id="columnHeader_balance" value="#{messages['balance']}" />
+			</f:facet>
+			<h:outputText id="balance" value="#{row.balance}">
+			</h:outputText>
+		</p:column>                 
 		<f:facet name="footer">
 			<h:form>
 				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty viewVariables.loans}">

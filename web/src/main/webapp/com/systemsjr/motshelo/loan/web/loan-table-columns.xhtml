@@ -7,13 +7,13 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
-	<p:column sortBy="motsheloInstance">
+	<p:column sortBy="status">
 		<f:facet name="header">
-			<h:outputText id="columnHeader_motsheloInstance"
-				value="#{messages['motshelo.instance']}" />
+			<h:outputText id="columnHeader_status"
+				value="#{messages['status']}" />
 		</f:facet>
-		<h:outputText id="motsheloInstance"
-			value="#{row.motsheloInstance.instanceName}">
+		<h:outputText id="status"
+			value="#{row.status}">
 		</h:outputText>
 	</p:column>
 	<p:column sortBy="instanceMember">

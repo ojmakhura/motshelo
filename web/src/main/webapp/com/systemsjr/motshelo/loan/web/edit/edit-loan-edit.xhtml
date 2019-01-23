@@ -61,6 +61,18 @@
         <p:inputText id="loanVOBalance" value="#{editLoanEditLoanSaveForm.loanVO.balance}" required="false" readonly="false">
         </p:inputText>
         <p:message id="loanVOBalance_message" for="loanVOBalance"/>
+        <!-- loanVOExpectedEndDate -->
+        <p:outputLabel id="loanVOExpectedEndDate_label" value="#{messages['expected.end.date']}:"/>
+	    <p:inputText id="loanVOExpectedEndDate" value="#{editLoanEditLoanSaveForm.loanVO.expectedEndDate}" label="#{messages['expected.end.date']}:" required="false" readonly="true" navigator="false">
+            <f:convertDateTime pattern="MM/dd/yyyy"/>
+        </p:inputText>
+	    <p:message id="loanVOExpectedEndDate_message" for="loanVOExpectedEndDate"/>
+	    <!-- loanVOActualEndDate -->
+	    <p:outputLabel id="loanVOActualEndDate_label" value="#{messages['actual.end.date']}:"/>
+	    <p:inputText id="loanVOActualEndDate" value="#{editLoanEditLoanSaveForm.loanVO.actualEndDate}" label="#{messages['actual.end.date']}:" required="false" readonly="true" navigator="false">
+            <f:convertDateTime pattern="MM/dd/yyyy"/>
+        </p:inputText>
+	    <p:message id="loanVOActualEndDate_message" for="loanVOActualEndDate"/>
         <f:facet name="footer">
             <p:commandButton id="editLoanSaveAction" value="#{messages['save']}" action="#{loanEditController.editLoanSave}" ajax="false"/>
             <p:commandButton id="editLoanNewAction" value="#{messages['new']}" action="#{loanEditController.editLoanNew}" immediate="true" ajax="false"/>
