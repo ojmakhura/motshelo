@@ -104,6 +104,8 @@ public class LoanEditControllerImpl
 			e.printStackTrace();
 		}
     	
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanPayments", loanVO.getLoanPayments());
+    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanInterests", loanVO.getInterests());
     }
 
 	@Override

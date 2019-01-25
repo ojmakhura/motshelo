@@ -13,7 +13,10 @@ import javax.faces.model.SelectItem;
 
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
+
+import sun.security.action.GetLongAction;
 
 /**
  * @see com.systemsjr.motshelo.transaction.web.edit.TransactionEditController
@@ -69,7 +72,7 @@ public class TransactionEditControllerImpl
 			e.printStackTrace();
 		}
         
-        
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loanPayments", transaction.getLoanPayments());
     }
 
     /**

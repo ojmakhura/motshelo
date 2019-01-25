@@ -26,6 +26,8 @@ import com.systemsjr.motshelo.instance.MotsheloInstance;
 import com.systemsjr.motshelo.instance.member.InstanceMember;
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
+import com.systemsjr.motshelo.loan.payment.LoanPayment;
+import com.systemsjr.motshelo.loan.payment.vo.LoanPaymentVO;
 import com.systemsjr.motshelo.transaction.vo.TransactionSearchCriteria;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
 
@@ -55,6 +57,12 @@ public class TransactionDaoImpl
         if(source.getMotsheloInstance() != null)
         {
         	target.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(source.getMotsheloInstance()));
+        }
+        
+        target.setLoanPayments(new ArrayList<LoanPaymentVO>());
+        for(LoanPayment loanPayment : source.getLoanPayments())
+        {
+        	target.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(loanPayment));        	
         }
     }
 
@@ -102,6 +110,12 @@ public class TransactionDaoImpl
         if(transactionVO.getMotsheloInstance() != null)
         {
         	entity.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceEntity(transactionVO.getMotsheloInstance()));
+        }
+        
+        entity.setLoanPayments(new ArrayList<LoanPayment>());
+        for(LoanPaymentVO loanPaymentVO : transactionVO.getLoanPayments())
+        {
+        	entity.addLoanPayments(getLoanPaymentDao().getBasicLoanPaymentEntity(loanPaymentVO));
         }
 
         return entity;
@@ -186,6 +200,13 @@ public class TransactionDaoImpl
 		transaction.setInstanceMember(getInstanceMemberDao().load(transactionVO.getInstanceMember().getId()));
 		transaction.setMotsheloInstance(getMotsheloInstanceDao().load(transactionVO.getMotsheloInstance().getId()));
 		
+		Collection<LoanPayment> payments = new ArrayList<LoanPayment>();
+		for(LoanPaymentVO payment : transactionVO.getLoanPayments())
+		{
+			payments.add(getLoanPaymentDao().getBasicLoanPaymentEntity(payment));
+		}
+		transaction.setLoanPayments(payments);
+		
 		return transaction;
 	}
 
@@ -195,18 +216,15 @@ public class TransactionDaoImpl
 		TransactionVO vo = new TransactionVO();
 		super.toTransactionVO(transaction, vo);
 		
-		InstanceMemberVO memberVO = new InstanceMemberVO();
-		memberVO.setId(transaction.getInstanceMember().getId());
-		memberVO.setBalance(transaction.getInstanceMember().getBalance());
-		vo.setInstanceMember(memberVO);
+		if(transaction.getInstanceMember() != null)
+		{
+			vo.setInstanceMember(getInstanceMemberDao().getBasicInstanceMemberVO(transaction.getInstanceMember()));
+		}
 		
-		MotsheloInstanceVO instancevo = new MotsheloInstanceVO();
-		instancevo.setId(transaction.getMotsheloInstance().getId());
-		instancevo.setBalance(transaction.getMotsheloInstance().getBalance());
-		instancevo.setInstanceName(transaction.getMotsheloInstance().getInstanceName());
-		instancevo.setStartDate(transaction.getMotsheloInstance().getStartDate());
-		instancevo.setCloseDate(transaction.getMotsheloInstance().getCloseDate());
-		vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(transaction.getMotsheloInstance()));
+		if(transaction.getMotsheloInstance() != null)
+		{
+			vo.setMotsheloInstance(getMotsheloInstanceDao().getBasicMotsheloInstanceVO(transaction.getMotsheloInstance()));
+		}
 		
 		return vo;
 	}

@@ -244,10 +244,8 @@ public class LoanServiceImpl
 
 	@Override
 	protected InterestVO handleGetLoanInterest(LoanVO loanVO) throws Exception {
-		//System.out.println(1 + " " + loanVO);
 		MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
 		Motshelo motshelo = instance.getMotshelo();
-		//System.out.println(8 + " " + period);
 		InterestType type = null;
 		Float interestRate = null;
 		

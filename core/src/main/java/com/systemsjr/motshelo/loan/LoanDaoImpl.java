@@ -71,6 +71,7 @@ public class LoanDaoImpl
         	amount = amount.add(interest.getAmount());
         	
         }
+        
         target.setLoanPayments(new ArrayList<LoanPaymentVO>());
         for(LoanPayment loanPayment : source.getLoanPayments())
         {
@@ -139,7 +140,7 @@ public class LoanDaoImpl
         {
         	entity.addLoanPayments(getLoanPaymentDao().getBasicLoanPaymentEntity(loanPaymentVO));
         }
-        
+                
         return entity;
     }
 

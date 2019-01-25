@@ -131,7 +131,7 @@ public class InterestDaoImpl
 	        query.where(pr); 
 		}
 		
-		//query.orderBy(builder.asc(root.get("username")));
+		query.orderBy(builder.asc(root.get("type")));
 		TypedQuery<Interest> typedQuery = getSession().createQuery(query);
 		return typedQuery.getResultList();
 	}
@@ -142,10 +142,13 @@ public class InterestDaoImpl
 		Interest entity = Interest.Factory.newInstance();
 		entity.setId(interestVO.getId());
 		super.interestVOToEntity(interestVO, entity, true);
-		if(interestVO.getLoan() != null) {
+		
+		entity.setLoan(getLoanDao().getBasicLoanEntity(interestVO.getLoan()));
+		
+		/*if(interestVO.getLoan() != null) {
 			Loan loan = getLoanDao().load(interestVO.getLoan().getId());
 			entity.setLoan(loan);
-		}
+		}*/
 		return entity;
 	}
 
@@ -154,13 +157,14 @@ public class InterestDaoImpl
 		
 		InterestVO vo = new InterestVO();
 		super.toInterestVO(interest, vo);
+		vo.setLoan(getLoanDao().getBasicLoanVO(interest.getLoan()));
 		
-		if(interest.getLoan() != null) {
+		/*if(interest.getLoan() != null) {
 			LoanVO lv = new LoanVO();
 			lv.setId(interest.getLoan().getId());
 			lv.setAmount(interest.getLoan().getAmount());
 			vo.setLoan(lv);
-		}
+		}*/
 		return vo;
 	}
 }

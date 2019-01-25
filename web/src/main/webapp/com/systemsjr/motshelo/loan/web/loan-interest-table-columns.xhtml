@@ -7,12 +7,12 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
-	<p:column sortBy="date">
+	<p:column sortBy="type">
 		<f:facet name="header">
-			<h:outputText id="columnHeader_date"
-				value="Payment Date" />
+			<h:outputText id="columnHeader_type"
+				value="Type" />
 		</f:facet>
-		<h:outputText id="date" value="#{row.transaction.transactionDate}">
+		<h:outputText id="type" value="#{row.type}">
 		</h:outputText>
 	</p:column>
 	<p:column sortBy="loan">
@@ -23,19 +23,11 @@
 		<h:outputText id="loan" value="#{''.concat(row.loan.startDate).concat(' - ').concat(row.loan.amount)}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="transaction">
+	<p:column sortBy="amount">
 		<f:facet name="header">
-			<h:outputText id="columnHeader_transaction"
-				value="#{messages['transaction']}" />
+			<h:outputText id="columnHeader_amount" value="Interest Amount" />
 		</f:facet>
-		<h:outputText id="transaction" value="#{''.concat(row.transaction.transactionDate).concat(' - ').concat(row.transaction.transactionAmount)}">
-		</h:outputText>
-	</p:column>
-	<p:column sortBy="paymentAmount">
-		<f:facet name="header">
-			<h:outputText id="columnHeader_paymentAmount" value="Payment Amount" />
-		</f:facet>
-		<h:outputText id="paymentAmount" value="#{row.paymentAmount}">
+		<h:outputText id="amount" value="#{row.amount}">
 		</h:outputText>
 	</p:column>
 </ui:composition>
