@@ -21,15 +21,7 @@ public class InstanceMemberDetailsControllerImpl
     @Override
     public void doInitialiseDetailsScreen(DoInitialiseDetailsScreenForm form)
     {
-        // populating value with dummy instance
-        InstanceMemberVO instanceMemberVO = new InstanceMemberVO();
-        instanceMemberVO.setId(new Long((long)3355));
-        instanceMemberVO.setMember(null);
-        instanceMemberVO.setMotsheloInstance(null);
-        instanceMemberVO.setBalance(null);
-        instanceMemberVO.setLoans(null);
-        instanceMemberVO.setTransactions(null);
-        form.setInstanceMemberVO(instanceMemberVO);
+        
     }
 
     /**
@@ -38,15 +30,7 @@ public class InstanceMemberDetailsControllerImpl
     @Override
     public void doInstanceMemberEdit(DoInstanceMemberEditForm form)
     {
-        // populating value with dummy instance
-        InstanceMemberVO instanceMemberVO = new InstanceMemberVO();
-        instanceMemberVO.setId(new Long((long)3355));
-        instanceMemberVO.setMember(null);
-        instanceMemberVO.setMotsheloInstance(null);
-        instanceMemberVO.setBalance(null);
-        instanceMemberVO.setLoans(null);
-        instanceMemberVO.setTransactions(null);
-        form.setInstanceMemberVO(instanceMemberVO);
+        
     }
 
 }

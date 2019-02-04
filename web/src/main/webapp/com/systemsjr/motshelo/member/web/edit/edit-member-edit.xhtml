@@ -40,18 +40,9 @@
         <!-- memberVOEmail -->
         <p:outputLabel id="memberVOEmail_label" for="memberVOEmail" value="#{messages['email']}:"/>
         <p:inputText id="memberVOEmail" value="#{editMemberEditMemberSaveForm.memberVO.email}" required="false" readonly="false">
+        	<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
         </p:inputText>
         <p:message id="memberVOEmail_message" for="memberVOEmail"/>
-        <!-- memberVOInstanceMembers -->
-        <!-- <p:outputLabel id="memberVOInstanceMembers_label" for="memberVOInstanceMembers" value="#{messages['instance.members']}:"/>
-        <p:inputText id="memberVOInstanceMembers" value="#{editMemberEditMemberSaveForm.memberVO.instanceMembers}" required="false" readonly="false">
-        </p:inputText>
-        <p:message id="memberVOInstanceMembers_message" for="memberVOInstanceMembers"/> -->
-        <!-- memberVOMotshelos -->
-        <!-- <p:outputLabel id="memberVOMotshelos_label" for="memberVOMotshelos" value="#{messages['motshelos']}:"/>
-        <p:inputText id="memberVOMotshelos" value="#{editMemberEditMemberSaveForm.memberVO.motshelos}" required="false" readonly="false">
-        </p:inputText>
-        <p:message id="memberVOMotshelos_message" for="memberVOMotshelos"/> -->
         <f:facet name="footer">
             <p:commandButton id="editMemberSaveAction" value="#{messages['save']}" action="#{memberEditController.editMemberSave}" ajax="false"/>
             <p:commandButton id="editMemberNewAction" value="#{messages['new']}" action="#{memberEditController.editMemberNew}" immediate="true" ajax="false"/>

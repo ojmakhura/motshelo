@@ -51,7 +51,6 @@ public class LoanSearchControllerImpl
         }
         form.setSearchCriteriaMotsheloInstanceBackingList(motsheloInstanceBackingList);
         getSearchLoansSearchForm().setSearchCriteriaMotsheloInstanceBackingList(motsheloInstanceBackingList);
-        System.out.println(getSearchLoansSearchForm().getLoans());
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loans", getSearchLoansSearchForm().getLoans());
 
         try {
@@ -110,11 +109,8 @@ public class LoanSearchControllerImpl
 
 	@Override
 	public void updateSearchForm() throws Throwable {
-		System.out.println("1 updateSearchForm");
 		Collection<SelectItem> memberBackingList = new ArrayList<SelectItem>();
-		System.out.println("2 updateSearchForm " + getSearchLoansSearchForm().getSearchCriteria());
 		if (getSearchLoansSearchForm().getSearchCriteria() != null && getSearchLoansSearchForm().getSearchCriteria().getMotsheloInstance().getId() != null) {
-			System.out.println("3 updateSearchForm");
 			MotsheloInstanceVO insVO = getMotsheloInstanceService().findById(getSearchLoansSearchForm().getSearchCriteria().getMotsheloInstance().getId());
 			for(InstanceMemberVO memVO : insVO.getInstanceMembers())
 			{

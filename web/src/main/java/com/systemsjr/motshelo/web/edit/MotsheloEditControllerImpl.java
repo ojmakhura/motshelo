@@ -8,6 +8,7 @@ import java.util.Collection;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.systemsjr.motshelo.JsfUtils;
 import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
@@ -34,10 +35,10 @@ public class MotsheloEditControllerImpl
     	{
     		memberBackingList.add(new SelectItem(member.getId(), member.getName() + " " + member.getSurname()));
     	}
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("memberBackingList", memberBackingList);
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedMember", new MemberVO());
+    	JsfUtils.getFlash().put("memberBackingList", memberBackingList);
+    	JsfUtils.getFlash().put("selectedMember", new MemberVO());
     	
-    	MotsheloVO motsheloVO = (MotsheloVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("motsheloVO");
+    	MotsheloVO motsheloVO = (MotsheloVO) JsfUtils.getFlash().get("motsheloVO");
         
         if(motsheloVO != null && motsheloVO.getId() != null)
     	{
@@ -45,9 +46,8 @@ public class MotsheloEditControllerImpl
     				
     	}
         form.setMotsheloVO(motsheloVO);
-		//getEditMotsheloSaveForm().setMotsheloVO(motsheloVO);
     	getEditMotsheloForm().setMotsheloVO(motsheloVO);  
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloVO", motsheloVO);
+    	JsfUtils.getFlash().put("motsheloVO", motsheloVO);
     }
 
 
@@ -72,7 +72,7 @@ public class MotsheloEditControllerImpl
     	//TODO: do the actual saving
     	getMotsheloService().saveMotshelo(motsheloVO);
     	getEditMotsheloSaveForm().setMotsheloVO(motsheloVO);
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("motsheloVO", motsheloVO);
+    	JsfUtils.getFlash().put("motsheloVO", motsheloVO);
     }
     
     /**
@@ -87,7 +87,7 @@ public class MotsheloEditControllerImpl
 
 	@Override
 	public void doAddMember() throws Throwable {
-		MemberVO member = (MemberVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("selectedMember");
+		MemberVO member = (MemberVO) JsfUtils.getFlash().get("selectedMember");
 		member = getMemberService().findById(member.getId());
 		getEditMotsheloSaveForm().getMotsheloVO().getMembers().add(member);
 	}

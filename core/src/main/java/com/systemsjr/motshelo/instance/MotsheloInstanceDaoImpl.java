@@ -247,6 +247,11 @@ public class MotsheloInstanceDaoImpl extends MotsheloInstanceDaoBase {
 		for (Transaction transaction : motsheloInstance.getTransactions()) {
 			balance = balance.add(transaction.getTransactionAmount());
 		}
+		
+		for(InstanceMember member : motsheloInstance.getInstanceMembers())
+		{
+			getInstanceMemberDao().updateInstanceMemberBalance(member);
+		}
 
 		motsheloInstance.setCummulativeBalance(cummulative);
 		motsheloInstance.setBalance(balance);

@@ -8,8 +8,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ajsf="http://www.andromda.org/cartridges/jsf/facelets"
 	xmlns:ajsfc="http://java.sun.com/jsf/composite/components">
-	<h:form id="editMotsheloEditMotsheloUpdateForm">
+	<h:form id="motsheloTabs">
 		<p:tabView>
+			<p:tab title="#{messages['motshelo.instances']}">
+				<ui:include src="/com/systemsjr/motshelo/instance/web/motshelo-instance-details-table.xhtml"/>
+			</p:tab>
 			<p:tab title="#{messages['members']}">
 				<p:panelGrid columns="3">
 					<p:outputLabel id="motsheloVOMember_label" for="motsheloVOMember" value="#{messages['member']}:" />
@@ -19,29 +22,7 @@
 					</p:selectOneMenu>
 					<p:commandButton id="editMotsheloAddmemberAction" value="Add" action="#{motsheloEditController.doAddMember()}" ajax="false" />
 				</p:panelGrid>
-				<p:dataTable id="motsheloInstanceMembers" var="row" value="#{editMotsheloEditMotsheloSaveForm.motsheloVO.members}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
-					<p:column sortBy="username">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_username" value="#{messages['username']}" />
-						</f:facet>
-						<h:outputText id="username" value="#{row.username}">
-						</h:outputText>
-					</p:column>
-					<p:column sortBy="name">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_name" value="#{messages['name']}" />
-						</f:facet>
-						<h:outputText id="name" value="#{row.name}">
-						</h:outputText>
-					</p:column>
-					<p:column sortBy="surname">
-						<f:facet name="header">
-							<h:outputText id="columnHeader_surname" value="#{messages['surname']}" />
-						</f:facet>
-						<h:outputText id="surname" value="#{row.surname}">
-						</h:outputText>
-					</p:column>
-				</p:dataTable>
+				<ui:include src="/com/systemsjr/motshelo/member/web/member-details-table.xhtml"/>
 			</p:tab>
 		</p:tabView>
 	</h:form>

@@ -38,7 +38,6 @@ public class MotsheloSearchControllerImpl
     {
     	Collection<MotsheloVO> metshelo = getMotsheloService().searchMetshelo(getSearchMetsheloSearchForm().getSearchCriteria());
     	getSearchMetsheloSearchForm().setMotshelos(metshelo);
-    	//getSearchMetsheloForm().setMotshelos(metshelo);
     }
 
 

@@ -15,7 +15,10 @@ import java.util.Collection;
 
 import org.springframework.stereotype.Service;
 
+import com.systemsjr.motshelo.ServiceLocator;
 import com.systemsjr.motshelo.instance.MotsheloInstance;
+import com.systemsjr.motshelo.instance.member.InstanceMember;
+import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceSearchCriteria;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
@@ -167,7 +170,13 @@ public class MotsheloInstanceServiceImpl
 	@Override
 	protected MotsheloInstanceVO handleUpdateMotsheloInstance(MotsheloInstanceVO motsheloInstanceVO) throws Exception {
 		
-		MotsheloInstance instance = getMotsheloInstanceDao().updateMotsheloInstance(getMotsheloInstanceDao().load(motsheloInstanceVO.getId()));		
+		MotsheloInstance instance = getMotsheloInstanceDao().updateMotsheloInstance(getMotsheloInstanceDao().load(motsheloInstanceVO.getId()));	
+		
+		for(InstanceMember member : instance.getInstanceMembers())
+		{
+			getInstanceMemberDao().updateInstanceMemberBalance(member);
+		}
+		
 		return getMotsheloInstanceDao().toMotsheloInstanceVO(instance);
 	}
 

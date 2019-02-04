@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.systemsjr.motshelo.JsfUtils;
 import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.loan.LoanType;
@@ -45,7 +46,7 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
     	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
     	
 		member = getInstanceMemberService().saveInstanceMember(member);
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberVO", member);
+		JsfUtils.getFlash().put("instanceMemberVO", member);
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 	@Override
 	public void doNewInstanceMember() {
 		InstanceMemberVO member = new InstanceMemberVO();
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberVO", member);
+		JsfUtils.getFlash().put("instanceMemberVO", member);
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 	@Override
 	public void doInitialiseEditScreen(DoInitialiseEditScreenForm form) {
 		
-		InstanceMemberVO member = (InstanceMemberVO) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("instanceMemberVO");
+		InstanceMemberVO member = (InstanceMemberVO) JsfUtils.getFlash().get("instanceMemberVO");
 		if(member == null)
 		{
 			member = form.getInstanceMemberVO();
@@ -108,9 +109,9 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 			e.printStackTrace();
 		}
 		
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("loans", others);
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("contributions", contributions);
-    	FacesContext.getCurrentInstance().getExternalContext().getFlash().put("transactions", member.getTransactions());
+    	JsfUtils.getFlash().put("loans", others);
+    	JsfUtils.getFlash().put("contributions", contributions);
+    	JsfUtils.getFlash().put("transactions", member.getTransactions());
 	}
 
 	/**
@@ -191,7 +192,7 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
         	details = "Instance member balance could not be updated.";
     	}
     	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("instanceMemberVO", instanceMemberVO);
+    	JsfUtils.getFlash().put("instanceMemberVO", instanceMemberVO);
 	}
 
 }

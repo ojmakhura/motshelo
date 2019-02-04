@@ -67,11 +67,13 @@ public class LoanServiceImpl
     	{
     		return null;
     	}
-    	
+    	InstanceMember member = getInstanceMemberDao().load(loanVO.getInstanceMember().getId());
+    	MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
     	Date expectedEnd = calculateLoanEndDate(loanVO);
     	InterestVO interest = getLoanInterest(loanVO);
     	if(loanVO.getId() == null) // this is a new loan
     	{
+    		loanVO.setBalance(new BigDecimal(loanVO.getAmount().doubleValue()));
     		loanVO.setExpectedEndDate(expectedEnd);
     		isNew = true;
     	} else {
@@ -79,6 +81,7 @@ public class LoanServiceImpl
 	    	if(expectedEnd.compareTo(loanVO.getExpectedEndDate()) > 0 && loanVO.getBalance().doubleValue() > 0.0)
 	    	{
 	    		loanVO.setStatus(LoanStatus.DAFAULTED);
+	    		loanVO.setExpectedEndDate(this.calculateLoanEndDate(loanVO));
 	    	}
 	    	
 	    	if(loanVO.getActualEndDate() == null && loanVO.getBalance().doubleValue() == 0.00)
@@ -87,8 +90,7 @@ public class LoanServiceImpl
 	    	}
     	}
     	
-    	InstanceMember member = getInstanceMemberDao().load(loanVO.getInstanceMember().getId());
-    	MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
+    	
     	Loan loan = getLoanDao().loanVOToEntity(loanVO);   
     	loan.setInstanceMember(member);
     	loan = getLoanDao().createOrUpdate(loan);
@@ -244,14 +246,14 @@ public class LoanServiceImpl
 
 	@Override
 	protected InterestVO handleGetLoanInterest(LoanVO loanVO) throws Exception {
+
 		MotsheloInstance instance = getMotsheloInstanceDao().load(loanVO.getMotsheloInstance().getId());
 		Motshelo motshelo = instance.getMotshelo();
 		InterestType type = null;
 		Float interestRate = null;
-		
+
 		// If this is a new loan and it is a standard loan
 		if(loanVO.getId() == null && loanVO.getType() == LoanType.STANDARD) {
-			
 			type = InterestType.STANDARDINTEREST;
 			interestRate = motshelo.getLoanInterest();
 			
@@ -265,7 +267,6 @@ public class LoanServiceImpl
 		}
 		
 		InterestVO interest = null;
-		
 		if(type != null)
 		{
 			interest = new InterestVO();
@@ -273,7 +274,7 @@ public class LoanServiceImpl
 			double interestAmount = interestRate * loanVO.getBalance().doubleValue() / 100;
 			interest.setAmount(new BigDecimal(interestAmount));
 		}
-		
+
 		return interest;
 	}
 
@@ -286,6 +287,7 @@ public class LoanServiceImpl
 		
 		// With a new loan we start from the startDate
 		if(loanVO.getId() == null) { 
+			loanVO.setBalance(new BigDecimal(loanVO.getAmount().doubleValue()));
 			date = loanVO.getStartDate();
 			cal.setTime(date);
 			
