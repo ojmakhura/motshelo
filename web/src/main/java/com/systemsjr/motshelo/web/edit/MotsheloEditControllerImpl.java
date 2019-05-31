@@ -44,10 +44,19 @@ public class MotsheloEditControllerImpl
     	{
     		motsheloVO = getMotsheloService().findById(motsheloVO.getId());
     				
+    	} else {
+    		motsheloVO = new MotsheloVO();
     	}
+        
+        if(motsheloVO.getMembers() == null)
+        {
+        	motsheloVO.setMembers(new ArrayList<MemberVO>());
+        }
+        
         form.setMotsheloVO(motsheloVO);
     	getEditMotsheloForm().setMotsheloVO(motsheloVO);  
     	JsfUtils.getFlash().put("motsheloVO", motsheloVO);
+    	JsfUtils.getFlash().put("members", motsheloVO.getMembers());
     }
 
 
@@ -89,6 +98,11 @@ public class MotsheloEditControllerImpl
 	public void doAddMember() throws Throwable {
 		MemberVO member = (MemberVO) JsfUtils.getFlash().get("selectedMember");
 		member = getMemberService().findById(member.getId());
-		getEditMotsheloSaveForm().getMotsheloVO().getMembers().add(member);
+		Collection<MemberVO> members = (Collection<MemberVO>) JsfUtils.getFlash().get("members");
+		members.add(member);
+		MotsheloVO motsheloVO = getEditMotsheloSaveForm().getMotsheloVO();
+    	
+    	//TODO: do the actual saving
+    	getMotsheloService().saveMotshelo(motsheloVO);
 	}
 }

@@ -8,11 +8,11 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:t="http://myfaces.apache.org/tomahawk"
     xmlns:p="http://primefaces.org/ui">
-    <p:dataTable id="loans" var="row" value="#{flash.loans}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
+    <p:dataTable id="loans" var="row" value="#{flash.keep.loans}" rows="10" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false" emptyMessage="#{messages['empty.result.set']}">
         <ui:include src="/com/systemsjr/motshelo/loan/web/loan-table-columns.xhtml" />          
 		<f:facet name="footer">
 			<h:form>
-				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty flash.loans}">
+				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty flash.keep.loans}">
 					<p:menuitem value="#{messages['export.spreadsheet']}" ajax="false"> 
 						<p:dataExporter type="xls" target="loans" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
@@ -26,7 +26,7 @@
 			</h:form>
 			<p:spacer width="10" />
 			<h:outputText
-				value="#{fn:length(flash.loans)} #{messages['records.found']}" rendered="#{not empty flash.loans}" />
+				value="#{fn:length(flash.keep.loans)} #{messages['records.found']}" rendered="#{not empty flash.keep.loans}" />
 		</f:facet>
     </p:dataTable>
 </ui:composition>

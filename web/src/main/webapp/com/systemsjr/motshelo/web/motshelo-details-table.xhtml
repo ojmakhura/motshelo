@@ -13,7 +13,7 @@
 		<f:facet name="footer">
 			<h:form>
 				<p:menuButton value="#{messages['export.action']}"
-					rendered="#{not empty flash.keep.members}">
+					rendered="#{not empty flash.keep.motshelos}">
 					<p:menuitem value="#{messages['export.spreadsheet']}" ajax="false">
 						<p:dataExporter type="xls" target="motshelos" fileName="export"
 							excludeColumns="0" encoding="ISO-8859-1" />
@@ -30,8 +30,8 @@
 			</h:form>
 			<p:spacer width="10" />
 			<h:outputText
-				value="#{fn:length(flash.keep.members)} #{messages['records.found']}"
-				rendered="#{not empty flash.keep.members}" />
+				value="#{fn:length(flash.keep.motshelos)} #{messages['records.found']}"
+				rendered="#{not empty flash.keep.motshelos}" />
 		</f:facet>
     </p:dataTable>
 </ui:composition>

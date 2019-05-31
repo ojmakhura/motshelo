@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
-	<p:column sortBy="instanceName">
+	<p:column sortBy="#{row.motsheloInstance.instanceName}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_instanceName"
 				value="#{messages['motshelo.instance']}" />
@@ -16,7 +16,7 @@
 			value="#{row.motsheloInstance.instanceName}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="loanByDate">
+	<p:column sortBy="#{row.loanByDate}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_loanByDate"
 				value="#{messages['loan.by.date']}" />
@@ -25,7 +25,7 @@
 			<f:convertDateTime pattern="MM/dd/yyyy" />
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="periodName">
+	<p:column sortBy="#{row.periodName}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_periodName"
 				value="#{messages['period.name']}" />
@@ -33,7 +33,7 @@
 		<h:outputText id="periodName" value="#{row.periodName}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="previousPeriod">
+	<p:column sortBy="#{row.previousPeriod.periodName}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_previousPeriod"
 				value="#{messages['previous.period']}" />
@@ -41,7 +41,7 @@
 		<h:outputText id="previousPeriod" value="#{row.previousPeriod.periodName}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="nextPeriod">
+	<p:column sortBy="#{row.nextPeriod.periodName}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_nextPeriod"
 				value="#{messages['next.period']}" />

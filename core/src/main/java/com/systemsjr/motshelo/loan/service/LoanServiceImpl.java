@@ -320,12 +320,13 @@ public class LoanServiceImpl
 						period.getNextPeriod();
 					}
 
-					int i = 1;
+					int i = 0;
 					
 					while(i < motshelo.getRepaymentTerm() && period.getNextPeriod() != null) /// guard against the last period
 					{
 						period = period.getNextPeriod();
 						i++;
+						
 					}
 				}
 				cal.setTime(period.getEndDate());
@@ -334,8 +335,24 @@ public class LoanServiceImpl
 			date = loanVO.getExpectedEndDate();
 			if(date.compareTo(new Date()) < 0) /// The loan is overdue
 			{
+				InstancePeriodSearchCriteria criteria = new InstancePeriodSearchCriteria();
 				cal.setTime(date);
-				cal.add(Calendar.MONTH, motshelo.getRepaymentTerm()); /// increase the expected date by the number of repayment months
+				criteria.setDate(date);
+				criteria.setMotsheloInstance(loanVO.getMotsheloInstance());
+				ArrayList<InstancePeriod> periods = (ArrayList<InstancePeriod>) getInstancePeriodDao().findByCriteria(criteria);
+				InstancePeriod period = periods.size() > 0 ? periods.get(0) : null;
+				
+				int i = 0;
+				
+				while(i < motshelo.getRepaymentTerm() && period.getNextPeriod() != null) /// guard against the last period
+				{
+					period = period.getNextPeriod();
+					i++;
+					
+				}
+				cal.setTime(period.getEndDate());
+				//cal.add(Calendar.MONTH, motshelo.getRepaymentTerm()); /// increase the expected date by the number of repayment months
+				//cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 			}
 		}		
 		date = cal.getTime();

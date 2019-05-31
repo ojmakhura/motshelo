@@ -69,10 +69,10 @@ public class TransactionServiceImpl
     			payment.setPaymentAmount(new BigDecimal(remaining));    			
     			remaining = 0.0;
     		} else {
-    			payment.setPaymentAmount(loan.getAmount());
+    			payment.setPaymentAmount(new BigDecimal(loanAmount));
     			remaining -= payment.getPaymentAmount().doubleValue();
     			loan.setStatus(LoanStatus.COMPLETED);
-    			loan.setActualEndDate(new Date());
+    			loan.setActualEndDate(payment.getTransaction().getTransactionDate());
     		}
     		payment = getLoanPaymentDao().create(payment);
     		payments.add(payment);

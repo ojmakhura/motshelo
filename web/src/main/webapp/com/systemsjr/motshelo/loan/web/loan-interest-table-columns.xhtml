@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
-	<p:column sortBy="type">
+	<p:column sortBy="#{row.type}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_type"
 				value="Type" />
@@ -15,7 +15,7 @@
 		<h:outputText id="type" value="#{row.type}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="loan">
+	<p:column sortBy="#{row.loan.startDate}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_loan"
 				value="#{messages['loan']}" />
@@ -23,7 +23,7 @@
 		<h:outputText id="loan" value="#{''.concat(row.loan.startDate).concat(' - ').concat(row.loan.amount)}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="amount">
+	<p:column sortBy="#{row.amount}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_amount" value="Interest Amount" />
 		</f:facet>

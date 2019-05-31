@@ -14,13 +14,13 @@
 			<h:form>
 				<p:menuButton value="#{messages['export.action']}" rendered="#{not empty flash.keep.instancePeriods}">
 					<p:menuitem value="#{messages['export.spreadsheet']}" ajax="false"> 
-						<p:dataExporter type="xls" target="instancePeriods" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
+						<p:dataExporter type="xls" target="instancePeriods" fileName="instancePeriods" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
 					<p:menuitem value="#{messages['export.pdf']}">
-						<p:dataExporter type="pdf" target="instancePeriods" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
+						<p:dataExporter type="pdf" target="instancePeriods" fileName="instancePeriods" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
 					<p:menuitem value="#{messages['export.csv']}" ajax="false">
-						<p:dataExporter type="csv" target="instancePeriods" fileName="export" excludeColumns="0" encoding="ISO-8859-1" />
+						<p:dataExporter type="csv" target="instancePeriods" fileName="instancePeriods" excludeColumns="0" encoding="ISO-8859-1" />
 					</p:menuitem>
 				</p:menuButton>
 			</h:form>

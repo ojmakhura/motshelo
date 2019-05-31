@@ -60,9 +60,11 @@ public class TransactionDaoImpl
         }
         
         target.setLoanPayments(new ArrayList<LoanPaymentVO>());
+        target.setRemainingAmount(target.getTransactionAmount());
         for(LoanPayment loanPayment : source.getLoanPayments())
         {
-        	target.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(loanPayment));        	
+        	target.getLoanPayments().add(getLoanPaymentDao().getBasicLoanPaymentVO(loanPayment)); 
+        	target.setRemainingAmount(target.getTransactionAmount().subtract(loanPayment.getPaymentAmount()));
         }
     }
 
@@ -201,9 +203,11 @@ public class TransactionDaoImpl
 		transaction.setMotsheloInstance(getMotsheloInstanceDao().load(transactionVO.getMotsheloInstance().getId()));
 		
 		Collection<LoanPayment> payments = new ArrayList<LoanPayment>();
+		transactionVO.setRemainingAmount(transactionVO.getTransactionAmount());
 		for(LoanPaymentVO payment : transactionVO.getLoanPayments())
 		{
 			payments.add(getLoanPaymentDao().getBasicLoanPaymentEntity(payment));
+			transactionVO.setRemainingAmount(transactionVO.getTransactionAmount().subtract(payment.getPaymentAmount()));
 		}
 		transaction.setLoanPayments(payments);
 		

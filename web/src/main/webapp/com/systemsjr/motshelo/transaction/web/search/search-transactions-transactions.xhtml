@@ -17,28 +17,28 @@
                 <f:setPropertyActionListener target="#{searchTransactionsSearchTransactionsEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
-        <p:column sortBy="transactionType">
+        <p:column sortBy="#{row.transactionType}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_transactionType" value="#{messages['transaction.type']}"/>
             </f:facet>
             <h:outputText id="transactionType" value="#{row.transactionType}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="transactionMode">
+        <p:column sortBy="#{row.transactionMode}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_transactionMode" value="#{messages['transaction.mode']}"/>
             </f:facet>
             <h:outputText id="transactionMode" value="#{row.transactionMode}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="instanceMember">
+        <p:column sortBy="#{row.instanceMember.member.name}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_instanceMember" value="#{messages['instance.member']}"/>
             </f:facet>
             <h:outputText id="instanceMember" value="#{row.instanceMember.member.name.concat(' ').concat(row.instanceMember.member.surname)}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="transactionDate">
+        <p:column sortBy="#{row.transactionDate}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_transactionDate" value="#{messages['transaction.date']}"/>
             </f:facet>
@@ -46,7 +46,7 @@
                 <f:convertDateTime pattern="MM/dd/yyyy"/>
             </h:outputText>
         </p:column>
-        <p:column sortBy="transactionAmount">
+        <p:column sortBy="#{row.transactionAmount}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_transactionAmount" value="#{messages['transaction.amount']}"/>
             </f:facet>

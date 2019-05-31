@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
-	<p:column sortBy="status">
+	<p:column sortBy="#{row.status}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_status"
 				value="#{messages['status']}" />
@@ -16,7 +16,7 @@
 			value="#{row.status}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="instanceMember">
+	<p:column sortBy="#{row.instanceMember.member.name}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_instanceMember"
 				value="#{messages['instance.member']}" />
@@ -25,35 +25,35 @@
 			value="#{row.instanceMember.member.name.concat(' ').concat(row.instanceMember.member.surname)}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="startDate">
+	<p:column sortBy="#{row.startDate}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_startDate" value="#{messages['start.date']}" />
 		</f:facet>
 		<h:outputText id="startDate" value="#{row.startDate}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="expectedEndDate">
+	<p:column sortBy="#{row.expectedEndDate}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_expectedEndDate" value="#{messages['expected.end.date']}" />
 		</f:facet>
 		<h:outputText id="expectedEndDate" value="#{row.expectedEndDate}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="actualEndDate">
+	<p:column sortBy="#{row.actualEndDate}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_actualEndDate" value="#{messages['actual.end.date']}" />
 		</f:facet>
 		<h:outputText id="actualEndDate" value="#{row.actualEndDate}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="amount">
+	<p:column sortBy="#{row.amount}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_amount" value="#{messages['amount']}" />
 		</f:facet>
 		<h:outputText id="amount" value="#{row.amount}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="balance">
+	<p:column sortBy="#{row.balance}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_balance" value="#{messages['balance']}" />
 		</f:facet>

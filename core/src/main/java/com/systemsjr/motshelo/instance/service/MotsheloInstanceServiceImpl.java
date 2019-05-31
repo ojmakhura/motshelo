@@ -22,6 +22,7 @@ import com.systemsjr.motshelo.instance.member.vo.InstanceMemberVO;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceSearchCriteria;
 import com.systemsjr.motshelo.instance.vo.MotsheloInstanceVO;
 import com.systemsjr.motshelo.interest.vo.InterestVO;
+import com.systemsjr.motshelo.loan.LoanStatus;
 import com.systemsjr.motshelo.loan.LoanType;
 import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.transaction.vo.TransactionVO;
@@ -169,6 +170,13 @@ public class MotsheloInstanceServiceImpl
 
 	@Override
 	protected MotsheloInstanceVO handleUpdateMotsheloInstance(MotsheloInstanceVO motsheloInstanceVO) throws Exception {
+				
+		for(LoanVO loan : motsheloInstanceVO.getLoans()) { 
+			if(loan.getStatus() != LoanStatus.COMPLETED) 
+			{ 
+				loan = getLoanService().saveLoan(getLoanService().findById(loan.getId())); 
+			} 
+		}
 		
 		MotsheloInstance instance = getMotsheloInstanceDao().updateMotsheloInstance(getMotsheloInstanceDao().load(motsheloInstanceVO.getId()));	
 		

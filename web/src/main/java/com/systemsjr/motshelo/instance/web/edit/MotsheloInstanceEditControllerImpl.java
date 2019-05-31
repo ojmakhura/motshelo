@@ -43,6 +43,14 @@ public class MotsheloInstanceEditControllerImpl
     public void doSaveMotsheloInstance()
     {
     	MotsheloInstanceVO motsheloInstanceVO = getEditMotsheloInstanceSaveForm().getMotsheloInstanceVO();
+    	if(motsheloInstanceVO.getId() == null)
+    	{
+    		if(motsheloInstanceVO.getStartingBalance() != null)
+    		{
+    			motsheloInstanceVO.setBalance(motsheloInstanceVO.getStartingBalance());
+    			motsheloInstanceVO.setCummulativeBalance(motsheloInstanceVO.getStartingBalance());
+    		}
+    	}
     	motsheloInstanceVO.setMotshelo(motsheloInstanceVO.getMotshelo());
     	motsheloInstanceVO.setInstanceName("-");  	
     	motsheloInstanceVO = getMotsheloInstanceService().saveMotsheloInstance(motsheloInstanceVO);
@@ -129,6 +137,11 @@ public class MotsheloInstanceEditControllerImpl
     	{
     		MemberVO member = getMemberService().findById(instanceMember.getMember().getId());
     		instanceMemberBackingList.add(new SelectItem(instanceMember.getId(), member.getName() + " " + member.getSurname()));
+    		
+    		for(LoanVO loan : instanceMember.getLoans())
+    		{
+    			getLoanService().saveLoan(loan);
+    		}
     	}
     	JsfUtils.getFlash().put("instanceMemberBackingList", instanceMemberBackingList);
     	JsfUtils.getFlash().put("instanceMembers", motsheloInstanceVO.getInstanceMembers());

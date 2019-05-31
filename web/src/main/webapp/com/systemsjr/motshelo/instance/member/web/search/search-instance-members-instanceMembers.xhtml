@@ -17,7 +17,7 @@
                 <f:setPropertyActionListener target="#{searchInstanceMembersSearchInstanceMembersEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
-       <p:column sortBy="username">
+       <p:column sortBy="#{row.member.username}">
 			<f:facet name="header">
 				<h:outputText id="columnHeader_username"
 					value="#{messages['username']}" />
@@ -25,14 +25,14 @@
 			<h:outputText id="username" value="#{row.member.username}">
 			</h:outputText>
 		</p:column>
-		<p:column sortBy="name">
+		<p:column sortBy="#{row.member.name}">
 			<f:facet name="header">
 				<h:outputText id="columnHeader_name" value="#{messages['name']}" />
 			</f:facet>
 			<h:outputText id="name" value="#{row.member.name}">
 			</h:outputText>
 		</p:column>
-		<p:column sortBy="surname">
+		<p:column sortBy="#{row.member.surname}">
 			<f:facet name="header">
 				<h:outputText id="columnHeader_surname"
 					value="#{messages['surname']}" />
@@ -40,7 +40,7 @@
 			<h:outputText id="surname" value="#{row.member.surname}">
 			</h:outputText>
 		</p:column>
-		<p:column sortBy="balance">
+		<p:column sortBy="#{row.balance}">
 			<f:facet name="header">
 				<h:outputText id="columnHeader_balance"
 					value="#{messages['balance']}" />

@@ -17,14 +17,14 @@
                 <f:setPropertyActionListener target="#{searchMotsheloInstancesSearchMotsheloInstancesEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
-        <p:column sortBy="instanceName">
+        <p:column sortBy="#{row.instanceName}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_instanceName" value="#{messages['instance.name']}"/>
             </f:facet>
             <h:outputText id="instanceName" value="#{row.instanceName}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="startDate">
+        <p:column sortBy="#{row.startDate}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_startDate" value="#{messages['start.date']}"/>
             </f:facet>
@@ -32,7 +32,7 @@
                 <f:convertDateTime pattern="MM/dd/yyyy"/>
             </h:outputText>
         </p:column>
-        <p:column sortBy="balance">
+        <p:column sortBy="#{row.balance}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_balance" value="#{messages['balance']}"/>
             </f:facet>

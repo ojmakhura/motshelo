@@ -56,6 +56,11 @@
         <p:inputText id="transactionVOTransactionAmount" value="#{editTransactionEditTransactionSaveForm.transactionVO.transactionAmount}" required="true" readonly="false">
         </p:inputText>
         <p:message id="transactionVOTransactionAmount_message" for="transactionVOTransactionAmount"/>
+        <!-- transactionVORemainingAmount -->
+        <p:outputLabel id="transactionVORemainingAmount_label" for="transactionVORemainingAmount" value="#{messages['remaining.amount']}:"/>
+        <p:inputText id="transactionVORemainingAmount" value="#{editTransactionEditTransactionSaveForm.transactionVO.remainingAmount}" required="false" readonly="false">
+        </p:inputText>
+        <p:message id="transactionVORemainingAmount_message" for="transactionVORemainingAmount"/>
         <!-- transactionVOTransactionNote -->
         <p:outputLabel id="transactionVOTransactionNote_label" for="transactionVOTransactionNote" value="#{messages['transaction.note']}:"/>
         <p:inputText id="transactionVOTransactionNote" value="#{editTransactionEditTransactionSaveForm.transactionVO.transactionNote}" required="false" readonly="false">

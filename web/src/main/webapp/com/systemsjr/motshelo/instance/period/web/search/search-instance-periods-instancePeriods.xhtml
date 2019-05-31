@@ -17,14 +17,14 @@
                 <f:setPropertyActionListener target="#{searchInstancePeriodsSearchInstancePeriodsEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
         </p:column>
-        <p:column sortBy="instanceName">
+        <p:column sortBy="#{row.motsheloInstance.instanceName}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_instanceName" value="#{messages['motshelo.instance']}"/>
             </f:facet>
             <h:outputText id="instanceName" value="#{row.motsheloInstance.instanceName}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="loanByDate">
+        <p:column sortBy="#{row.loanByDate}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_loanByDate" value="#{messages['loan.by.date']}"/>
             </f:facet>
@@ -32,14 +32,14 @@
                 <f:convertDateTime pattern="MM/dd/yyyy"/>
             </h:outputText>
         </p:column>
-        <p:column sortBy="periodName">
+        <p:column sortBy="#{row.periodName}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_periodName" value="#{messages['period.name']}"/>
             </f:facet>
             <h:outputText id="periodName" value="#{row.periodName}">
             </h:outputText>
         </p:column>
-		<p:column sortBy="previousPeriod">
+		<p:column sortBy="#{row.previousPeriod.periodName}">
 			<f:facet name="header">
 				<h:outputText id="columnHeader_previousPeriod"
 					value="#{messages['previous.period']}" />
@@ -47,7 +47,7 @@
 			<h:outputText id="previousPeriod" value="#{row.previousPeriod.periodName}">
 			</h:outputText>
 		</p:column>
-		<p:column sortBy="nextPeriod">
+		<p:column sortBy="#{row.nextPeriod.periodName}">
 			<f:facet name="header">
 				<h:outputText id="columnHeader_nextPeriod"
 					value="#{messages['next.period']}" />

@@ -17,28 +17,28 @@
                 <f:setPropertyActionListener target="#{searchMetsheloSearchMetsheloEditForm.id}" value="#{row.id}"/>
             </p:commandButton>
 	   	</p:column>	   	
-        <p:column sortBy="name">
+        <p:column sortBy="#{row.name}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_name" value="#{messages['name']}"/>
             </f:facet>
             <h:outputText id="name" value="#{row.name}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="monthlyContribution">
+        <p:column sortBy="#{row.monthlyContribution}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_monthlyContribution" value="#{messages['monthly.contribution']}"/>
             </f:facet>
             <h:outputText id="monthlyContribution" value="#{row.monthlyContribution}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="loanInterest">
+        <p:column sortBy="#{row.loanInterest}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_loanInterest" value="#{messages['loan.interest']}"/>
             </f:facet>
             <h:outputText id="loanInterest" value="#{row.loanInterest}">
             </h:outputText>
         </p:column>
-        <p:column sortBy="repaymentTerm">
+        <p:column sortBy="#{row.repaymentTerm}">
             <f:facet name="header">
                 <h:outputText id="columnHeader_repaymentTerm" value="#{messages['repayment.term']}"/>
             </f:facet>

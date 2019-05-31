@@ -15,14 +15,14 @@
 		<h:outputText id="username" value="#{row.username}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="name">
+	<p:column sortBy="#{row.name}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_name" value="#{messages['name']}" />
 		</f:facet>
 		<h:outputText id="name" value="#{row.name}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="surname">
+	<p:column sortBy="#{row.surname}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_surname"
 				value="#{messages['surname']}" />
@@ -30,7 +30,7 @@
 		<h:outputText id="surname" value="#{row.surname}">
 		</h:outputText>
 	</p:column>
-	<p:column sortBy="status">
+	<p:column sortBy="#{row.status}">
 		<f:facet name="header">
 			<h:outputText id="columnHeader_status" value="#{messages['status']}" />
 		</f:facet>

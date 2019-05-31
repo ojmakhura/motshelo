@@ -18,6 +18,8 @@ import com.systemsjr.motshelo.loan.vo.LoanVO;
 import com.systemsjr.motshelo.member.vo.MemberVO;
 import com.systemsjr.motshelo.vo.MotsheloVO;
 
+import sun.security.action.GetLongAction;
+
 /**
  * @see com.systemsjr.motshelo.instance.member.web.edit.InstanceMemberEditController
  */
@@ -33,6 +35,7 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
 	@Override
 	public void doSaveInstanceMember() {
 		InstanceMemberVO member = getEditInstanceMemberSaveForm().getInstanceMemberVO();
+		member = getInstanceMemberService().saveInstanceMember(member);
 
     	Severity severity = FacesMessage.SEVERITY_INFO;
     	String summary = "SUCCESS: ";
@@ -45,7 +48,6 @@ public class InstanceMemberEditControllerImpl extends InstanceMemberEditControll
     	}
     	FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(severity, summary, details));
     	
-		member = getInstanceMemberService().saveInstanceMember(member);
 		JsfUtils.getFlash().put("instanceMemberVO", member);
 	}
 
